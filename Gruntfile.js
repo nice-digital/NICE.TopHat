@@ -46,10 +46,10 @@ module.exports = function( grunt )
 
     // test
     grunt.registerTask('coverage'     , [ 'clean:coverage', 'blanket', 'copy:coverage', 'mochaTest:instrumented', 'mochaTest:coverage', 'mochaTest:lcov']);
-    grunt.registerTask('test'         , [ 'jshint', 'mochaTest:test' ]);
+    grunt.registerTask('test'         , [ 'jshint', 'mochaTest:test', 'browserify:test' ]);
 
     // build
-    grunt.registerTask('build'        , [ 'browserify' ]);
+    grunt.registerTask('build'        , [ 'browserify:src' ]);
 
     // auto build
     // grunt.registerTask('default'      , [ 'watch' ]);

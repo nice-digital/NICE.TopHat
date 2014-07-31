@@ -5,7 +5,7 @@ module.exports = function( config ) {
 
         test: {
             files: {
-                'browser/test.js': [ 'test/**/browser.js' ]
+                'browser/test.js': [ 'test/**/*.js' ]
             }
         },
 
@@ -19,7 +19,7 @@ module.exports = function( config ) {
             }
 
           , files: {
-                'dist/app.js': [ './lib/index.js' ]
+                'dist/tophat.js': [ './lib/index.js' ]
             }
         }
     };
