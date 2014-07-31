@@ -1,0 +1,45 @@
+{
+  "name": "vuu.se",
+  "version": "0.0.0",
+  "description": "A digital Wall Board Prototype for collaborative interactive boards",
+  "private": true,
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "./node_modules/grunt-cli/bin/grunt test",
+    "coverage": "./node_modules/grunt-cli/bin/grunt coverage",
+    "ci": "./node_modules/grunt-cli/bin/grunt --verbose ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhsevidence/NICE.Tophat.git"
+  },
+  "author": "Matt Smith <mattonfoot@gmail.com> (http://about.me/mattonfoot)",
+  "license": "MIT",
+  "bugs": {
+    "url": "http://imt-mingle.nice.org.uk/projects/tophat/overview"
+  },
+  "homepage": "http://github.com/nhsevidence/NICE.Tophat",
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.3.0"
+  },
+  "dependencies": {  },
+  "devDependencies": {
+    "chai": "*",
+    "glob": "*",
+    "grunt": "*",
+    "grunt-cli": "*",
+    "grunt-blanket": "*",
+    "grunt-browserify": "*",
+    "grunt-complexity": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-mocha-test": "*",
+    "load-grunt-tasks": "*",
+    "mocha": "*",
+    "mocha-lcov-reporter": "*",
+    "literalify": "*"
+  }
+}
