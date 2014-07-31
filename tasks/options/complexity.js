@@ -7,7 +7,7 @@ module.exports = function( config ) {
         //  exclude: [ 'doNotTest.js' ],
             options: {
                 breakOnErrors: true
-              , jsLintXML: 'reports/report.xml'         // create XML JSLint-like report
+              , jsLintXML: 'reports/jslint.xml'         // create XML JSLint-like report
               , checkstyleXML: 'reports/checkstyle.xml' // create checkstyle report
               , errorsOnly: false               // show only maintainability errors
               , cyclomatic: [3, 7, 12]          // or optionally a single value, like 3
