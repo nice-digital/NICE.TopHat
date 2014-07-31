@@ -56,6 +56,6 @@ module.exports = function( grunt )
 
     // travis-ci
 
-    grunt.registerTask('ci'     , [ 'test', 'coverage', 'coveralls']);
+    grunt.registerTask('ci'     , [ 'test', 'coverage', 'complexity' ]);
 
 };
