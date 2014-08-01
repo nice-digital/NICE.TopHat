@@ -156,13 +156,15 @@
 .tophat a:hover [class^="service-logo-"],
 .tophat a:focus [class^="service-logo-"],
 .tophat a:active [class^="service-logo-"],
-.tophat .active [class^="service-logo-"] {
+.tophat .active [class^="service-logo-"],
+.tophat .open [class^="service-logo-"] {
     color: #000;
 }
 .tophat a:hover .service-logo-base,
 .tophat a:focus .service-logo-base,
 .tophat a:active .service-logo-base,
-.tophat .active .service-logo-base {
+.tophat .active .service-logo-base ,
+.tophat .open .service-logo-base {
     color: #FFC100;
 }
 
@@ -208,6 +210,10 @@
 .nice-services .menu a:active {
     background-color: #234E5B;
 }
+.nice-services .open a:hover,
+.nice-services .open a:focus,
+.nice-services .open a:active,
+.nice-services .open a,
 .nice-services .active a:hover,
 .nice-services .active a:focus,
 .nice-services .active a:active,
@@ -410,6 +416,8 @@
 @media (max-width: 797px) {
     .tophat {
         min-height: 48px;
+        background: rgba(0,0,0,0.075);
+        padding-bottom: 2px;
     }
     .tophat .logo {
         padding: 0 0 0 24px;
