@@ -23,8 +23,6 @@
     *position: relative;
     *z-index: 2;
 
-    background-color: #333;
-
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -36,8 +34,14 @@
 }
 
 .tophat .tophat-inner {
+    width: 95.74468085%;
+    max-width: 1170px;
     margin: 0 auto;
-    width: 1100px;
+}
+.layout-fill .tophat .tophat-inner {
+    width: auto;
+    max-width: 100%;
+    margin: 0 12px;
 }
 
 /*  generic menus */
@@ -143,6 +147,12 @@
 .tophat .menu-profile .menu-label {
     line-height: 40px;
 }
+.tophat .menu-profile .profile-avatar {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
 .tophat a:hover [class^="service-logo-"],
 .tophat a:focus [class^="service-logo-"],
 .tophat a:active [class^="service-logo-"],
@@ -183,6 +193,10 @@
     clear: both;
 }
 
+.nice-services {
+    background-color: #333;
+}
+
 .nice-services .menu a {
     width: 70px;
     padding: 10px 0 10px 60px;
@@ -207,7 +221,7 @@
     width: 95px;
 }
 
-.menu-search {
+.nice-services .menu-search {
     display: none;
 }
 
@@ -287,17 +301,21 @@
 }
 .tophat .publication-date {
     float: right;
-    font-size: 20px;
+    font-size: 16px;
+    margin-top: -4px;
     margin-right: 12px;
+    color: #666;
 }
 
 /* search form */
 .nice-search {
     float: left;
     position: relative;
-    width: 50%;
+    width: 40%;
     margin: 12px 0;
-    padding-right: 42px;
+}
+.nice-search .controls {
+    margin-right: 42px;
 }
 
 .nice-search input {
@@ -340,4 +358,128 @@
     right: 0;
     border: 1px solid #1167B7;
     font-size: 0;
+}
+
+@media (max-width: 1059px) {
+    .tophat .logo:before {
+        content: "\e01a";
+    }
+}
+
+@media (max-width: 979px) {
+    .tophat .tophat-inner {
+        width: auto;
+        max-width: 100%;
+        margin: 0 12px;
+    }
+
+    .nice-search {
+        width: 100%;
+    }
+
+    .nice-search {
+        width: 100%;
+    }
+
+    .nice-partner .nice-search .controls {
+        margin-left: 110px;
+    }
+
+    .nice-global {
+        position: relative;
+    }
+    .nice-global .menu,
+    .nice-global .partner-brand {
+        display: none;
+        visibility: hidden;
+        speak: none;
+    }
+    .tophat .partner-logo {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 0;
+        margin: 0;
+        z-index: 2;
+    }
+    .tophat .partner-logo img {
+        height: 38px;
+    }
+}
+
+@media (max-width: 797px) {
+    .tophat {
+        min-height: 48px;
+    }
+    .tophat .logo {
+        padding: 0 0 0 24px;
+    }
+    .tophat .logo:before {
+        font-size: 38px;
+    }
+    .nice-services .menu {
+        margin-right: -12px;
+    }
+    .nice-services .menu a {
+        width: auto;
+        padding: 4px 6px;
+    }
+    .tophat .service-logo {
+        float: none;
+        margin-left: 0;
+        display: inline-block;
+    }
+    .nice-services .menu-search {
+        display: block;
+    }
+    .tophat .menu-label {
+        display: none;
+        visibility: hidden;
+    }
+    .tophat .anon .menu-label {
+        display: block;
+        visibility: visible;
+    }
+    .nice-global {
+        display: none;
+    }
+    .nice-global.in {
+        display: block;
+    }
+    .nice-services .menu .menu-profile a {
+        padding: 6px 12px;
+    }
+    .nice-services .menu .anon a {
+        padding: 4px 12px;
+    }
+    .tophat .menu-profile .profile-avatar {
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+    }
+}
+
+@media (max-width: 499px) {
+    .tophat .nice-evidence {
+        position: absolute;
+        width: 100%;
+        z-index: 3;
+    }
+    .tophat .nice-evidence .menu,
+    .tophat .nice-evidence li {
+        float: none;
+        display: block;
+        margin-left: 0;
+        border-right: 0;
+    }
+    .tophat .nice-evidence .menu a {
+        border-left: 0;
+        border-top: 1px solid #2D6475;
+    }
+    .tophat .nice-evidence .menu li:first-child a {
+        border-top: 0;
+    }
+    .nice-services .menu a {
+        padding: 4px 1px;
+    }
 }
