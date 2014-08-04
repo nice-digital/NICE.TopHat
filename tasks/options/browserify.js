@@ -1,4 +1,4 @@
-var literalify = require('literalify');
+var cssify = require('cssify');
 
 module.exports = function( config ) {
     return {
@@ -12,9 +12,7 @@ module.exports = function( config ) {
         src: {
             options: {
                 transform: [
-                    literalify.configure({
-                        'jquery': 'window.$'
-                    })
+                    cssify
                 ]
             }
 

@@ -23,14 +23,15 @@
     "node": ">=0.10.0",
     "npm": ">=1.3.0"
   },
-  "dependencies": {  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "*",
+    "cssify": "*",
     "glob": "*",
     "grunt": "*",
-    "grunt-cli": "*",
     "grunt-blanket": "*",
     "grunt-browserify": "*",
+    "grunt-cli": "*",
     "grunt-complexity": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-copy": "*",
@@ -40,7 +41,6 @@
     "grunt-mocha-test": "*",
     "load-grunt-tasks": "*",
     "mocha": "*",
-    "mocha-lcov-reporter": "*",
-    "literalify": "*"
+    "mocha-lcov-reporter": "*"
   }
 }
