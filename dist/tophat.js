@@ -75,7 +75,7 @@
 
         tophatElement.className = 'tophat ' + target.className.replace( ' active', '' ) + '-open';
 
-        if (activeElement) activeElement.className = activeElement.className.replace( ' open', '' );
+        if (activeElement) activeElement.className = activeElement.className.replace( ' active', '' ).replace( ' open', '' );
         target.className += ' open';
         activeElement = target;
     }

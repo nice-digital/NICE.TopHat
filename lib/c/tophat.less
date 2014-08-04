@@ -1,8 +1,46 @@
-/*
-    tophatHeight = 60px
-    lineHeight = 24px
-    fontSize = 14px
-*/
+@tophatMinHeight: 60px;
+@tophatMaxWidth: 1170px;
+
+@baseFontSize: 14px;
+@baseLineHeight: 24px;
+
+@serviceIconSize: 20px;
+@serviceIconBackgroundSize: @serviceIconSize * 2;
+@baseLogoSize: @baseLineHeight * 2;
+
+@fullSpacing: @baseLineHeight;
+@halfSpacing: @fullSpacing / 2;
+@quarterSpacing: @fullSpacing / 4;
+
+@foregroundColor: #fff;
+@shadowColor: rgba(0, 0, 0, 0.075);
+
+@serviceBackgroundColor: #333;
+@serviceHoverBackgroundColor: #234E5B;
+@serviceActiveBackgroundColor: #316E80;
+@serviceBorderColor: #343C41;
+
+@evidenceBackgroundColor: #316E80;
+@evidenceHoverBackgroundColor: #387E92;
+@evidenceActiveBackgroundColor: #FFC100;
+@evidenceBorderColor: #2D6475;
+
+@globalForegroundColor: #333;
+@globalBackgroundColor: #EFF1F3;
+@globalHoverBackgroundColor: rgba(255, 255, 255, 0.4);
+@globalActiveBackgroundColor: rgba(255, 255, 255, 0.6);
+@globalLinkBorderColor: #FFC100;
+
+@searchControlHeight: 36px;
+@searchControlFontSize: 18px;
+@searchBorderColor: #ccc;
+@searchButtonForegroundColor: #fff;
+@searchButtonBackgroundColor: #1167B7;
+
+
+
+
+
 
 @font-face {
     font-family: "NICE.Glyphs";
@@ -17,7 +55,7 @@
 .tophat {
     overflow: visible;
     margin-bottom: 0;
-    min-height: 60px;
+    min-height: @tophatMinHeight;
 
     // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
     *position: relative;
@@ -28,343 +66,375 @@
     -ms-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 14px;
+    font-size: @baseFontSize;
     font-weight: 400;
-    line-height: 24px;
+    line-height: @baseLineHeight;
+
+    .tophat-inner {
+        width: 95.74468085%;
+        max-width: @tophatMaxWidth;
+        margin: 0 auto;
+    }
+
+    //  generic menus
+    .menu {
+        position: relative;
+        left: 0;
+        display: block;
+        float: right;
+        margin: 0 0 0 @halfSpacing;
+        padding: 0;
+        list-style: none;
+
+        li {
+            float: left;
+        }
+    }
+
+    // generic links
+    a {
+        display: block;
+        padding: @quarterSpacing @halfSpacing;
+        color: @foregroundColor;
+        text-decoration: none;
+        font-weight: normal;
+    }
+    a:focus,
+    a:hover,
+    a:active {
+        color: @foregroundColor;
+        text-decoration: none;
+    }
 }
 
-.tophat .tophat-inner {
-    width: 95.74468085%;
-    max-width: 1170px;
-    margin: 0 auto;
-}
 .layout-fill .tophat .tophat-inner {
     width: auto;
     max-width: 100%;
-    margin: 0 12px;
+    margin: 0 @halfSpacing;
 }
 
-/*  generic menus */
-.tophat .menu {
-    position: relative;
-    left: 0;
-    display: block;
-    float: right;
-    margin: 0 0 0 12px;
-    padding: 0;
-    list-style: none;
-}
-.tophat li {
-    float: left;
-}
-.tophat a {
-    display: block;
-    padding: 6px 12px;
-    color: #f6f6f6;
-    text-decoration: none;
-}
-.tophat a:focus,
-.tophat a:hover,
-.tophat a:active {
-    color: #fff;
-    text-decoration: none;
-}
+
 
 /* glyphs, logos and icons */
 
-.tophat [class^="service-logo-"],
-.tophat .logo,
-.tophat .icon-search {
-    font-style: normal;
-    font-family: "NICE.Glyphs";
-    speak: none;
-    font-variant: normal;
-    text-transform: none;
-    -webkit-font-smoothing: antialiased;
+.tophat {
+    .logo,
+    .icon-search,
+    [class^="service-logo-"] {
+        font-style: normal;
+        font-family: "NICE.Glyphs";
+        speak: none;
+        font-variant: normal;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .logo,
+    .partner-logo {
+        float: left;
+        display: block;
+        padding: @quarterSpacing @fullSpacing;
+        margin-left: @fullSpacing * -1;
+        font-size: 0;
+        line-height: 0;
+    }
+    .logo {
+        small {
+            display: none;
+        }
+
+        &:before {
+            content: "\e01a\e01b";
+            font-size: @baseLogoSize;
+            line-height: @baseLogoSize;
+            letter-spacing: -.6em;
+        }
+    }
+
+    .service-logo {
+        float: left;
+        position: relative;
+        width: @serviceIconBackgroundSize;
+        height: @serviceIconBackgroundSize;
+        line-height: @serviceIconBackgroundSize;
+        vertical-align: -35%;
+        margin-left: -48px;
+        font-style: normal;
+    }
+    [class^="service-logo-"] {
+        color: #fff;
+        text-align: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        font-size: @serviceIconSize;
+        line-height: inherit;
+        vertical-align: baseline;
+        speak: none;
+
+        *line-height: @serviceIconBackgroundSize;
+
+        &:before {
+            display: inline-block;
+            height: @serviceIconBackgroundSize;
+            width: @serviceIconBackgroundSize;
+        }
+    }
+    .service-logo-pathways:before {
+        content: "\e005";
+    }
+    .service-logo-standards:before {
+        content: "\e002";
+    }
+    .service-logo-guidance:before {
+        content: "\e00e";
+    }
+    .service-logo-evidence:before {
+        content: "\e017";
+    }
+    .icon-search:before,
+    .service-logo-search:before {
+        content: "\e004";
+    }
+    .service-logo-base {
+        color: #333;
+        font-size: @serviceIconBackgroundSize;
+        *line-height: @serviceIconBackgroundSize;
+
+        &:before {
+            content: "\e019";
+        }
+    }
 }
 
-.tophat .service-logo {
-    float: left;
-    position: relative;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    vertical-align: -35%;
-    margin-left: -48px;
-    font-style: normal;
-}
-
-.tophat [class^="service-logo-"] {
-    color: #fff;
-    text-align: center;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    font-size: 20px;
-    line-height: inherit;
-    vertical-align: baseline;
-    speak: none;
-
-    *line-height: 40px;
-}
-.tophat [class^="service-logo-"]:before {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-}
-.tophat .service-logo-pathways:before {
-    content: "\e005";
-}
-.tophat .service-logo-standards:before {
-    content: "\e002";
-}
-.tophat .menu-guidance .menu-label {
-    line-height: 40px;
-}
-.tophat .service-logo-guidance:before {
-    content: "\e00e";
-}
-.tophat .service-logo-evidence:before {
-    content: "\e017";
-}
-.tophat .icon-search:before,
-.tophat .service-logo-search:before {
-    content: "\e004";
-}
-.tophat .service-logo-base {
-    color: #333;
-    font-size: 40px;
-    *line-height: 40px;
-}
-.tophat .service-logo-base:before {
-    content: "\e019";
-}
-.nice-services .menu .menu-profile a {
-    width: auto;
-    text-align: center;
-    padding: 10px 12px;
-}
-.tophat .menu-profile .menu-label {
-    line-height: 40px;
-}
-.tophat .menu-profile .profile-avatar {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-}
-.tophat a:hover [class^="service-logo-"],
-.tophat a:focus [class^="service-logo-"],
-.tophat a:active [class^="service-logo-"],
-.tophat .active [class^="service-logo-"],
-.tophat .open [class^="service-logo-"] {
-    color: #000;
-}
-.tophat a:hover .service-logo-base,
-.tophat a:focus .service-logo-base,
-.tophat a:active .service-logo-base,
-.tophat .active .service-logo-base ,
-.tophat .open .service-logo-base {
-    color: #FFC100;
-}
-
-.tophat .logo,
-.tophat .partner-logo {
-    float: left;
-    display: block;
-    padding: 6px 24px;
-    margin-left: -24px;
-    font-size: 0;
-    line-height: 0;
-}
-.tophat .logo small {
-    display: none;
-}
-.tophat .logo:before {
-    content: "\e01a\e01b";
-    font-size: 48px;
-    line-height: 48px;
-    letter-spacing: -.6em;
-}
-
-/* services menu */
+// menus
 .nice-services,
-.tophat .nice-evidence,
-.tophat .nice-global {
+.nice-evidence,
+.nice-global {
     overflow: hidden;
     clear: both;
 }
 
+// tophat services menu
 .nice-services {
-    background-color: #333;
+    background-color: @serviceBackgroundColor;
+
+    a {
+        width: 70px;
+        padding: 10px 0 10px 60px;
+        line-height: @serviceIconSize;
+        border-left: 1px solid @serviceBorderColor;
+    }
+
+    a:hover [class^="service-logo-"],
+    a:focus [class^="service-logo-"],
+    a:active [class^="service-logo-"],
+    .active [class^="service-logo-"],
+    .open [class^="service-logo-"] {
+        color: #000;
+    }
+    a:hover .service-logo-base,
+    a:focus .service-logo-base,
+    a:active .service-logo-base,
+    .active .service-logo-base ,
+    .open .service-logo-base {
+        color: #FFC100;
+    }
+
+    .menu a:hover,
+    .menu a:focus,
+    .menu a:active {
+        background-color: @serviceHoverBackgroundColor;
+    }
+    .open a:hover,
+    .open a:focus,
+    .open a:active,
+    .open a,
+    .active a:hover,
+    .active a:focus,
+    .active a:active,
+    .active a {
+        background-color: @serviceActiveBackgroundColor;
+    }
+
+    .menu-profile a {
+        width: auto;
+        text-align: center;
+        padding: @halfSpacing;
+    }
+    .anon a {
+        padding: @halfSpacing - 2 @halfSpacing;
+    }
+
+    .menu-profile,
+    .menu-guidance {
+        .menu-label {
+            line-height: @serviceIconBackgroundSize;
+        }
+    }
+    .menu-profile .profile-avatar {
+        display: inline-block;
+        width: @serviceIconBackgroundSize - 4;
+        height: @serviceIconBackgroundSize - 4;
+        line-height: @serviceIconBackgroundSize;
+    }
+
+    .menu-pathways a {
+        width: 65px;
+    }
+    .menu-standards a {
+        width: 95px;
+    }
+
+    .menu-search {
+        display: none;
+    }
 }
 
-.nice-services .menu a {
-    width: 70px;
-    padding: 10px 0 10px 60px;
-    line-height: 20px;
-    border-left: 1px solid #343C41;
-}
-.nice-services .menu a:hover,
-.nice-services .menu a:focus,
-.nice-services .menu a:active {
-    background-color: #234E5B;
-}
-.nice-services .open a:hover,
-.nice-services .open a:focus,
-.nice-services .open a:active,
-.nice-services .open a,
-.nice-services .active a:hover,
-.nice-services .active a:focus,
-.nice-services .active a:active,
-.nice-services .active a {
-    background-color: #316E80;
-}
-.nice-services .menu-pathways a {
-    width: 65px;
-}
-.nice-services .menu-standards a {
-    width: 95px;
-}
-
-.nice-services .menu-search {
+// tophat evidence menu
+.nice-evidence {
+    background: @evidenceBackgroundColor;
     display: none;
-}
 
-/* evidence section */
-
-.tophat .nice-evidence {
-    background: #316E80;
-    display: none;
+    .menu {
+        border-right: 1px solid @evidenceBorderColor;
+    }
+    a {
+        padding-left: @halfSpacing;
+        padding-right: @halfSpacing;
+        border-left: 1px solid @evidenceBorderColor;
+    }
+    a:hover,
+    a:focus,
+    a:active {
+        background-color: @evidenceHoverBackgroundColor;
+    }
+    .active a:hover,
+    .active a:focus,
+    .active a:active,
+    .active a {
+        color: #000;
+        background-color: @evidenceActiveBackgroundColor;
+    }
 }
 .menu-evidence-active .nice-evidence,
 .menu-evidence-open .nice-evidence {
     display: block;
 }
-.tophat .nice-evidence .menu {
-    border-right: 1px solid #2D6475;
-}
-.tophat .nice-evidence a {
-    padding-left: 12px;
-    padding-right: 12px;
-    border-left: 1px solid #2D6475;
-}
-.tophat .nice-evidence a:hover,
-.tophat .nice-evidence a:focus,
-.tophat .nice-evidence a:active {
-    background-color: #387E92;
-}
-.tophat .nice-evidence .active a:hover,
-.tophat .nice-evidence .active a:focus,
-.tophat .nice-evidence .active a:active,
-.tophat .nice-evidence .active a {
-    color: #000;
-    background-color: #FFC100;
+
+// tophat global menu
+
+.nice-global {
+    background: @globalBackgroundColor;
+
+    a {
+        font-size: 16px;
+        color: #000;
+        padding: 19px @halfSpacing 20px;
+    }
+    a:hover,
+    a:focus,
+    a:active {
+        color: #000;
+        background: @globalHoverBackgroundColor;
+        padding-bottom: 16px;
+        border-bottom: 4px solid @globalLinkBorderColor;
+    }
+    .active a,
+    .active a:hover,
+    .active a:focus,
+    .active a:active {
+        background: @globalActiveBackgroundColor;
+        padding-bottom: 16px;
+        border-bottom: 4px solid @globalLinkBorderColor;
+    }
+    .icon-search {
+        font-size: 24px;
+    }
 }
 
-/* global section */
+.nice-partner {
+    .partner-logo {
+        float: left;
+        display: block;
+        margin: @halfSpacing 0 0 (@fullSpacing * -1);
 
-.tophat .nice-global {
-    background: #EFF1F3;
-}
-.tophat .nice-global .menu a {
-    font-size: 16px;
-    color: #000;
-    padding: 19px 12px 20px;
-}
-.tophat .nice-global .menu a:hover,
-.tophat .nice-global .menu a:focus,
-.tophat .nice-global .menu a:active {
-    background: rgba(255, 255, 255, 0.4);
-    padding-bottom: 15px;
-    border-bottom: 5px solid #FFC100;
-}
-.tophat .nice-global .menu .active a,
-.tophat .nice-global .menu .active a:hover,
-.tophat .nice-global .menu .active a:focus,
-.tophat .nice-global .menu .active a:active {
-    background: rgba(255, 255, 255, 0.6);
-    padding-bottom: 15px;
-    border-bottom: 5px solid #FFC100;
-}
-.tophat .nice-global .icon-search {
-    font-size: 24px;
-}
-.tophat .partner-logo {
-    float: left;
-    display: block;
-    margin: 12px 0 0 -24px;
-}
-.tophat .partner-logo img {
-    height: 72px;
-}
-.tophat .partner-brand {
-    display: block;
-    font-size: 24px;
-    line-height: 36px;
-    margin: 0 0 -6px;
-    padding: 12px 0 0;
-    color: #888;
-}
-.tophat .publication-date {
-    float: right;
-    font-size: 16px;
-    margin-top: -4px;
-    margin-right: 12px;
-    color: #666;
+        img {
+            height: 72px;
+        }
+    }
+
+    .partner-brand {
+        display: block;
+        font-size: 24px;
+        line-height: 36px;
+        margin: 0 0 (@quarterSpacing * -1);
+        padding: @halfSpacing 0 0;
+        color: #888;
+    }
+
+    .publication-date {
+        float: right;
+        font-size: 16px;
+        margin-top: -4px;
+        margin-right: @halfSpacing;
+        color: #666;
+    }
 }
 
-/* search form */
+// search form
 .nice-search {
     float: left;
     position: relative;
     width: 40%;
-    margin: 12px 0;
-}
-.nice-search .controls {
-    margin-right: 42px;
-}
+    margin: @halfSpacing 0;
 
-.nice-search input {
-    display: block;
-    width: 100%;
-    padding: 1px;
-    height: 34px;
-    font-family: Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1;
-    color: #333;
-    border: 1px solid #ccc;
-    vertical-align: middle;
+    .controls {
+        margin-right: @searchControlHeight + 4;
+    }
 
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    input {
+        display: block;
+        width: 100%;
+        padding: 0 1px;
+        height: @searchControlHeight;
+        font-family: Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: @searchControlFontSize;
+        font-weight: 400;
+        line-height: 1;
+        color: @globalForegroundColor;
+        border: 1px solid @searchBorderColor;
+        vertical-align: middle;
 
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    -webkit-appearance: textfield;
-}
-.nice-search input:focus {
-    outline: none;
-}
+        -webkit-box-shadow: inset 0 1px 1px @shadowColor;
+        -moz-box-shadow: inset 0 1px 1px @shadowColor;
+        box-shadow: inset 0 1px 1px @shadowColor;
 
-.nice-search button {
-    display: inline-block;
-    color: #FFF;
-    background: #1167B7;
-    overflow: hidden;
-    position: absolute;
-    height: 38px;
-    width: 38px;
-    margin: 0;
-    padding: 0 5px;
-    top: 0;
-    right: 0;
-    border: 1px solid #1167B7;
-    font-size: 0;
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        -webkit-appearance: textfield;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    button {
+        display: inline-block;
+        color: @searchButtonForegroundColor;
+        background: @searchButtonBackgroundColor;
+        overflow: hidden;
+        position: absolute;
+        height: @searchControlHeight + 2;
+        width: @searchControlHeight + 2;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        right: 0;
+        border: 1px solid @searchButtonBackgroundColor;
+        font-size: 0;
+    }
 }
 
 @media (max-width: 1059px) {
@@ -377,7 +447,7 @@
     .tophat .tophat-inner {
         width: auto;
         max-width: 100%;
-        margin: 0 12px;
+        margin: 0 @halfSpacing;
     }
     .menu-evidence-active .nice-evidence {
         display: none;
@@ -385,115 +455,135 @@
     .menu-evidence-open .nice-evidence {
         display: block;
     }
-    .nice-search {
-        width: 100%;
-    }
 
     .nice-search {
         width: 100%;
     }
 
-    .nice-partner .nice-search .controls {
+    .nice-partner .controls {
         margin-left: 110px;
     }
 
     .nice-global {
         position: relative;
+
+        .menu,
+        .partner-brand {
+            display: none;
+            visibility: hidden;
+            speak: none;
+        }
     }
-    .nice-global .menu,
-    .nice-global .partner-brand {
-        display: none;
-        visibility: hidden;
-        speak: none;
-    }
-    .tophat .partner-logo {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        padding: 0;
-        margin: 0;
-        z-index: 2;
-    }
-    .tophat .partner-logo img {
-        height: 38px;
+
+    .nice-partner {
+        .partner-logo {
+            position: absolute;
+            top: @halfSpacing;
+            left: @halfSpacing;
+            padding: 0;
+            margin: 0;
+            z-index: 2;
+
+            img {
+                height: 38px;
+            }
+        }
     }
 }
 
 @media (max-width: 797px) {
     .tophat {
         min-height: 48px;
-        background: rgba(0,0,0,0.075);
+        background: @shadowColor;
         padding-bottom: 2px;
+        margin-bottom: -2px;
+
+        .logo {
+            padding: 0 0 0 @fullSpacing;
+
+            &:before {
+                font-size: 38px;
+            }
+        }
+
     }
-    .tophat .logo {
-        padding: 0 0 0 24px;
+    .nice-services {
+        .menu {
+            margin-right: @halfSpacing * -1;
+
+            a {
+                width: auto;
+                padding: @quarterSpacing;
+            }
+        }
+        .service-logo {
+            float: none;
+            margin-left: 0;
+            display: inline-block;
+        }
+        .menu-search {
+            display: block;
+        }
+        .menu-label {
+            display: none;
+            visibility: hidden;
+        }
+        .menu-profile a {
+            padding: @quarterSpacing + 2 @halfSpacing;
+        }
+        .anon a {
+            padding: @quarterSpacing @halfSpacing;
+        }
+        .anon .menu-label {
+            display: block;
+            visibility: visible;
+        }
     }
-    .tophat .logo:before {
-        font-size: 38px;
-    }
-    .nice-services .menu {
-        margin-right: -12px;
-    }
-    .nice-services .menu a {
-        width: auto;
-        padding: 4px 6px;
-    }
-    .tophat .service-logo {
-        float: none;
-        margin-left: 0;
-        display: inline-block;
-    }
-    .nice-services .menu-search {
-        display: block;
-    }
-    .tophat .menu-label {
-        display: none;
-        visibility: hidden;
-    }
-    .tophat .anon .menu-label {
-        display: block;
-        visibility: visible;
-    }
+
     .nice-global {
         display: none;
     }
     .menu-search-open .nice-global {
         display: block;
     }
-    .nice-services .menu .menu-profile a {
-        padding: 6px 12px;
-    }
-    .nice-services .menu .anon a {
-        padding: 4px 12px;
-    }
-    .tophat .menu-profile .profile-avatar {
-        width: 36px;
-        height: 36px;
-        line-height: 36px;
-    }
 }
 
 @media (max-width: 499px) {
-    .tophat .nice-evidence {
+    .nice-evidence {
         position: absolute;
         width: 100%;
         z-index: 3;
+
+        a {
+            border-left: 0;
+            border-top: 1px solid @evidenceBorderColor;
+        }
+
+        li:first-child a {
+            border-top: 0;
+        }
     }
-    .tophat .nice-evidence .menu,
-    .tophat .nice-evidence li {
-        float: none;
-        display: block;
-        margin-left: 0;
-        border-right: 0;
+
+    .tophat {
+        .nice-evidence .menu,
+        .nice-evidence li {
+            float: none;
+            display: block;
+            margin-left: 0;
+            border-right: 0;
+        }
     }
-    .tophat .nice-evidence .menu a {
-        border-left: 0;
-        border-top: 1px solid #2D6475;
-    }
-    .tophat .nice-evidence .menu li:first-child a {
-        border-top: 0;
-    }
-    .nice-services .menu a {
-        padding: 4px 1px;
+
+    .nice-services .menu {
+        a {
+            padding: 4px 1px;
+        }
+
+        .menu-profile a {
+            padding: @quarterSpacing 1px;
+        }
+        .anon a {
+            padding: 4px @quarterSpacing;
+        }
     }
 }

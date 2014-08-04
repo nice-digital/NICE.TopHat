@@ -49,13 +49,14 @@ module.exports = function( grunt )
     grunt.registerTask('test'         , [ 'jshint', 'mochaTest:test', 'browserify:test' ]);
 
     // build
-    grunt.registerTask('build'        , [ 'browserify:src' ]);
+    grunt.registerTask('build'        , [ 'build:css', 'browserify:src' ]);
+    grunt.registerTask('build:css'    , [ 'less' ]);
 
     // auto build
-    // grunt.registerTask('default'      , [ 'watch' ]);
+    // grunt.registerTask('default'   , [ 'watch' ]);
 
     // travis-ci
 
-    grunt.registerTask('ci'     , [ 'test', 'coverage', 'complexity' ]);
+    grunt.registerTask('ci'           , [ 'test', 'coverage', 'complexity' ]);
 
 };

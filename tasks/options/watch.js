@@ -11,6 +11,11 @@ module.exports = function( config ) {
             files: 'test/**/*.js',
             tasks: [ 'test' ]
         }
+
+      , less: {
+            files: 'lib/**/*.less',
+            tasks: [ 'build:css' ]
+        }
     };
 
 };

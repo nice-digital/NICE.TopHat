@@ -4,7 +4,7 @@ module.exports = function( config ) {
 
         options: {
             paths       : [ 'lib/c' ]
-          , compress : true
+          , compress : false
           , cleancss : true
           , ieCompat : false
         }
@@ -12,17 +12,6 @@ module.exports = function( config ) {
       , src: {
             files: {
                 'lib/c/tophat.css': 'lib/c/tophat.less'
-            }
-        }
-
-      , dev: {
-            options: {
-                compress: false
-              , cleancss: false
-            }
-
-          , files: {
-                'lib/c/tophat.dev.css': 'lib/c/tophat.less'
             }
         }
 
