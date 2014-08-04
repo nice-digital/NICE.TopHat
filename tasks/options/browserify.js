@@ -19,7 +19,7 @@ module.exports = function( config ) {
             }
 
           , files: {
-                'dist/tophat.js': [ './lib/index.js' ]
+                'dist/tophat.js': [ './lib/delegate.js' ]
             }
         }
     };

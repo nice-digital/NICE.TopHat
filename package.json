@@ -35,6 +35,7 @@
     "grunt-contrib-clean": "*",
     "grunt-contrib-copy": "*",
     "grunt-contrib-jshint": "*",
+    "grunt-contrib-less": "*",
     "grunt-contrib-watch": "*",
     "grunt-mocha-test": "*",
     "load-grunt-tasks": "*",
