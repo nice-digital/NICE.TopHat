@@ -1,20 +1,17 @@
 module.exports = function( config ) {
 
     return {
-
         options: {
-            paths       : [ 'lib/c' ]
-          , compress : false
-          , cleancss : true
-          , ieCompat : false
-        }
+            compress: true,
+            cleancss: true,
+            ieCompat: true
+        },
 
-      , src: {
+        dist: {
             files: {
-                'lib/c/tophat.css': 'lib/c/tophat.less'
+                "temp/tophat.css": "lib/tophat.less"
             }
         }
-
     };
 
 };

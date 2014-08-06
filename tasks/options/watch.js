@@ -3,18 +3,13 @@ module.exports = function( config ) {
     return {
 
         src: {
-            files: 'lib/**/*.js',
+            files: 'lib/**/*',
             tasks: [ 'test', 'build' ]
         }
 
       , test: {
             files: 'test/**/*.js',
             tasks: [ 'test' ]
-        }
-
-      , less: {
-            files: 'lib/**/*.less',
-            tasks: [ 'build:css' ]
         }
     };
 

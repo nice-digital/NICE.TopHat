@@ -49,8 +49,7 @@ module.exports = function( grunt )
     grunt.registerTask('test'         , [ 'jshint', 'mochaTest:test', 'browserify:test' ]);
 
     // build
-    grunt.registerTask('build'        , [ 'build:css', 'browserify:src' ]);
-    grunt.registerTask('build:css'    , [ 'less' ]);
+    grunt.registerTask('build'        , [ 'htmlmin:templates', 'less:dist'/*, 'absurd:dist'*/, 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
 
     // auto build
     // grunt.registerTask('default'   , [ 'watch' ]);

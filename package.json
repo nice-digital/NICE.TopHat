@@ -26,7 +26,6 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "*",
-    "cssify": "*",
     "glob": "*",
     "grunt": "*",
     "grunt-blanket": "*",
@@ -37,10 +36,16 @@
     "grunt-contrib-copy": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-less": "*",
+    "grunt-contrib-htmlmin": "*",
+    "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "grunt-mocha-test": "*",
+    "grunt-absurd": "*",
     "load-grunt-tasks": "*",
-    "mocha": "*",
-    "mocha-lcov-reporter": "*"
+    "mocha-lcov-reporter": "*",
+    "node-lessify": "*",
+    "partialify": "*",
+    "minifyify": "*",
+    "html-minifyify": "*"
   }
 }
