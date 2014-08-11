@@ -4,12 +4,7 @@ module.exports = function( config ) {
 
         src: {
             files: 'lib/**/*',
-            tasks: [ 'test', 'build' ]
-        }
-
-      , test: {
-            files: 'test/**/*.js',
-            tasks: [ 'test' ]
+            tasks: [ 'build' ]
         }
     };
 

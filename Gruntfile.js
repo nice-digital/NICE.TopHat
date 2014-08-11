@@ -44,18 +44,10 @@ module.exports = function( grunt )
     // clean
     // grunt.registerTask('clean'     , [ 'clean' ]);
 
-    // test
-    grunt.registerTask('coverage'     , [ 'clean:coverage', 'blanket', 'copy:coverage', 'mochaTest:instrumented', 'mochaTest:coverage', 'mochaTest:lcov']);
-    grunt.registerTask('test'         , [ 'jshint', 'mochaTest:test', 'browserify:test' ]);
-
     // build
-    grunt.registerTask('build'        , [ 'htmlmin:templates', 'less:dist'/*, 'absurd:dist'*/, 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
+    grunt.registerTask('build'        , [ 'htmlmin:templates', 'less:dist', 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
 
     // auto build
     // grunt.registerTask('default'   , [ 'watch' ]);
-
-    // travis-ci
-
-    grunt.registerTask('ci'           , [ 'test', 'coverage', 'complexity' ]);
 
 };

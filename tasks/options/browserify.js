@@ -8,12 +8,6 @@ module.exports = function( config ) {
             transform: [ cssify, partialify.onlyAllow(['html']) ]
         },
 
-        test: {
-            files: {
-                'browser/test.js': [ 'test/features.js' ]
-            }
-        },
-
         dist: {
             files: {
                 'dist/tophat.dev.js': [ './temp/tophat.js' ]

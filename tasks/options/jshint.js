@@ -10,8 +10,6 @@ module.exports = function( config ) {
 
       , src         : [ 'lib/**/*.js' ]
 
-      , test        : [ 'test/**/*.js' ]
-
     };
 
 };
