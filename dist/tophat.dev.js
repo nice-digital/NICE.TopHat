@@ -158,28 +158,36 @@ var evidenceLinks = require('./tophat.evidence.links');
 var tophatEvidence = require('./tophat.evidence.html');
 var tophatEvidenceLinks = require('./tophat.evidence.links.html');
 
-function generateEvidenceElement( tophatElement ) {
-    var linklist = generateLinkList( evidenceLinks );
+function generateEvidenceElement( tophatElement, config ) {
+    var linklist = generateLinkList( evidenceLinks, config.environment === 'beta' );
 
-    return utils.create( tophatEvidence.replace( '{{menu}}', linklist ) );
+    var el = utils.create( tophatEvidence.replace( '{{menu}}', linklist ) );
+
+    if ( config.evidence ) {
+        var active = utils.find( el, 'evidence-' + config.evidence )[0];
+        active.className = active.className + ' active';
+    }
+
+    return el;
 }
 
-function generateLinkList( links ) {
+function generateLinkList( links, isBeta ) {
     var output = [];
-    for ( var label in links ) {
-        var link = links[label];
+    for ( var id in links ) {
+        var link = links[ id ];
 
-        output.push( generateLink( label, link ) );
+        output.push( generateLink( id, link ) );
     }
 
     return output.join( '' );
 }
 
-function generateLink( label, link ) {
+function generateLink( id, link, isBeta ) {
     var output = tophatEvidenceLinks
-          .replace( /{{label}}/ig, label )
+          .replace( /{{id}}/ig, id )
+          .replace( /{{label}}/ig, link.label )
           .replace( /{{title}}/ig, link.title )
-          .replace( /{{href}}/ig, link.href );
+          .replace( /{{href}}/ig, ( isBeta ? link.beta : link.href ) );
 
     return output;
 }
@@ -187,29 +195,36 @@ function generateLink( label, link ) {
 module.exports = generateEvidenceElement;
 
 },{"./tophat.evidence.html":4,"./tophat.evidence.links":7,"./tophat.evidence.links.html":6,"./tophat.utils":17}],6:[function(require,module,exports){
-module.exports = '<li><a href="{{href}}" title="{{title}}">{{label}}</a></li>';
+module.exports = '<li class="evidence-{{id}}"><a href="{{href}}" title="{{title}}">{{label}}</a></li>';
 },{}],7:[function(require,module,exports){
 module.exports = {
-    BNF: {
+    bnf: {
         href: "http://evidence.nhs.uk/formulary/bnf/current",
         beta: "http://beta.evidence.nhs.uk/formulary/bnf/current",
+        label: "BNF",
         title: "British National Formulary"
     },
-    BNFC: {
+    bnfc: {
         href: "http://evidence.nhs.uk/formulary/bnfc/current",
         beta: "http://beta.evidence.nhs.uk/formulary/bnfc/current",
+        label: "BNFC",
         title: "British National Formulary for Children"
     },
-    CKS: {
+    cks: {
         href: "http://cks.nice.org.uk",
         beta: "http://beta.cks.nice.org.uk",
+        label: "CKS",
         title: "Clinical Knowledge Summaries"
     },
-    "Journals and databases": {
-        href: "http://evidence.nhs.uk/about-evidence-services/journals-and-databases"
+    journals: {
+        href: "http://evidence.nhs.uk/about-evidence-services/journals-and-databases",
+        label: "Journals and databases",
+        title: "Journals and databases"
     },
-    "Evidence search": {
-        href: "http://evidence.nhs.uk"
+    search: {
+        href: "http://evidence.nhs.uk",
+        label: "Evidence search",
+        title: "Evidence search"
     }
 };
 
@@ -240,7 +255,7 @@ var tophatElement = getTophatElement( 'tophat' );
 
 // create the service and evidence elements
 var serviceElement = require('./tophat.services')( tophatElement, config );
-var evidenceElement = require('./tophat.evidence')( tophatElement );
+var evidenceElement = require('./tophat.evidence')( tophatElement, config );
 
 // find or create the global element
 var globalElement = utils.find( tophatElement, 'nice-global' )[0];
@@ -270,7 +285,7 @@ require('./tophat.events')( document, tophatElement, serviceElement );
 // helper functions
 
 function getTophatConfig() {
-    var attributes = [ 'service', 'environment', 'timestamp' ];
+    var attributes = [ 'service', 'evidence', 'environment', 'timestamp' ];
     var config = {};
 
     var tag = getTophatScriptTag();
@@ -287,6 +302,8 @@ function getTophatConfig() {
         }
     }
 
+    if (config.evidence) config.service = 'evidence';
+
     return config;
 }
 
@@ -299,7 +316,7 @@ function getTophatScriptTag() {
     len = tags.length;
 
     for (i = 0; i < len; i++) {
-        if ( tags[i].src.indexOf('/tophat.js') ) {
+        if ( tags[i].src.indexOf('/tophat.js') || tags[i].src.indexOf('/tophat.dev.js') ) {
             return tags[i];
         }
     }
@@ -371,7 +388,7 @@ var tophatServicesLinks = require('./tophat.services.links.html');
 function generateServiceElement( tophatElement, config ) {
     cleanUp( tophatElement );
 
-    var linklist = generateLinkList( serviceLinks );
+    var linklist = generateLinkList( serviceLinks, config.environment === 'beta' );
 
     var el = utils.create( tophatServices.replace( '{{menu}}', linklist ) );
 
@@ -383,22 +400,23 @@ function generateServiceElement( tophatElement, config ) {
     return el;
 }
 
-function generateLinkList( links ) {
+function generateLinkList( links, isBeta ) {
     var output = [];
     for ( var id in links ) {
         var link = links[id];
 
-        output.push( generateLink( id, link ) );
+        output.push( generateLink( id, link, isBeta ) );
     }
 
     return output.join( '' );
 }
 
-function generateLink( id, link ) {
+function generateLink( id, link, isBeta ) {
     var output = tophatServicesLinks
           .replace( /{{id}}/ig, id )
           .replace( /{{label}}/ig, link.label )
-          .replace( /{{href}}/ig, link.href );
+          .replace( /{{title}}/ig, link.title )
+          .replace( /{{href}}/ig, ( isBeta ? link.beta : link.href ) );
 
     return output;
 }
