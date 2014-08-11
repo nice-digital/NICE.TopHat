@@ -233,11 +233,13 @@ require('./tophat.css');
 var utils = require('./tophat.utils');
 var body = document.body;
 
+var config = getTophatConfig();
+
 // find or create the tophat element
 var tophatElement = getTophatElement( 'tophat' );
 
 // create the service and evidence elements
-var serviceElement = require('./tophat.services')( tophatElement );
+var serviceElement = require('./tophat.services')( tophatElement, config );
 var evidenceElement = require('./tophat.evidence')( tophatElement );
 
 // find or create the global element
@@ -251,7 +253,7 @@ var searchElement = require('./tophat.search')();
 addSearchToGlobal( globalElement, searchElement );
 
 // append all the parts to the tophat
-constructTophat( tophatElement, serviceElement, evidenceElement, globalElement );
+constructTophat( tophatElement, serviceElement, evidenceElement, globalElement, config );
 
 // attach the tophat to the top of the body
 prependElement( tophatElement, body );
@@ -267,6 +269,42 @@ require('./tophat.events')( document, tophatElement, serviceElement );
 
 // helper functions
 
+function getTophatConfig() {
+    var attributes = [ 'service', 'environment', 'timestamp' ];
+    var config = {};
+
+    var tag = getTophatScriptTag();
+    if (tag) {
+        len = attributes.length;
+
+        for( i = 0; i < len; i++ ) {
+            var key = attributes[i];
+            var value = tag.getAttribute( 'data-' + key );
+
+            if ( value && value !== '' ) {
+                config[ key ] = value;
+            }
+        }
+    }
+
+    return config;
+}
+
+function getTophatScriptTag() {
+    var tag = document.currentScript;
+    if (tag) return tag;
+
+    var i, len;
+    var tags = document.getElementsByTagName( 'script' );
+    len = tags.length;
+
+    for (i = 0; i < len; i++) {
+        if ( tags[i].src.indexOf('/tophat.js') ) {
+            return tags[i];
+        }
+    }
+}
+
 function getTophatElement( classname ) {
   var el = utils.find( body, classname )[0];
   if (!el) {
@@ -276,10 +314,14 @@ function getTophatElement( classname ) {
   return el;
 }
 
-function constructTophat( el, services, evidenceResources, globalMenu ) {
+function constructTophat( el, services, evidenceResources, globalMenu, config ) {
     appendElement( services, el );
     appendElement( evidenceResources, el );
     appendElement( globalMenu, el );
+
+    if ( config.service ) {
+        el.className = el.className + ' menu-' + config.service + '-active';
+    }
 }
 
 function addSearchToGlobal( el, searchForm ) {
@@ -326,12 +368,19 @@ var serviceLinks = require('./tophat.services.links');
 var tophatServices = require('./tophat.services.html');
 var tophatServicesLinks = require('./tophat.services.links.html');
 
-function generateServiceElement( tophatElement ) {
+function generateServiceElement( tophatElement, config ) {
     cleanUp( tophatElement );
 
     var linklist = generateLinkList( serviceLinks );
 
-    return utils.create( tophatServices.replace( '{{menu}}', linklist ) );
+    var el = utils.create( tophatServices.replace( '{{menu}}', linklist ) );
+
+    if ( config.service ) {
+        var active = utils.find( el, 'menu-' + config.service )[0];
+        active.className = active.className + ' active';
+    }
+
+    return el;
 }
 
 function generateLinkList( links ) {
@@ -413,7 +462,8 @@ utils.find = function( root, search ){
             elements = root.getElementsByTagName("*");
             pattern = new RegExp("(^|\\s)" + search + "(\\s|$)");
 
-            for (i = 0; i < elements.length; i++) {
+            var len = elements.length;
+            for (var i = 0; i < len; i++) {
                 if ( pattern.test(elements[i].className) ) {
                     results.push(elements[i]);
                 }
