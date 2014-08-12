@@ -5,9 +5,7 @@
   "private": true,
   "main": "./lib/index.js",
   "scripts": {
-    "test": "./node_modules/grunt-cli/bin/grunt test",
-    "coverage": "./node_modules/grunt-cli/bin/grunt coverage",
-    "ci": "./node_modules/grunt-cli/bin/grunt --verbose ci"
+    "test": "./node_modules/grunt-cli/bin/grunt test"
   },
   "repository": {
     "type": "git",
@@ -30,17 +28,18 @@
     "grunt": "*",
     "grunt-blanket": "*",
     "grunt-browserify": "*",
+    "grunt-casperjs": "*",
     "grunt-cli": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-copy": "*",
+    "grunt-contrib-htmlmin": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-less": "*",
-    "grunt-contrib-htmlmin": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "load-grunt-tasks": "*",
+    "minifyify": "*",
     "node-lessify": "*",
-    "partialify": "*",
-    "minifyify": "*"
+    "partialify": "*"
   }
 }

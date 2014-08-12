@@ -44,6 +44,9 @@ module.exports = function( grunt )
     // clean
     // grunt.registerTask('clean'     , [ 'clean' ]);
 
+    // test
+    grunt.registerTask('test'         , [ 'casperjs:desktop' ]);
+
     // build
     grunt.registerTask('build'        , [ 'htmlmin:templates', 'less:dist', 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
 
