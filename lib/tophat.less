@@ -151,6 +151,7 @@
         }
     }
 
+    .profile-avatar,
     .service-logo {
         float: left;
         position: relative;
@@ -180,6 +181,11 @@
             height: @serviceIconBackgroundSize;
             width: @serviceIconBackgroundSize;
         }
+    }
+    .profile-avatar {
+        float: none;
+        position: relative;
+        margin-left: 0;
     }
     .service-logo-pathways:before {
         content: "\e005";
@@ -251,15 +257,15 @@
     .menu a:active {
         background-color: @serviceHoverBackgroundColor;
     }
-    .open a:hover,
-    .open a:focus,
-    .open a:active,
+
     .open a,
-    .active a:hover,
-    .active a:focus,
-    .active a:active,
     .active a {
-        background-color: @serviceActiveBackgroundColor;
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: @serviceActiveBackgroundColor;
+        }
     }
 
     .menu-anonymous a,
@@ -311,12 +317,14 @@
         padding-left: @halfSpacing;
         padding-right: @halfSpacing;
         border-left: 1px solid @evidenceBorderColor;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: @evidenceHoverBackgroundColor;
+        }
     }
-    a:hover,
-    a:focus,
-    a:active {
-        background-color: @evidenceHoverBackgroundColor;
-    }
+    
     .active a:hover,
     .active a:focus,
     .active a:active,
@@ -325,9 +333,7 @@
         background-color: @evidenceActiveBackgroundColor;
     }
 }
-.menu-profile-active .nice-profile,
 .menu-profile-open .nice-profile,
-.menu-evidence-active .nice-evidence,
 .menu-evidence-open .nice-evidence {
     display: block;
 }
@@ -492,10 +498,6 @@
         max-width: 100%;
         margin: 0 @halfSpacing;
     }
-    .menu-profile-active .nice-profile,
-    .menu-evidence-active .nice-evidence {
-        display: none;
-    }
     .menu-profile-open .nice-profile,
     .menu-evidence-open .nice-evidence {
         display: block;
@@ -562,6 +564,7 @@
                 padding: @quarterSpacing;
             }
         }
+        .profile-avatar,
         .service-logo {
             float: none;
             margin-left: 0;
@@ -595,6 +598,7 @@
 }
 
 @media (max-width: 499px) {
+    .nice-profile,
     .nice-evidence {
         position: absolute;
         width: 100%;
@@ -610,7 +614,14 @@
         }
     }
 
+    .menu-profile-open .nice-profile {
+        padding: 0;
+        left: 0;
+        margin-left: 0;
+    }
+
     .tophat {
+        .nice-profile,
         .nice-evidence {
             .menu,
             li {
