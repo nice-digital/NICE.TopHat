@@ -45,10 +45,11 @@ module.exports = function( grunt )
     // grunt.registerTask('clean'     , [ 'clean' ]);
 
     // test
-    grunt.registerTask('test'         , [ 'casperjs:desktop' ]);
+    grunt.registerTask('webserver'    , [ 'connect:dev' ]);
+    grunt.registerTask('test'         , [ 'jshint:test', 'casperjs:desktop' ]);
 
     // build
-    grunt.registerTask('build'        , [ 'htmlmin:templates', 'less:dist', 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
+    grunt.registerTask('build'        , [ 'jshint:src', 'htmlmin:templates', 'less:dist', 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
 
     // auto build
     // grunt.registerTask('default'   , [ 'watch' ]);

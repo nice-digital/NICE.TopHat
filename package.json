@@ -31,6 +31,7 @@
     "grunt-casperjs": "*",
     "grunt-cli": "*",
     "grunt-contrib-clean": "*",
+    "grunt-contrib-connect": "*",
     "grunt-contrib-copy": "*",
     "grunt-contrib-htmlmin": "*",
     "grunt-contrib-jshint": "*",

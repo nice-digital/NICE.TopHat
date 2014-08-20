@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Partner microsite tophat</title>
+    <title>Guidance tophat with filled layout</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
@@ -14,27 +14,22 @@
     </style>
 </head>
 
-<body>
+<body class="layout-fill">
+
     <div class="tophat">
-        <div class="nice-global nice-partner" id="nice-global">
+        <div class="nice-global" id="nice-search">
             <div class="tophat-inner">
-                <a href="/" class="partner-logo"><img src="http://beta.cks.nice.org.uk/img/cks-220-logo.png" /></a>
-
-                <span class="partner-brand">Clinical Knowledge Summaries <span class="publication-date">June 2014</span></span>
-
                 <ul class="menu">
                     <li><a href="#">Item one</a></li>
-                    <li class="active"><a href="#">Item two</a></li>
+                    <li><a href="#">Item two</a></li>
                     <li><a href="#">Item three</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <script src="../dist/tophat.dev.js"
-        data-evidence="cks"
-        data-environment="beta"
-        data-timestamp="2014-08-06T12:33:57Z"
+    <script src="./tophat.js"
+        data-service="guidance"
         defer async></script>
 </body>
 </html>

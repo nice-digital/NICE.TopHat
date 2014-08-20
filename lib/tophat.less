@@ -119,6 +119,7 @@
 .tophat {
     .logo,
     .icon-search,
+    .profile-avatar,
     [class^="service-logo-"] {
         font-style: normal;
         font-family: "NICE.Glyphs";
@@ -160,6 +161,7 @@
         margin-left: -48px;
         font-style: normal;
     }
+    .profile-avatar,
     [class^="service-logo-"] {
         color: #fff;
         text-align: center;
@@ -195,6 +197,9 @@
     .service-logo-search:before {
         content: "\e004";
     }
+    .profile-avatar:before {
+        content: "\e01f";
+    }
     .service-logo-base {
         color: #333;
         font-size: @serviceIconBackgroundSize;
@@ -209,6 +214,7 @@
 // menus
 .nice-services,
 .nice-evidence,
+.nice-profile,
 .nice-global {
     overflow: hidden;
     clear: both;
@@ -256,12 +262,14 @@
         background-color: @serviceActiveBackgroundColor;
     }
 
+    .menu-anonymous a,
     .menu-profile a {
         width: auto;
         text-align: center;
         padding: @halfSpacing;
     }
-    .anon a {
+    .menu-anonymous a {
+        line-height: @serviceIconBackgroundSize;
         padding: @halfSpacing - 2 @halfSpacing;
     }
 
@@ -291,6 +299,7 @@
 }
 
 // tophat evidence menu
+.nice-profile,
 .nice-evidence {
     background: @evidenceBackgroundColor;
     display: none;
@@ -316,9 +325,44 @@
         background-color: @evidenceActiveBackgroundColor;
     }
 }
+.menu-profile-active .nice-profile,
+.menu-profile-open .nice-profile,
 .menu-evidence-active .nice-evidence,
 .menu-evidence-open .nice-evidence {
     display: block;
+}
+
+// additional profile menu config
+
+.nice-profile {
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+    width: 250px;
+    padding: 6px 0;
+    left: 50%;
+    margin-left: 340px;
+
+    a {
+        border-left: 0;
+        border-top: 1px solid @evidenceBorderColor;
+    }
+
+    li:first-child a {
+        border-top: 0;
+    }
+}
+
+.tophat {
+    .nice-profile {
+        .menu,
+        li {
+            float: none;
+            display: block;
+            margin-left: 0;
+            border-right: 0;
+        }
+    }
 }
 
 // tophat global menu
@@ -448,9 +492,11 @@
         max-width: 100%;
         margin: 0 @halfSpacing;
     }
+    .menu-profile-active .nice-profile,
     .menu-evidence-active .nice-evidence {
         display: none;
     }
+    .menu-profile-open .nice-profile,
     .menu-evidence-open .nice-evidence {
         display: block;
     }
@@ -506,6 +552,7 @@
         }
 
     }
+
     .nice-services {
         .menu {
             margin-right: @halfSpacing * -1;
@@ -564,12 +611,14 @@
     }
 
     .tophat {
-        .nice-evidence .menu,
-        .nice-evidence li {
-            float: none;
-            display: block;
-            margin-left: 0;
-            border-right: 0;
+        .nice-evidence {
+            .menu,
+            li {
+                float: none;
+                display: block;
+                margin-left: 0;
+                border-right: 0;
+            }
         }
     }
 

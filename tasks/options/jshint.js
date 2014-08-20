@@ -8,6 +8,8 @@ module.exports = function( config ) {
 
       , gruntfile   : [ 'Gruntfile.js', 'tasks/**/*.js' ]
 
+      , test        : [ 'test/*.js' ]
+
       , src         : [ 'lib/**/*.js' ]
 
     };
