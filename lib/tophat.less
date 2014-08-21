@@ -53,7 +53,7 @@
 
 .nice-tophat {
     overflow: visible;
-    margin-bottom: 0;
+    margin-bottom: 24px;
     min-height: @tophatMinHeight;
 
     // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
@@ -431,6 +431,11 @@
         margin: 0 0 (@quarterSpacing * -1);
         padding: @halfSpacing 0 0;
         color: #888;
+
+        small {
+            float: right;
+            margin: -10px 10px 0 0;
+        }
     }
 
     .publication-date {
