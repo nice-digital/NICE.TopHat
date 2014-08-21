@@ -34,9 +34,10 @@ module.exports.byUrl = function(url) {
 };
 
 },{}],2:[function(require,module,exports){
-var css = "@font-face{font-family:\"NICE.Glyphs\";src:url(http://cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.eot?#iefix&v=1.3) format('embedded-opentype'),url(http://cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.woff?v=1.3) format('woff'),url(http://cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.ttf?v=13) format('truetype'),url(http://cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.svg#fontawesomeregular?v=1.3) format('svg');font-weight:400;font-style:normal}.tophat{overflow:visible;margin-bottom:0;min-height:60px;*position:relative;*z-index:2;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:14px;font-weight:400;line-height:24px}.tophat .tophat-inner{width:95.74468085%;max-width:1170px;margin:0 auto}.tophat .menu{position:relative;left:0;display:block;float:right;margin:0 0 0 12px;padding:0;list-style:none}.tophat .menu li{float:left}.tophat a{display:block;padding:6px 12px;color:#fff;text-decoration:none;font-weight:400}.tophat a:focus,.tophat a:hover,.tophat a:active{color:#fff;text-decoration:none}.layout-fill .tophat .tophat-inner{width:auto;max-width:100%;margin:0 12px}.tophat .logo,.tophat .icon-search,.tophat .profile-avatar,.tophat [class^=service-logo-]{font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased}.tophat .logo,.tophat .partner-logo{float:left;display:block;padding:6px 24px;margin-left:-24px;font-size:0;line-height:0}.tophat .logo small{display:none}.tophat .logo:before{content:\"\\e01a\\e01b\";font-size:48px;line-height:48px;letter-spacing:-.6em}.tophat .profile-avatar,.tophat .service-logo{float:left;position:relative;width:40px;height:40px;line-height:40px;vertical-align:-35%;margin-left:-48px;font-style:normal}.tophat .profile-avatar,.tophat [class^=service-logo-]{color:#fff;text-align:center;position:absolute;width:100%;height:100%;font-size:20px;line-height:inherit;vertical-align:baseline;speak:none;*line-height:40px}.tophat .profile-avatar:before,.tophat [class^=service-logo-]:before{display:inline-block;height:40px;width:40px}.tophat .profile-avatar{float:none;position:relative;margin-left:0}.tophat .service-logo-pathways:before{content:\"\\e005\"}.tophat .service-logo-standards:before{content:\"\\e002\"}.tophat .service-logo-guidance:before{content:\"\\e00e\"}.tophat .service-logo-evidence:before{content:\"\\e017\"}.tophat .icon-search:before,.tophat .service-logo-search:before{content:\"\\e004\"}.tophat .profile-avatar:before{content:\"\\e01f\"}.tophat .service-logo-base{color:#333;font-size:40px;*line-height:40px}.tophat .service-logo-base:before{content:\"\\e019\"}.nice-services,.nice-evidence,.nice-profile,.nice-global{overflow:hidden;clear:both}.nice-services{background-color:#333}.nice-services a{width:70px;padding:10px 0 10px 60px;line-height:20px;border-left:1px solid #343c41}.nice-services a:hover [class^=service-logo-],.nice-services a:focus [class^=service-logo-],.nice-services a:active [class^=service-logo-],.nice-services .active [class^=service-logo-],.nice-services .open [class^=service-logo-]{color:#000}.nice-services a:hover .service-logo-base,.nice-services a:focus .service-logo-base,.nice-services a:active .service-logo-base,.nice-services .active .service-logo-base,.nice-services .open .service-logo-base{color:#FFC100}.nice-services .menu a:hover,.nice-services .menu a:focus,.nice-services .menu a:active{background-color:#234e5b}.nice-services .open a,.nice-services .active a,.nice-services .open a:hover,.nice-services .active a:hover,.nice-services .open a:focus,.nice-services .active a:focus,.nice-services .open a:active,.nice-services .active a:active{background-color:#316e80}.nice-services .menu-anonymous a,.nice-services .menu-profile a{width:auto;text-align:center;padding:12px}.nice-services .menu-anonymous a{line-height:40px;padding:10px 12px}.nice-services .menu-profile .menu-label,.nice-services .menu-guidance .menu-label{line-height:40px}.nice-services .menu-profile .profile-avatar{display:inline-block;width:36px;height:36px;line-height:40px}.nice-services .menu-pathways a{width:65px}.nice-services .menu-standards a{width:95px}.nice-services .menu-search{display:none}.nice-profile,.nice-evidence{background:#316e80;display:none}.nice-profile .menu,.nice-evidence .menu{border-right:1px solid #2d6475}.nice-profile a,.nice-evidence a{padding-left:12px;padding-right:12px;border-left:1px solid #2d6475}.nice-profile a:hover,.nice-evidence a:hover,.nice-profile a:focus,.nice-evidence a:focus,.nice-profile a:active,.nice-evidence a:active{background-color:#387e92}.nice-profile .active a:hover,.nice-evidence .active a:hover,.nice-profile .active a:focus,.nice-evidence .active a:focus,.nice-profile .active a:active,.nice-evidence .active a:active,.nice-profile .active a,.nice-evidence .active a{color:#000;background-color:#ffc100}.menu-profile-open .nice-profile,.menu-evidence-open .nice-evidence{display:block}.nice-profile{position:absolute;width:100%;z-index:3;width:250px;padding:6px 0;left:50%;margin-left:340px}.nice-profile a{border-left:0;border-top:1px solid #2d6475}.nice-profile li:first-child a{border-top:0}.tophat .nice-profile .menu,.tophat .nice-profile li{float:none;display:block;margin-left:0;border-right:0}.nice-global{background:#eff1f3}.nice-global a{font-size:16px;color:#000;padding:19px 12px 20px}.nice-global a:hover,.nice-global a:focus,.nice-global a:active{color:#000;background:rgba(255,255,255,.4);padding-bottom:16px;border-bottom:4px solid #ffc100}.nice-global .active a,.nice-global .active a:hover,.nice-global .active a:focus,.nice-global .active a:active{background:rgba(255,255,255,.6);padding-bottom:16px;border-bottom:4px solid #ffc100}.nice-global .icon-search{font-size:24px}.nice-partner .partner-logo{float:left;display:block;margin:12px 0 0 -24px}.nice-partner .partner-logo img{height:72px}.nice-partner .partner-brand{display:block;font-size:24px;line-height:36px;margin:0 0 -6px;padding:12px 0 0;color:#888}.nice-partner .publication-date{float:right;font-size:16px;margin-top:-4px;margin-right:12px;color:#666}.nice-search{float:left;position:relative;width:40%;margin:12px 0}.nice-search .controls{margin-right:40px}.nice-search input{display:block;width:100%;padding:0 1px;height:36px;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:1;color:#333;border:1px solid #ccc;vertical-align:middle;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}.nice-search input:focus{outline:0}.nice-search button{display:inline-block;color:#fff;background:#1167b7;overflow:hidden;position:absolute;height:38px;width:38px;margin:0;padding:0;top:0;right:0;border:1px solid #1167b7;font-size:0}@media (max-width:1059px){.tophat .logo:before{content:\"\\e01a\"}}@media (max-width:979px){.tophat .tophat-inner{width:auto;max-width:100%;margin:0 12px}.menu-profile-open .nice-profile,.menu-evidence-open .nice-evidence{display:block}.nice-search{width:100%}.nice-partner .controls{margin-left:110px}.nice-global{position:relative}.nice-global .menu,.nice-global .partner-brand{display:none;visibility:hidden;speak:none}.nice-partner .partner-logo{position:absolute;top:12px;left:12px;padding:0;margin:0;z-index:2}.nice-partner .partner-logo img{height:38px}}@media (max-width:797px){.tophat{min-height:48px;background:rgba(0,0,0,.075);padding-bottom:2px;margin-bottom:-2px}.tophat .logo{padding:0 0 0 24px}.tophat .logo:before{font-size:38px}.nice-services .menu{margin-right:-12px}.nice-services .menu a{width:auto;padding:6px}.nice-services .profile-avatar,.nice-services .service-logo{float:none;margin-left:0;display:inline-block}.nice-services .menu-search{display:block}.nice-services .menu-label{display:none;visibility:hidden}.nice-services .menu-profile a{padding:8px 12px}.nice-services .anon a{padding:6px 12px}.nice-services .anon .menu-label{display:block;visibility:visible}.nice-global{display:none}.menu-search-open .nice-global{display:block}}@media (max-width:499px){.nice-profile,.nice-evidence{position:absolute;width:100%;z-index:3}.nice-profile a,.nice-evidence a{border-left:0;border-top:1px solid #2d6475}.nice-profile li:first-child a,.nice-evidence li:first-child a{border-top:0}.menu-profile-open .nice-profile{padding:0;left:0;margin-left:0}.tophat .nice-profile .menu,.tophat .nice-evidence .menu,.tophat .nice-profile li,.tophat .nice-evidence li{float:none;display:block;margin-left:0;border-right:0}.nice-services .menu a{padding:4px 1px}.nice-services .menu .menu-profile a{padding:6px 1px}.nice-services .menu .anon a{padding:4px 6px}}"; (require("/Users/matt/Documents/branches/NICE.Tophat/node_modules/cssify"))(css); module.exports = css;
+var css = "@font-face{font-family:\"NICE.Glyphs\";src:url(http://cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.eot?#iefix&v=1.3) format('embedded-opentype'),url(http://cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.woff?v=1.3) format('woff'),url(http://cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.ttf?v=13) format('truetype'),url(http://cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.svg#fontawesomeregular?v=1.3) format('svg');font-weight:400;font-style:normal}.nice-tophat{overflow:visible;margin-bottom:0;min-height:60px;*position:relative;*z-index:2;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:14px;font-weight:400;line-height:24px}.nice-tophat .tophat-inner{width:95.74468085%;max-width:1170px;margin:0 auto}.nice-tophat .menu{position:relative;left:0;display:block;float:right;margin:0 0 0 12px;padding:0;list-style:none}.nice-tophat .menu li{float:left}.nice-tophat a{display:block;padding:6px 12px;color:#fff;text-decoration:none;font-weight:400}.nice-tophat a:focus,.nice-tophat a:hover,.nice-tophat a:active{color:#fff;text-decoration:none}.layout-fill .nice-tophat .tophat-inner{width:auto;max-width:100%;margin:0 12px}.nice-tophat .logo,.nice-tophat .icon-search,.nice-tophat .profile-avatar,.nice-tophat [class^=service-logo-]{font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased}.nice-tophat .logo,.nice-tophat .partner-logo{float:left;display:block;padding:6px 24px;margin-left:-24px;font-size:0;line-height:0}.nice-tophat .logo small{display:none}.nice-tophat .logo:before{content:\"\\e01a\\e01b\";font-size:48px;line-height:48px;letter-spacing:-.6em}.nice-tophat .profile-avatar,.nice-tophat .service-logo{float:left;position:relative;width:40px;height:40px;line-height:40px;vertical-align:-35%;margin-left:-48px;font-style:normal}.nice-tophat .profile-avatar,.nice-tophat [class^=service-logo-]{color:#fff;text-align:center;position:absolute;width:100%;height:100%;font-size:20px;line-height:inherit;vertical-align:baseline;speak:none;*line-height:40px}.nice-tophat .profile-avatar:before,.nice-tophat [class^=service-logo-]:before{display:inline-block;height:40px;width:40px}.nice-tophat .profile-avatar{float:none;position:relative;margin-left:0}.nice-tophat .service-logo-pathways:before{content:\"\\e005\"}.nice-tophat .service-logo-standards:before{content:\"\\e002\"}.nice-tophat .service-logo-guidance:before{content:\"\\e00e\"}.nice-tophat .service-logo-evidence:before{content:\"\\e017\"}.nice-tophat .icon-search:before,.nice-tophat .service-logo-search:before{content:\"\\e004\"}.nice-tophat .profile-avatar:before{content:\"\\e01f\"}.nice-tophat .service-logo-base{color:#333;font-size:40px;*line-height:40px}.nice-tophat .service-logo-base:before{content:\"\\e019\"}.nice-services,.nice-evidence,.nice-profile,.nice-global{overflow:hidden;clear:both}.nice-services{background-color:#333}.nice-services a{width:70px;padding:10px 0 10px 60px;line-height:20px;border-left:1px solid #343c41}.nice-services a:hover [class^=service-logo-],.nice-services a:focus [class^=service-logo-],.nice-services a:active [class^=service-logo-],.nice-services .active [class^=service-logo-],.nice-services .open [class^=service-logo-]{color:#000}.nice-services a:hover .service-logo-base,.nice-services a:focus .service-logo-base,.nice-services a:active .service-logo-base,.nice-services .active .service-logo-base,.nice-services .open .service-logo-base{color:#FFC100}.nice-services .menu a:hover,.nice-services .menu a:focus,.nice-services .menu a:active{background-color:#234e5b}.nice-services .open a,.nice-services .active a,.nice-services .open a:hover,.nice-services .active a:hover,.nice-services .open a:focus,.nice-services .active a:focus,.nice-services .open a:active,.nice-services .active a:active{background-color:#316e80}.nice-services .menu-anonymous a,.nice-services .menu-profile a{width:auto;text-align:center;padding:12px}.nice-services .menu-anonymous a{line-height:40px;padding:10px 12px}.nice-services .menu-profile .menu-label,.nice-services .menu-guidance .menu-label{line-height:40px}.nice-services .menu-profile .profile-avatar{display:inline-block;width:36px;height:36px;line-height:40px}.nice-services .menu-pathways a{width:65px}.nice-services .menu-standards a{width:95px}.nice-services .menu-search{display:none}.nice-profile,.nice-evidence{background:#316e80;display:none}.nice-profile .menu,.nice-evidence .menu{border-right:1px solid #2d6475}.nice-profile a,.nice-evidence a{padding-left:12px;padding-right:12px;border-left:1px solid #2d6475}.nice-profile a:hover,.nice-evidence a:hover,.nice-profile a:focus,.nice-evidence a:focus,.nice-profile a:active,.nice-evidence a:active{background-color:#387e92}.nice-profile .active a:hover,.nice-evidence .active a:hover,.nice-profile .active a:focus,.nice-evidence .active a:focus,.nice-profile .active a:active,.nice-evidence .active a:active,.nice-profile .active a,.nice-evidence .active a{color:#000;background-color:#ffc100}.menu-profile-open .nice-profile,.menu-evidence-open .nice-evidence{display:block}.nice-profile{position:absolute;width:100%;z-index:3;width:250px;padding:6px 0;left:50%;margin-left:340px}.nice-profile a{border-left:0;border-top:1px solid #2d6475}.nice-profile li:first-child a{border-top:0}.nice-tophat .nice-profile .menu,.nice-tophat .nice-profile li{float:none;display:block;margin-left:0;border-right:0}.nice-global{background:#eff1f3}.nice-global a{font-size:16px;color:#000;padding:19px 12px 20px}.nice-global a:hover,.nice-global a:focus,.nice-global a:active{color:#000;background:rgba(255,255,255,.4);padding-bottom:16px;border-bottom:4px solid #ffc100}.nice-global .active a,.nice-global .active a:hover,.nice-global .active a:focus,.nice-global .active a:active{background:rgba(255,255,255,.6);padding-bottom:16px;border-bottom:4px solid #ffc100}.nice-global .icon-search{font-size:24px}.nice-partner .partner-logo{float:left;display:block;margin:12px 0 0 -24px}.nice-partner .partner-logo:hover,.nice-partner .partner-logo:focus,.nice-partner .partner-logo:active{background:0 0;padding-bottom:0;border-bottom:none}.nice-partner .partner-logo img{height:72px}.nice-partner .partner-brand{display:block;font-size:24px;line-height:36px;margin:0 0 -6px;padding:12px 0 0;color:#888}.nice-partner .publication-date{float:right;font-size:16px;margin-top:-4px;margin-right:12px;color:#666}.nice-search{float:left;position:relative;width:40%;margin:12px 0}.nice-search .controls{margin-right:40px}.nice-search input{display:block;width:100%;padding:0 12px;margin:0;height:36px;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:1;color:#333;border:1px solid #ccc;vertical-align:middle;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}.nice-search input:focus{outline:0}.nice-search button{display:inline-block;color:#fff;background:#1167b7;overflow:hidden;position:absolute;height:38px;width:38px;margin:0;padding:0;top:0;right:0;border:1px solid #1167b7;font-size:0;line-height:normal}@media (max-width:1059px){.nice-tophat .logo:before{content:\"\\e01a\"}}@media (max-width:979px){.nice-tophat .tophat-inner{width:auto;max-width:100%;margin:0 12px}.menu-profile-open .nice-profile,.menu-evidence-open .nice-evidence{display:block}.nice-search{width:100%}.nice-partner .controls{margin-left:110px}.nice-global{position:relative}.nice-global .menu,.nice-global .partner-brand{display:none;visibility:hidden;speak:none}.nice-partner .partner-logo{position:absolute;top:12px;left:12px;padding:0;margin:0;z-index:2}.nice-partner .partner-logo img{height:38px}}@media (max-width:797px){.nice-tophat{min-height:48px;background:rgba(0,0,0,.075);padding-bottom:2px;margin-bottom:-2px}.nice-tophat .logo{padding:0 0 0 24px}.nice-tophat .logo:before{font-size:38px}.nice-services .menu{margin-right:-12px}.nice-services .menu a{width:auto;padding:6px}.nice-services .profile-avatar,.nice-services .service-logo{float:none;margin-left:0;display:inline-block}.nice-services .menu-search{display:block}.nice-services .menu-label{display:none;visibility:hidden}.nice-services .menu-profile a{padding:8px 12px}.nice-services .anon a{padding:6px 12px}.nice-services .anon .menu-label{display:block;visibility:visible}.nice-global{display:none}.menu-search-open .nice-global{display:block}}@media (max-width:499px){.nice-profile,.nice-evidence{position:absolute;width:100%;z-index:3}.nice-profile a,.nice-evidence a{border-left:0;border-top:1px solid #2d6475}.nice-profile li:first-child a,.nice-evidence li:first-child a{border-top:0}.menu-profile-open .nice-profile{padding:0;left:0;margin-left:0}.nice-tophat .nice-profile .menu,.nice-tophat .nice-evidence .menu,.nice-tophat .nice-profile li,.nice-tophat .nice-evidence li{float:none;display:block;margin-left:0;border-right:0}.nice-services .menu a{padding:4px 1px}.nice-services .menu .menu-profile a{padding:6px 1px}.nice-services .menu .anon a{padding:4px 6px}}"; (require("/Users/matt/Documents/branches/NICE.Tophat/node_modules/cssify"))(css); module.exports = css;
 },{"/Users/matt/Documents/branches/NICE.Tophat/node_modules/cssify":1}],3:[function(require,module,exports){
 var utils = require('./tophat.utils');
+var activeElement;
 
 function attachTophatEvents( document, tophatElement, serviceElement ) {
     var add    = document.addEventListener ? 'addEventListener' : 'attachEvent'
@@ -54,7 +55,7 @@ function clickhandler( ev ) {
 
     while ( validateTarget( target ) ) {
 
-        if ( ~target.className.indexOf( 'tophat' ) ) {
+        if ( ~target.className.indexOf( 'nice-tophat' ) ) {
             target = undefined;
             break;
         }
@@ -62,12 +63,12 @@ function clickhandler( ev ) {
         target = target.parentNode;
     }
 
-    var mustIgnoreEvent = !( target && !~target.className.indexOf( 'tophat' ) );
+    var mustIgnoreEvent = !( target && !~target.className.indexOf( 'nice-tophat' ) );
     if (mustIgnoreEvent) return;
 
     var event = enhance( ev ).preventDefault();
 
-    var elementAlreadyActive = (target === this.activeElement);
+    var elementAlreadyActive = (target === activeElement);
     if (elementAlreadyActive) return;
 
     this.activeElement = updateStates( this.tophatElement, target, this.activeElement );
@@ -78,7 +79,7 @@ function cancelhandler( ev ) {
       , tophatEvent = false;
 
     while ( target ) {
-        if ( target.className && ~target.className.indexOf( 'tophat' ) ) {
+        if ( target.className && ~target.className.indexOf( 'nice-tophat' ) ) {
             tophatEvent = true;
             break;
         }
@@ -89,7 +90,7 @@ function cancelhandler( ev ) {
     if ( tophatEvent ) return;
 
     if (activeElement) activeElement.className = activeElement.className.replace( ' open', '' );
-    tophatElement.className = 'tophat';
+    tophatElement.className = 'nice-tophat';
     activeElement = undefined;
 }
 
@@ -109,7 +110,7 @@ function validateTarget( target ) {
 }
 
 function updateStates( tophatElement, target, activeElement ) {
-    tophatElement.className = 'tophat ' + target.className.replace( ' active', '' ) + '-open active';
+    tophatElement.className = 'nice-tophat ' + target.className.replace( ' active', '' ) + '-open active';
 
     if (activeElement) {
         activeElement.className = activeElement.className.replace( ' open', '' );
@@ -250,8 +251,8 @@ var body = document.body;
 var config = getTophatConfig();
 
 // find or create the tophat element
-var tophatElement = getTophatElement( 'tophat' );
-var profile = require('./tophat.profile')( tophatElement, config );
+var tophatElement = getTophatElement( 'nice-tophat' );
+require('./tophat.profile')( tophatElement, config );
 
 // create the service and evidence elements
 var serviceElement = require('./tophat.services')( tophatElement, config );
@@ -372,16 +373,12 @@ var tophatProfile = require('./tophat.profile.html');
 var tophatProfileLinks = require('./tophat.profile.links.html');
 
 function generateProfileElement( tophatElement, config ) {
-    xhr.get( config.accountsUrl, function( responseText, xhr ) {
-        /*jslint evil: true */
-        var data = new Function( 'return ' + responseText + ';' )();
+    if (config.profile === 'none') return disableProfile( tophatElement );
+
+    xhr.get( config.accountsUrl, function( data ) {
+        if (!data) return disableProfile( tophatElement );
 
         onGetProfileResult( tophatElement, data );
-    }, function( responseError, xhr ) {
-        /*jslint evil: true */
-        var error = new Function( 'return ' + responseError + ';' )();
-
-        onGetProfileResult( tophatElement, error );
     });
 }
 
@@ -411,8 +408,14 @@ function generateAnonymous( el, profile ) {
     var profileLink = menu.getElementsByTagName('a')[0];
 
     menu.className = 'menu-anonymous';
-    profileLink.href = profile.links[ 'Sign in' ] + '/signin';
+    profileLink.href = profile.links[ 'Sign in' ];
     profileLink.innerHTML = 'Sign in';
+}
+
+function disableProfile( el ) {
+    var menu = utils.find( el, 'menu-profile' )[0];
+
+    menu.parentNode.removeChild( menu );
 }
 
 function generateLinkList( links ) {
@@ -592,61 +595,32 @@ module.exports = utils;
 },{}],21:[function(require,module,exports){
 var xhr = {};
 
-xhr.get = function( url, resolve, reject ) {
-    var x = getXHR();
+xhr.get = function( url, resolve ) {
+    var head = document.getElementsByTagName("head")[0] || document.documentElement;
+    var script = document.createElement("script");
+    script.src = url + '?' + Math.floor(Math.random() * 10000000000);
 
-    x.open( 'GET', url, true );
+    // Handle Script loading
+    var done = false;
 
-    x.onreadystatechange = function() {
-        if ( x.readyState == 4 ) {
-            if ( x.status == 200 && resolve ) {
-                return resolve( x.responseText, x );
-            }
+    // Attach handlers for all browsers
+    script.onload = script.onreadystatechange = function() {
+        if ( !done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {
+            done = true;
+            resolve( window._na );
 
-            if (reject) {
-                reject( x.responseText, x );
+            // Handle memory leak in IE
+            script.onload = script.onreadystatechange = null;
+            if ( head && script.parentNode ) {
+                head.removeChild( script );
             }
         }
     };
 
-    x.send(false);
-
-    // return x;
+    // Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+    // This arises when a base node is used (#2709 and #4378).
+    head.insertBefore( script, head.firstChild );
 };
-
-var getXHR = function() {
-    var http;
-
-    try {
-        http = new XMLHttpRequest();
-
-        getXHR = function() {
-             return new XMLHttpRequest();
-        };
-    }
-    catch(e) {
-        var msxml = [ 'MSXML2.XMLHTTP.3.0', 'MSXML2.XMLHTTP', 'Microsoft.XMLHTTP' ];
-
-        for (var i=0, len = msxml.length; i < len; ++i) {
-            try {
-                http = new ActiveXObject(msxml[i]);
-
-                getXHR = getActiveXHRFactory( msxml[i] );
-
-                break;
-            }
-            catch(err) {}
-        }
-    }
-
-    return http;
-};
-
-function getActiveXHRFactory( namespace ) {
-    return function() {
-        return new ActiveXObject( namespace );
-    };
-}
 
 module.exports = xhr;
 

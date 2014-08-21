@@ -51,7 +51,7 @@
     font-style: normal;
 }
 
-.tophat {
+.nice-tophat {
     overflow: visible;
     margin-bottom: 0;
     min-height: @tophatMinHeight;
@@ -106,7 +106,7 @@
     }
 }
 
-.layout-fill .tophat .tophat-inner {
+.layout-fill .nice-tophat .tophat-inner {
     width: auto;
     max-width: 100%;
     margin: 0 @halfSpacing;
@@ -116,7 +116,7 @@
 
 /* glyphs, logos and icons */
 
-.tophat {
+.nice-tophat {
     .logo,
     .icon-search,
     .profile-avatar,
@@ -324,7 +324,7 @@
             background-color: @evidenceHoverBackgroundColor;
         }
     }
-    
+
     .active a:hover,
     .active a:focus,
     .active a:active,
@@ -359,7 +359,7 @@
     }
 }
 
-.tophat {
+.nice-tophat {
     .nice-profile {
         .menu,
         li {
@@ -380,22 +380,25 @@
         font-size: 16px;
         color: #000;
         padding: 19px @halfSpacing 20px;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: #000;
+            background: @globalHoverBackgroundColor;
+            padding-bottom: 16px;
+            border-bottom: 4px solid @globalLinkBorderColor;
+        }
     }
-    a:hover,
-    a:focus,
-    a:active {
-        color: #000;
-        background: @globalHoverBackgroundColor;
-        padding-bottom: 16px;
-        border-bottom: 4px solid @globalLinkBorderColor;
-    }
-    .active a,
-    .active a:hover,
-    .active a:focus,
-    .active a:active {
-        background: @globalActiveBackgroundColor;
-        padding-bottom: 16px;
-        border-bottom: 4px solid @globalLinkBorderColor;
+    .active a {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            background: @globalActiveBackgroundColor;
+            padding-bottom: 16px;
+            border-bottom: 4px solid @globalLinkBorderColor;
+        }
     }
     .icon-search {
         font-size: 24px;
@@ -407,6 +410,14 @@
         float: left;
         display: block;
         margin: @halfSpacing 0 0 (@fullSpacing * -1);
+
+        &:hover,
+        &:focus,
+        &:active {
+            background: none;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
 
         img {
             height: 72px;
@@ -445,7 +456,8 @@
     input {
         display: block;
         width: 100%;
-        padding: 0 1px;
+        padding: 0 12px;
+        margin: 0;
         height: @searchControlHeight;
         font-family: Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
         font-size: @searchControlFontSize;
@@ -483,17 +495,18 @@
         right: 0;
         border: 1px solid @searchButtonBackgroundColor;
         font-size: 0;
+        line-height: normal;
     }
 }
 
 @media (max-width: 1059px) {
-    .tophat .logo:before {
+    .nice-tophat .logo:before {
         content: "\e01a";
     }
 }
 
 @media (max-width: 979px) {
-    .tophat .tophat-inner {
+    .nice-tophat .tophat-inner {
         width: auto;
         max-width: 100%;
         margin: 0 @halfSpacing;
@@ -539,7 +552,7 @@
 }
 
 @media (max-width: 797px) {
-    .tophat {
+    .nice-tophat {
         min-height: 48px;
         background: @shadowColor;
         padding-bottom: 2px;
@@ -620,7 +633,7 @@
         margin-left: 0;
     }
 
-    .tophat {
+    .nice-tophat {
         .nice-profile,
         .nice-evidence {
             .menu,
