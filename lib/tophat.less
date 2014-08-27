@@ -240,15 +240,19 @@
     a:hover [class^="service-logo-"],
     a:focus [class^="service-logo-"],
     a:active [class^="service-logo-"],
-    .active [class^="service-logo-"],
-    .open [class^="service-logo-"] {
+    .menu-profile-open .menu-profile [class^="service-logo-"],
+    .menu-search-open .menu-search [class^="service-logo-"],
+    .menu-evidence-open .menu-evidence [class^="service-logo-"],
+    .active [class^="service-logo-"] {
         color: #000;
     }
     a:hover .service-logo-base,
     a:focus .service-logo-base,
     a:active .service-logo-base,
-    .active .service-logo-base ,
-    .open .service-logo-base {
+    .menu-profile-open .menu-profile .service-logo-base,
+    .menu-search-open .menu-search .service-logo-base,
+    .menu-evidence-open .menu-evidence .service-logo-base,
+    .active .service-logo-base {
         color: #FFC100;
     }
 
@@ -258,7 +262,9 @@
         background-color: @serviceHoverBackgroundColor;
     }
 
-    .open a,
+    .menu-profile-open .menu-profile a,
+    .menu-search-open .menu-search a,
+    .menu-evidence-open .menu-evidence a,
     .active a {
         &,
         &:hover,
