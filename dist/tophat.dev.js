@@ -36,6 +36,10 @@ module.exports.byUrl = function(url) {
 },{}],2:[function(require,module,exports){
 var attributes = [ 'service', 'evidence', 'environment', 'timestamp', 'search' ];
 
+var accountsDomains = {
+    "local": "http://nice.sts.local"
+};
+
 function getTophatConfig() {
     var config = {};
 
@@ -55,7 +59,8 @@ function getTophatConfig() {
 
     if (config.evidence) config.service = 'evidence';
 
-    config.accountsUrl = 'https://' + ( config.environment ? config.environment + '-' : '' ) + 'accounts.nice.org.uk/tophat';
+    var accountsDomain = accountsDomains[config.environment] || 'https://' + ( config.environment ? config.environment + '-' : '' ) + 'accounts.nice.org.uk';
+    config.accountsUrl = accountsDomain + '/tophat';
 
     return config;
 }
