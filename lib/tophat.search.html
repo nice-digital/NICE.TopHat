@@ -1,6 +1,6 @@
-<form class="nice-search">
+<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search">
     <div class="controls">
-        <input type="search" placeholder="Search..." />
+        <input name="q" autocomplete="off" spellcheck="false" placeholder="Search..." maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}" />
         <button type="submit">
             <i class="icon-search"></i>
             <span class="menu-label">Search</span>

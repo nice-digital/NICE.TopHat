@@ -34,14 +34,14 @@ module.exports.byUrl = function(url) {
 };
 
 },{}],2:[function(require,module,exports){
-var attributes = [ 'service', 'evidence', 'environment', 'timestamp', 'search' ];
+var attributes = [ 'service', 'evidence', 'environment', 'timestamp', 'search', 'typeaheadtype', 'typeaheadsource' ];
 
 var accountsDomains = {
     "local": "http://nice.sts.local"
 };
 
 function getTophatConfig() {
-    var config = {};
+    var config = { search: '' };
 
     var tag = getTophatScriptTag();
     if (tag) {
@@ -421,17 +421,22 @@ module.exports = generateProfileElement;
 },{"./tophat.profile.html":12,"./tophat.profile.links.html":14,"./tophat.utils":21,"./tophat.xhr":22}],14:[function(require,module,exports){
 module.exports = '<li><a href="{{href}}">{{label}}</a></li>';
 },{}],15:[function(require,module,exports){
-module.exports = '<form class="nice-search"><div class="controls"><input type="search" placeholder="Search..."> <button type="submit"><i class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
+module.exports = '<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search"><div class="controls"><input name="q" autocomplete="off" spellcheck="false" placeholder="Search..." maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}"> <button type="submit"><i class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
 },{}],16:[function(require,module,exports){
 var utils = require('./tophat.utils');
 var tophatSearch = require('./tophat.search.html');
 
 function generateSearchElement( globalElement, config ) {
-    if (config.search === 'false') {
+    if (config.search === '') {
         return;
     }
 
-    var searchElement = utils.create( tophatSearch );
+    var view = tophatSearch.replace('{{method}}', 'post')
+        .replace('{{action}}', config.search)
+        .replace('{{typeaheadtype}}', config.typeaheadtype)
+        .replace('{{typeaheadsource}}', config.typeaheadsource);
+
+    var searchElement = utils.create( view );
 
     addSearchToGlobal( globalElement, searchElement );
 
