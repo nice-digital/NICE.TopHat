@@ -15,15 +15,21 @@
 @foregroundColor: #fff;
 @shadowColor: rgba(0, 0, 0, 0.075);
 
+@internalServiceForegroundColor: #263238;
 @serviceBackgroundColor: #333;
+@internalServiceBackgroundColor: #fff;
 @serviceHoverBackgroundColor: #234E5B;
 @serviceActiveBackgroundColor: #316E80;
 @serviceBorderColor: #343C41;
 
+@internalEvidenceForegroundColor: #fff;
 @evidenceBackgroundColor: #316E80;
+@internalEvidenceBackgroundColor: #37474f;
 @evidenceHoverBackgroundColor: #387E92;
+@internalEvidenceHoverBackgroundColor: #03a9f4;
 @evidenceActiveBackgroundColor: #FFC100;
 @evidenceBorderColor: #2D6475;
+@internalEvidenceBorderColor: #37474f;
 
 @globalForegroundColor: #333;
 @globalBackgroundColor: #EFF1F3;
@@ -68,6 +74,9 @@
     font-size: @baseFontSize;
     font-weight: 400;
     line-height: @baseLineHeight;
+    -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
 
     .tophat-inner {
         width: 95.74468085%;
@@ -139,6 +148,8 @@
         line-height: 0;
     }
     .logo {
+        border-left: 0px;
+
         small {
             display: none;
         }
@@ -217,6 +228,35 @@
     }
 }
 
+.nice-internal {
+    position: fixed;
+    width: 100%;
+
+    .logo {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            color: @internalServiceForegroundColor;
+        }
+
+        small {
+            display: inline-block;
+            font-size: @baseFontSize * 2;
+            line-height: @baseLineHeight * 2;
+            vertical-align: top;
+        }
+
+        &:before {
+          font-size: 32px;
+          content: "\e01a";
+          letter-spacing: -12px;
+          float: left;
+          margin-top: 2px;
+        }
+    }
+}
+
 // menus
 .nice-services,
 .nice-evidence,
@@ -230,13 +270,6 @@
 .nice-services {
     background-color: @serviceBackgroundColor;
 
-    a {
-        width: 70px;
-        padding: 10px 0 10px 60px;
-        line-height: @serviceIconSize;
-        border-left: 1px solid @serviceBorderColor;
-    }
-
     a:hover [class^="service-logo-"],
     a:focus [class^="service-logo-"],
     a:active [class^="service-logo-"],
@@ -248,6 +281,13 @@
     a:active .service-logo-base,
     .active .service-logo-base {
         color: #FFC100;
+    }
+
+    .menu a {
+        width: 70px;
+        padding: 10px 0 10px 60px;
+        line-height: @serviceIconSize;
+        border-left: 1px solid @serviceBorderColor;
     }
 
     .menu a:hover,
@@ -298,6 +338,34 @@
 
     .menu-search {
         display: none;
+    }
+}
+
+.nice-internal {
+    .nice-services {
+        background: @internalServiceBackgroundColor;
+
+        a {
+            color: @internalServiceForegroundColor;
+            border-left: none;
+        }
+
+        .menu a:hover,
+        .menu a:focus,
+        .menu a:active {
+            color: @internalServiceForegroundColor;
+            background: none;
+        }
+
+        .active a {
+            &,
+            &:hover,
+            &:focus,
+            &:active {
+                color: @internalServiceForegroundColor;
+                background: none;
+            }
+        }
     }
 }
 
@@ -366,7 +434,6 @@
 
 .nice-profile {
     position: absolute;
-    width: 100%;
     z-index: 3;
     width: 250px;
     padding: 6px 0;
@@ -392,6 +459,43 @@
             margin-left: 0;
             border-right: 0;
         }
+    }
+}
+
+.nice-internal {
+    .profile-avatar {
+        color: @internalServiceForegroundColor;
+    }
+
+    .menu-profile a {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            background: none;
+        }
+    }
+
+    .nice-profile {
+        background-color: @internalEvidenceBackgroundColor;
+
+        li a {
+            border-top-color: @internalEvidenceBorderColor;
+            &,
+            &:hover,
+            &:focus,
+            &:active {
+                color: @internalEvidenceForegroundColor;
+            }
+
+            &:hover {
+                background-color: internalEvidenceHoverBackgroundColor;
+            }
+        }
+    }
+
+    .profile-container.open {
+        background: #f5f5f5;
     }
 }
 
@@ -528,9 +632,19 @@
     }
 }
 
+@media (max-width: 1180px) {
+    .nice-profile {
+        left: auto;
+        right: @halfSpacing;
+        margin-left: 0;
+    }
+}
+
 @media (max-width: 1059px) {
-    .nice-tophat .logo:before {
+    .nice-tophat .logo{
+      &:before {
         content: "\e01a";
+      }
     }
 }
 
@@ -592,6 +706,9 @@
 
             &:before {
                 font-size: 38px;
+            }
+            small {
+              display: none;
             }
         }
 
