@@ -44,7 +44,21 @@
 @searchButtonBackgroundColor: #1167B7;
 
 
-
+// helper
+.clearfix() {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
 
 
 @font-face {
@@ -58,13 +72,11 @@
 }
 
 .nice-tophat {
-    overflow: visible;
-    margin-bottom: 24px;
     min-height: @tophatMinHeight;
 
     // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
     *position: relative;
-    *z-index: 2;
+    *z-index: 2001;
 
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-text-size-adjust: 100%;
@@ -74,7 +86,6 @@
     font-size: @baseFontSize;
     font-weight: 400;
     line-height: @baseLineHeight;
-    -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
 
@@ -229,7 +240,7 @@
 }
 
 .nice-internal {
-    position: fixed;
+    min-height: 50px;
     width: 100%;
 
     .logo {
@@ -241,18 +252,20 @@
         }
 
         small {
+            font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
             display: inline-block;
             font-size: @baseFontSize * 2;
-            line-height: @baseLineHeight * 2;
+            line-height: (@baseLineHeight * 1.5);
             vertical-align: top;
         }
 
         &:before {
-          font-size: 32px;
-          content: "\e01a";
-          letter-spacing: -12px;
           float: left;
           margin-top: 2px;
+          font-size: 32px;
+          line-height: (@baseLineHeight * 1.5);
+          content: "\e01a";
+          letter-spacing: -12px;
         }
     }
 }
@@ -262,8 +275,7 @@
 .nice-evidence,
 .nice-profile,
 .nice-global {
-    overflow: hidden;
-    clear: both;
+    .clearfix()
 }
 
 // tophat services menu
@@ -348,6 +360,8 @@
         a {
             color: @internalServiceForegroundColor;
             border-left: none;
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
 
         .menu a:hover,
@@ -434,7 +448,7 @@
 
 .nice-profile {
     position: absolute;
-    z-index: 3;
+    z-index: 2003;
     width: 250px;
     padding: 6px 0;
     left: 50%;
@@ -530,6 +544,31 @@
     }
     .icon-search {
         font-size: 24px;
+    }
+}
+
+.nice-internal {
+    .nice-global {
+        a {
+            padding-top: 9px;
+            padding-bottom: 10px;
+
+            &:hover,
+            &:focus,
+            &:active {
+                padding-bottom: 8px;
+                border-bottom-width: 2px;
+            }
+        }
+        .active a {
+            &,
+            &:hover,
+            &:focus,
+            &:active {
+                padding-bottom: 8px;
+                border-bottom-width: 2px;
+            }
+        }
     }
 }
 
@@ -685,7 +724,7 @@
             left: @halfSpacing;
             padding: 0;
             margin: 0;
-            z-index: 2;
+            z-index: 2002;
 
             img {
                 height: 38px;
@@ -761,7 +800,7 @@
     .nice-evidence {
         position: absolute;
         width: 100%;
-        z-index: 3;
+        z-index: 2003;
 
         a {
             border-left: 0;
