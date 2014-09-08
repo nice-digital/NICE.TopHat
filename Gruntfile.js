@@ -45,13 +45,22 @@ module.exports = function( grunt )
     // grunt.registerTask('clean'     , [ 'clean' ]);
 
     // test
-    grunt.registerTask('webserver'    , [ 'connect:dev' ]);
-    grunt.registerTask('test'         , [ 'jshint:test', 'casperjs:desktop' ]);
+    grunt.registerTask(
+          'webserver'
+        , 'Starts a dev web server on the first available port starting from 8000 with the test and dist folders as the root.'
+        , [ 'connect:dev' ]);
+    grunt.registerTask(
+          'test'
+        , 'runs jshint against the script and test files then runs the phantomcss html screenshot tests to check for cahnages to the designs'
+        , [ 'jshint:test', 'casperjs:desktop' ]);
 
     // build
-    grunt.registerTask('build'        , [ 'jshint:src', 'htmlmin:templates', 'less:dist', 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
+    grunt.registerTask(
+          'build'
+        , 'builds the distributable scripts form the source files'
+        , [ 'jshint:src', 'htmlmin:templates', 'less:dist', 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
 
     // auto build
-    // grunt.registerTask('default'   , [ 'watch' ]);
+    grunt.registerTask('default'   , [ 'build', 'watch' ]);
 
 };
