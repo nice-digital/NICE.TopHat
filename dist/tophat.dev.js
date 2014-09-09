@@ -89,19 +89,73 @@ var utils = require('./tophat.utils');
 var activeElement;
 var tophatClassname = 'nice-tophat';
 
-function attachTophatEvents( document, tophatElement, serviceElement, config ) {
-    var add    = document.addEventListener ? 'addEventListener' : 'attachEvent'
-      , prefix = document.addEventListener ? '' : 'on';
-
+function tophatEvents( document, tophatElement, serviceElement, config ) {
     if (config.internal) {
         tophatClassname += ' nice-internal';
     }
+
+    attachTophatEvents( document, tophatElement );
+    fireCompleteEvent( document, tophatElement );
+}
+
+function attachTophatEvents( document, tophatElement ) {
+    var add    = document.addEventListener ? 'addEventListener' : 'attachEvent'
+      , prefix = document.addEventListener ? '' : 'on';
 
     this.tophatElement = tophatElement;
 
     tophatElement[add](prefix + 'click', proxy( this, clickhandler ), true);
 
     document[add](prefix + 'click', proxy( this, cancelhandler ), true);
+}
+
+function fireCompleteEvent( document, tophatElement ) {
+    fireDomEvent( document, tophatElement, 'complete' );
+}
+
+function fireAnalyticsEvent( c, a, l ) {
+    fireDomEvent( document, document, 'track', {
+        category: determineActualCategory( this, c )
+      , action: this.options.action || a || (this.$trackingElement.is('form') ? 'submitted' : this.$element.attr('rel') || 'clicked')
+      , label: this.options.label || l || determineAppropriateLabel( this )
+    });
+}
+
+function fireDomEvent( document, el, event, data ) {
+    var evt;
+
+    if ( document.createEventObject ) {
+        // dispatch for IE
+        evt = document.createEventObject();
+
+        if (data) {
+            for ( var pram in data ) {
+                evt[param] = data[param];
+            }
+        }
+
+        return el.fireEvent( 'on' + event, evt );
+    }
+
+    // dispatch for firefox + others
+    evt = document.createEvent( "HTMLEvents" );
+    evt.initEvent( event, true, true, data );
+
+    el.dispatchEvent( evt );
+}
+
+function trackingHandler( ev ) {
+    var target = ev.target || ev.srcElement;
+
+    var category = 'tophat'
+      , action = target.getAttribute('title')
+      , label = window.location.href;
+
+    if (isEvidenceServiceMenuLink) {
+        action = action += isCollapsed ? ' expanded' : ' collapsed';
+    }
+
+    fireAnalyticsEvent( category, action, label );
 }
 
 function clickhandler( ev ) {
@@ -192,7 +246,36 @@ function enhance( event ) {
     return event;
 }
 
-module.exports = attachTophatEvents;
+// event tracking methods
+
+function determineActualCategory( tracker, c ) {
+    var category = c || tracker.options.track
+      , alternative = tracker.options[ category ];
+
+    return alternative ? alternative : category;
+}
+
+function determineAppropriateLabel( tracker ) {
+    var page = window.location.href
+      , rel = tracker.$element.attr('rel')
+      , title = tracker.$element.attr('title')
+      , attr = tracker.$element.is('form') ? 'action' : 'href'
+      , href = tracker.$element.attr( attr );
+
+    if ( rel ) {
+        return rel;
+    }
+    if ( title ) {
+        return title;
+    }
+    if ( href ) {
+        return href;
+    }
+
+    return page;
+}
+
+module.exports = tophatEvents;
 
 },{"./tophat.utils":24}],5:[function(require,module,exports){
 module.exports = '<div class="nice-evidence" id="nice-evidence"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
