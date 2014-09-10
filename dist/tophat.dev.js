@@ -34,7 +34,7 @@ module.exports.byUrl = function(url) {
 };
 
 },{}],2:[function(require,module,exports){
-var attributes = [ 'service', 'evidence', 'environment', 'timestamp', 'search', 'typeaheadtype', 'typeaheadsource', 'internal' ];
+var attributes = [ 'service', 'evidence', 'environment', 'timestamp', 'search', 'typeaheadtype', 'typeaheadsource', 'internal', 'home' ];
 
 var accountsDomains = {
     "local": "http://nice.sts.local"
@@ -86,7 +86,7 @@ module.exports = getTophatConfig;
 var css = "@font-face{font-family:\"NICE.Glyphs\";src:url(//cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.eot?#iefix&v=1.3) format('embedded-opentype'),url(//cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.woff?v=1.3) format('woff'),url(//cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.ttf?v=13) format('truetype'),url(//cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.svg#fontawesomeregular?v=1.3) format('svg');font-weight:400;font-style:normal}.nice-tophat{min-height:60px;*position:relative;*z-index:2001;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:14px;font-weight:400;line-height:24px;-moz-box-shadow:0 0 6px 0 rgba(0,0,0,.2);box-shadow:0 0 6px 0 rgba(0,0,0,.2)}.nice-tophat .tophat-inner{width:95.74468085%;max-width:1170px;margin:0 auto}.nice-tophat .menu{position:relative;left:0;display:block;float:right;margin:0 0 0 12px;padding:0;list-style:none}.nice-tophat .menu li{float:left}.nice-tophat a{display:block;padding:6px 12px;color:#fff;text-decoration:none;font-weight:400}.nice-tophat a:focus,.nice-tophat a:hover,.nice-tophat a:active{color:#fff;text-decoration:none}.layout-fill .nice-tophat .tophat-inner{width:auto;max-width:100%;margin:0 12px}.nice-tophat .logo,.nice-tophat .icon-search,.nice-tophat .profile-avatar,.nice-tophat [class^=service-logo-]{font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased}.nice-tophat .logo,.nice-tophat .partner-logo{float:left;display:block;padding:6px 24px;margin-left:-24px;font-size:0;line-height:0}.nice-tophat .logo{border-left:0}.nice-tophat .logo small{display:none}.nice-tophat .logo:before{content:\"\\e01a\\e01b\";font-size:48px;line-height:48px;letter-spacing:-.6em}.nice-tophat .profile-avatar,.nice-tophat .service-logo{float:left;position:relative;width:40px;height:40px;line-height:40px;vertical-align:-35%;margin-left:-48px;font-style:normal}.nice-tophat .profile-avatar,.nice-tophat [class^=service-logo-]{color:#fff;text-align:center;position:absolute;width:100%;height:100%;font-size:20px;line-height:inherit;vertical-align:baseline;speak:none;*line-height:40px}.nice-tophat .profile-avatar:before,.nice-tophat [class^=service-logo-]:before{display:inline-block;height:40px;width:40px}.nice-tophat .profile-avatar{float:none;position:relative;margin-left:0}.nice-tophat .service-logo-pathways:before{content:\"\\e005\"}.nice-tophat .service-logo-standards:before{content:\"\\e002\"}.nice-tophat .service-logo-guidance:before{content:\"\\e00e\"}.nice-tophat .service-logo-evidence:before{content:\"\\e017\"}.nice-tophat .icon-search:before,.nice-tophat .service-logo-search:before{content:\"\\e004\"}.nice-tophat .profile-avatar:before{content:\"\\e01f\"}.nice-tophat .service-logo-base{color:#333;font-size:40px;*line-height:40px}.nice-tophat .service-logo-base:before{content:\"\\e019\"}.nice-internal{min-height:50px;width:100%}.nice-internal .logo,.nice-internal .logo:hover,.nice-internal .logo:focus,.nice-internal .logo:active{color:#263238}.nice-internal .logo small{font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;display:inline-block;font-size:28px;line-height:36px;vertical-align:top}.nice-internal .logo:before{float:left;margin-top:2px;font-size:32px;line-height:36px;content:\"\\e01a\";letter-spacing:-12px}.nice-services,.nice-evidence,.nice-profile,.nice-global{*zoom:1}.nice-services:before,.nice-evidence:before,.nice-profile:before,.nice-global:before,.nice-services:after,.nice-evidence:after,.nice-profile:after,.nice-global:after{display:table;content:\"\";line-height:0}.nice-services:after,.nice-evidence:after,.nice-profile:after,.nice-global:after{clear:both}.nice-services{background-color:#333}.nice-services a:hover [class^=service-logo-],.nice-services a:focus [class^=service-logo-],.nice-services a:active [class^=service-logo-],.nice-services .active [class^=service-logo-]{color:#000}.nice-services a:hover .service-logo-base,.nice-services a:focus .service-logo-base,.nice-services a:active .service-logo-base,.nice-services .active .service-logo-base{color:#FFC100}.nice-services .menu a{width:70px;padding:10px 0 10px 60px;line-height:20px;border-left:1px solid #343c41}.nice-services .menu a:hover,.nice-services .menu a:focus,.nice-services .menu a:active{background-color:#234e5b}.nice-services .active a,.nice-services .active a:hover,.nice-services .active a:focus,.nice-services .active a:active{background-color:#316e80}.nice-services .menu-anonymous a,.nice-services .menu-profile a{width:auto;text-align:center;padding:12px}.nice-services .menu-anonymous a{line-height:40px;padding:10px 12px}.nice-services .menu-profile .menu-label,.nice-services .menu-guidance .menu-label{line-height:40px}.nice-services .menu-profile .profile-avatar{display:inline-block;width:36px;height:36px;line-height:40px}.nice-services .menu-pathways a{width:65px}.nice-services .menu-standards a{width:95px}.nice-services .menu-search{display:none}.nice-internal .nice-services{background:#fff}.nice-internal .nice-services a{color:#263238;border-left:none;padding-top:5px;padding-bottom:5px}.nice-internal .nice-services .menu a:hover,.nice-internal .nice-services .menu a:focus,.nice-internal .nice-services .menu a:active{color:#263238;background:0 0}.nice-internal .nice-services .active a,.nice-internal .nice-services .active a:hover,.nice-internal .nice-services .active a:focus,.nice-internal .nice-services .active a:active{color:#263238;background:0 0}.menu-profile-open .menu-profile a,.menu-search-open .menu-search a,.menu-evidence-open .menu-evidence a,.menu-profile-open .menu-profile a:hover,.menu-search-open .menu-search a:hover,.menu-evidence-open .menu-evidence a:hover,.menu-profile-open .menu-profile a:focus,.menu-search-open .menu-search a:focus,.menu-evidence-open .menu-evidence a:focus,.menu-profile-open .menu-profile a:active,.menu-search-open .menu-search a:active,.menu-evidence-open .menu-evidence a:active{background-color:#316e80}.menu-profile-open .menu-profile [class^=service-logo-],.menu-search-open .menu-search [class^=service-logo-],.menu-evidence-open .menu-evidence [class^=service-logo-]{color:#000}.menu-profile-open .menu-profile .service-logo-base,.menu-search-open .menu-search .service-logo-base,.menu-evidence-open .menu-evidence .service-logo-base,.menu-profile-open .menu-profile .service-logo-base,.menu-search-open .menu-search .service-logo-base,.menu-evidence-open .menu-evidence .service-logo-base,.menu-profile-open .menu-profile .service-logo-base,.menu-search-open .menu-search .service-logo-base,.menu-evidence-open .menu-evidence .service-logo-base{color:#FFC100}.nice-profile,.nice-evidence{background:#316e80;display:none}.nice-profile .menu,.nice-evidence .menu{border-right:1px solid #2d6475}.nice-profile a,.nice-evidence a{padding-left:12px;padding-right:12px;border-left:1px solid #2d6475}.nice-profile a:hover,.nice-evidence a:hover,.nice-profile a:focus,.nice-evidence a:focus,.nice-profile a:active,.nice-evidence a:active{background-color:#387e92}.nice-profile .active a:hover,.nice-evidence .active a:hover,.nice-profile .active a:focus,.nice-evidence .active a:focus,.nice-profile .active a:active,.nice-evidence .active a:active,.nice-profile .active a,.nice-evidence .active a{color:#000;background-color:#ffc100}.menu-profile-open .nice-profile,.menu-evidence-open .nice-evidence{display:block}.nice-profile{position:absolute;z-index:2003;width:250px;padding:6px 0;left:50%;margin-left:340px}.nice-profile a{border-left:0;border-top:1px solid #2d6475}.nice-profile li:first-child a{border-top:0}.nice-tophat .nice-profile .menu,.nice-tophat .nice-profile li{float:none;display:block;margin-left:0;border-right:0}.nice-internal .profile-avatar{color:#263238}.nice-internal .menu-profile a,.nice-internal .menu-profile a:hover,.nice-internal .menu-profile a:focus,.nice-internal .menu-profile a:active{background:0 0}.nice-internal .nice-profile{background-color:#37474f}.nice-internal .nice-profile li a{border-top-color:#37474f}.nice-internal .nice-profile li a,.nice-internal .nice-profile li a:hover,.nice-internal .nice-profile li a:focus,.nice-internal .nice-profile li a:active{color:#fff}.nice-internal .nice-profile li a:hover{background-color:internalEvidenceHoverBackgroundColor}.nice-internal .profile-container.open{background:#f5f5f5}.nice-global{background:#eff1f3}.nice-global a{font-size:16px;color:#000;padding:19px 12px 20px}.nice-global a:hover,.nice-global a:focus,.nice-global a:active{color:#000;background:rgba(255,255,255,.4);padding-bottom:16px;border-bottom:4px solid #ffc100}.nice-global .active a,.nice-global .active a:hover,.nice-global .active a:focus,.nice-global .active a:active{background:rgba(255,255,255,.6);padding-bottom:16px;border-bottom:4px solid #ffc100}.nice-global .icon-search{font-size:24px}.nice-internal .nice-global a{padding-top:9px;padding-bottom:10px}.nice-internal .nice-global a:hover,.nice-internal .nice-global a:focus,.nice-internal .nice-global a:active{padding-bottom:8px;border-bottom-width:2px}.nice-internal .nice-global .active a,.nice-internal .nice-global .active a:hover,.nice-internal .nice-global .active a:focus,.nice-internal .nice-global .active a:active{padding-bottom:8px;border-bottom-width:2px}.nice-partner .partner-logo{float:left;display:block;margin:12px 0 0 -24px}.nice-partner .partner-logo:hover,.nice-partner .partner-logo:focus,.nice-partner .partner-logo:active{background:0 0;padding-bottom:0;border-bottom:none}.nice-partner .partner-logo img{height:72px}.nice-partner .partner-brand{display:block;font-size:24px;line-height:36px;margin:0 0 -6px;padding:12px 0 0;color:#888}.nice-partner .partner-brand small{float:right;margin:-10px 10px 0 0}.nice-partner .publication-date{float:right;font-size:16px;margin-top:-4px;margin-right:12px;color:#666}.nice-search{float:left;position:relative;width:40%;margin:12px 0}.nice-search .controls{margin-right:40px}.nice-search input{display:block;width:100%;padding:0 12px;margin:0;height:36px;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:1;color:#333;border:1px solid #ccc;vertical-align:middle;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}.nice-search input:focus{outline:0}.nice-search button{display:inline-block;color:#fff;background:#1167b7;overflow:hidden;position:absolute;height:38px;width:38px;margin:0;padding:0;top:0;right:0;border:1px solid #1167b7;font-size:0;line-height:normal}@media (max-width:1180px){.nice-profile{left:auto;right:12px;margin-left:0}}@media (max-width:1059px){.nice-tophat .logo:before{content:\"\\e01a\"}}@media (max-width:979px){.nice-tophat .tophat-inner{width:auto;max-width:100%;margin:0 12px}.menu-profile-open .nice-profile,.menu-evidence-open .nice-evidence{display:block}.nice-search{width:100%}.nice-partner .controls{margin-left:110px}.nice-global{position:relative}.nice-global .menu,.nice-global .partner-brand{display:none;visibility:hidden;speak:none}.nice-partner .partner-logo{position:absolute;top:12px;left:12px;padding:0;margin:0;z-index:2002}.nice-partner .partner-logo img{height:38px}}@media (max-width:797px){.nice-tophat{min-height:48px;background:rgba(0,0,0,.075);padding-bottom:2px;margin-bottom:-2px}.nice-tophat .logo{padding:0 0 0 24px}.nice-tophat .logo:before{font-size:38px}.nice-tophat .logo small{display:none}.nice-services .menu{margin-right:-12px}.nice-services .menu a{width:auto;padding:6px}.nice-services .profile-avatar,.nice-services .service-logo{float:none;margin-left:0;display:inline-block}.nice-services .menu-search{display:block}.nice-services .menu-label{display:none;visibility:hidden}.nice-services .menu-profile a{padding:8px 12px}.nice-services .anon a{padding:6px 12px}.nice-services .anon .menu-label{display:block;visibility:visible}.nice-global{display:none}.menu-search-open .nice-global{display:block}}@media (max-width:499px){.nice-profile,.nice-evidence{position:absolute;width:100%;z-index:2003}.nice-profile a,.nice-evidence a{border-left:0;border-top:1px solid #2d6475}.nice-profile li:first-child a,.nice-evidence li:first-child a{border-top:0}.menu-profile-open .nice-profile{padding:0;left:0;margin-left:0}.nice-tophat .nice-profile .menu,.nice-tophat .nice-evidence .menu,.nice-tophat .nice-profile li,.nice-tophat .nice-evidence li{float:none;display:block;margin-left:0;border-right:0}.nice-services .menu a{padding:4px 1px}.nice-services .menu .menu-profile a{padding:6px 1px}.nice-services .menu .anon a{padding:4px 6px}}"; (require("/Users/matt/Documents/branches/NICE.Tophat/node_modules/cssify"))(css); module.exports = css;
 },{"/Users/matt/Documents/branches/NICE.Tophat/node_modules/cssify":1}],4:[function(require,module,exports){
 var utils = require('./tophat.utils');
-var activeElement;
+var StateControl = require('./tophat.states');
 var tophatClassname = 'nice-tophat';
 var add, prefix;
 
@@ -97,6 +97,8 @@ function tophatEvents( document, tophatElement, serviceElement, config ) {
     if (config.internal) {
         tophatClassname += ' nice-internal';
     }
+
+    StateControl.forElement( tophatElement );
 
     attachTophatEvents( document, tophatElement );
 
@@ -109,12 +111,17 @@ function attachTophatEvents( document, tophatElement ) {
     attachDomEvent( tophatElement, 'click', proxy( tophatElement, trackingHandler ) );
 }
 
+
+
+
+// handlers
+
 function trackingHandler( ev ) {
     var target = ev.target || ev.srcElement;
 
     while ( !validateTrackedElement( target ) ) {
 
-        if ( !!~target.className.indexOf( 'nice-tophat' ) ) {
+        if ( ~target.className.indexOf( 'nice-tophat' ) ) {
             target = undefined;
             break;
         }
@@ -133,12 +140,13 @@ function trackingHandler( ev ) {
     var label = window.location.href;
 
     switch (target.className) {
-        case 'menu-evidence':
-            action += (~this.className.indexOf('menu-evidence-open') ? ' expanded' : ' collapased');
+        case 'menu-profile':
+            action = 'Your Profile' + (~this.className.indexOf( target.className + '-open' ) ? ' expanded' : ' collapased');
             break;
 
-        case 'menu-profile':
-            action = 'Your Profile' + (~this.className.indexOf('menu-profile-open') ? ' expanded' : ' collapased');
+        case 'menu-evidence':
+        case 'menu-search':
+            action += (~this.className.indexOf( target.className + '-open' ) ? ' expanded' : ' collapased');
             break;
     }
 
@@ -146,6 +154,17 @@ function trackingHandler( ev ) {
         window.location.href = href;
     });
 }
+
+function validateTrackedElement( target ) {
+    var isTrackedElement = target &&
+            target.nodeName.toLowerCase() === 'li' &&
+            ( ~target.className.indexOf( 'menu-' ) || ~target.className.indexOf( 'evidence-' )  );
+
+    return !!isTrackedElement;
+}
+
+
+
 
 function clickhandler( ev ) {
     var target = ev.target || ev.srcElement;
@@ -165,15 +184,47 @@ function clickhandler( ev ) {
 
     var event = enhance( ev ).preventDefault();
 
-    this.activeElement = updateStates( this, target, this.activeElement );
+    switch (target.className) {
+        case 'menu-evidence':
+            this.state.toggleEvidence();
+            break;
+
+        case 'menu-profile':
+            this.state.toggleProfile();
+            break;
+
+        case 'menu-search':
+            this.state.toggleSearch();
+            break;
+    }
 }
 
+function validateTarget( target ) {
+    var isValid = target &&
+            !~target.className.indexOf( 'menu-evidence' ) &&
+            !~target.className.indexOf( 'menu-search' ) &&
+            !~target.className.indexOf( 'menu-profile' );
+
+    return !!isValid;
+}
+
+
+
+
 function cancelhandler( ev ) {
-    var target = ev.target || ev.srcElement
-      , tophatEvent = false;
+    var target = ev.target || ev.srcElement;
+
+    if ( isTophatElement( target ) ) return;
+
+    this.state.unfocus();
+}
+
+function isTophatElement( el ) {
+    var tophatEvent = false;
+    var target = el;
 
     while ( target ) {
-        if ( target.className && !!~target.className.indexOf( 'nice-tophat' ) ) {
+        if ( target.className && ~target.className.indexOf( 'nice-tophat' ) ) {
             tophatEvent = true;
             break;
         }
@@ -181,11 +232,13 @@ function cancelhandler( ev ) {
         target = target.parentNode;
     }
 
-    if ( tophatEvent ) return;
-
-    this.className = tophatClassname;
-    activeElement = undefined;
+    return tophatEvent;
 }
+
+
+
+
+// Tracking helpers
 
 function sendTrackedEvent( category, action, label, cb ) {
     if ( window._gaq && typeof window._gaq.push === 'function' ) {
@@ -198,7 +251,8 @@ function sendTrackedEvent( category, action, label, cb ) {
 
     if (console && console.log) {
         console.log( 'track', category, action, label );
-        if (cb) cb();
+
+        if (cb) window.setTimeout( cb, 50 );
     }
 }
 
@@ -221,6 +275,11 @@ function sendUAEvent( category, action, label, cb ) {
 
     window.ga( 'send', 'event', data );
 }
+
+
+
+
+// utils
 
 function attachDomEvent( el, ev, fn ) {
     el[add]( prefix + ev, fn, true );
@@ -255,29 +314,6 @@ function proxy( context, fn ) {
     };
 }
 
-function validateTrackedElement( target ) {
-    var isTrackedElement = target &&
-            target.nodeName.toLowerCase() === 'li' &&
-            !!~target.className.indexOf( 'menu-' );
-
-    return isTrackedElement;
-}
-
-function validateTarget( target ) {
-    var isValid = target &&
-            !~target.className.indexOf( 'menu-evidence' ) &&
-            !~target.className.indexOf( 'menu-search' ) &&
-            !~target.className.indexOf( 'menu-profile' );
-
-    return isValid;
-}
-
-function updateStates( tophatElement, target, activeElement ) {
-    tophatElement.className = tophatClassname + ' ' + target.className.replace(' active', '') + '-open';
-
-    return target;
-}
-
 function enhance( event ) {
     var _stopPropagation = event.stopPropagation
       , _preventDefault = event.preventDefault;
@@ -305,9 +341,12 @@ function enhance( event ) {
     return event;
 }
 
+
+
+
 module.exports = tophatEvents;
 
-},{"./tophat.utils":24}],5:[function(require,module,exports){
+},{"./tophat.states":24,"./tophat.utils":25}],5:[function(require,module,exports){
 module.exports = '<div class="nice-evidence" id="nice-evidence"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
 },{}],6:[function(require,module,exports){
 var utils = require('./tophat.utils');
@@ -356,10 +395,15 @@ function generateLink( id, link, isBeta ) {
 
 module.exports = generateEvidenceElement;
 
-},{"./tophat.evidence.html":5,"./tophat.evidence.links":8,"./tophat.evidence.links.html":7,"./tophat.evidence.service.html":9,"./tophat.utils":24}],7:[function(require,module,exports){
+},{"./tophat.evidence.html":5,"./tophat.evidence.links":8,"./tophat.evidence.links.html":7,"./tophat.evidence.service.html":9,"./tophat.utils":25}],7:[function(require,module,exports){
 module.exports = '<li class="evidence-{{id}}"><a href="{{href}}" title="{{title}}">{{label}}</a></li>';
 },{}],8:[function(require,module,exports){
 module.exports = {
+    search: {
+        href: "http://evidence.nhs.uk",
+        label: "Evidence search",
+        title: "Evidence search"
+    },
     bnf: {
         href: "http://evidence.nhs.uk/formulary/bnf/current",
         beta: "http://beta.evidence.nhs.uk/formulary/bnf/current",
@@ -382,11 +426,6 @@ module.exports = {
         href: "http://evidence.nhs.uk/about-evidence-services/journals-and-databases",
         label: "Journals and databases",
         title: "Journals and databases"
-    },
-    search: {
-        href: "http://evidence.nhs.uk",
-        label: "Evidence search",
-        title: "Evidence search"
     }
 };
 
@@ -410,7 +449,7 @@ function generateGlobalElement( tophatElement ) {
 
 module.exports = generateGlobalElement;
 
-},{"./tophat.global.html":10,"./tophat.utils":24}],12:[function(require,module,exports){
+},{"./tophat.global.html":10,"./tophat.utils":25}],12:[function(require,module,exports){
 // stylesheet to be auto inserted
 require('./tophat.css');
 
@@ -484,7 +523,7 @@ function composeTophat( el, services, evidenceResources, globalMenu, config ) {
     utils.prependElement( tophatElement, body );
 }
 
-},{"./tophat.config.js":2,"./tophat.css":3,"./tophat.events":4,"./tophat.evidence":6,"./tophat.global":11,"./tophat.profile":14,"./tophat.search":18,"./tophat.services":21,"./tophat.utils":24}],13:[function(require,module,exports){
+},{"./tophat.config.js":2,"./tophat.css":3,"./tophat.events":4,"./tophat.evidence":6,"./tophat.global":11,"./tophat.profile":14,"./tophat.search":18,"./tophat.services":21,"./tophat.utils":25}],13:[function(require,module,exports){
 module.exports = '<div class="nice-profile" id="nice-profile"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
 },{}],14:[function(require,module,exports){
 var utils = require('./tophat.utils');
@@ -556,7 +595,7 @@ function generateLink( label, href ) {
 
 module.exports = generateProfileElement;
 
-},{"./tophat.profile.html":13,"./tophat.profile.links.html":15,"./tophat.profile.service.html":16,"./tophat.utils":24,"./tophat.xhr":25}],15:[function(require,module,exports){
+},{"./tophat.profile.html":13,"./tophat.profile.links.html":15,"./tophat.profile.service.html":16,"./tophat.utils":25,"./tophat.xhr":26}],15:[function(require,module,exports){
 module.exports = '<li><a href="{{href}}">{{label}}</a></li>';
 },{}],16:[function(require,module,exports){
 module.exports = '<li class="menu-profile"><a href="#nice-profile"><span class="profile-avatar"></span></a></li>';
@@ -596,7 +635,7 @@ function addSearchToGlobal( el, searchForm ) {
 
 module.exports = generateSearchElement;
 
-},{"./tophat.search.html":17,"./tophat.search.service.html":19,"./tophat.utils":24}],19:[function(require,module,exports){
+},{"./tophat.search.html":17,"./tophat.search.service.html":19,"./tophat.utils":25}],19:[function(require,module,exports){
 module.exports = '<li class="menu-search"><a href="#nice-global"><i class="service-logo"><i class="service-logo-base"></i> <i class="service-logo-search"></i></i> <span class="menu-label">Search</span></a></li>';
 },{}],20:[function(require,module,exports){
 module.exports = '<div class="nice-services"><div class="tophat-inner"><a href="{{homelink}}" class="logo">NICE <small>National Institute of<br>Health and Care Excellence</small></a><ul class="menu">{{menu}}</ul></div></div>';
@@ -662,7 +701,7 @@ function cleanUp( tophatElement ) {
 
 module.exports = generateServiceElement;
 
-},{"./tophat.services.html":20,"./tophat.services.links":23,"./tophat.services.links.html":22,"./tophat.utils":24}],22:[function(require,module,exports){
+},{"./tophat.services.html":20,"./tophat.services.links":23,"./tophat.services.links.html":22,"./tophat.utils":25}],22:[function(require,module,exports){
 module.exports = '<li class="menu-{{id}}"><a href="{{href}}"><i class="service-logo"><i class="service-logo-base"></i> <i class="service-logo-{{id}}"></i></i> <span class="menu-label">{{label}}</span></a></li>';
 },{}],23:[function(require,module,exports){
 module.exports = {
@@ -681,6 +720,72 @@ module.exports = {
 };
 
 },{}],24:[function(require,module,exports){
+
+function TophatStates( el ) {
+    this.element = el;
+    this.classname = el.className;
+
+    this.data = {
+        evidence: false
+      , profile: false
+      , search: false
+    };
+
+    el.state = this;
+}
+
+TophatStates.prototype = {
+
+    updateState: function() {
+        var classname = this.classname +
+            ( this.data.evidence ? ' menu-evidence-open' : '' ) +
+            ( this.data.profile ? ' menu-profile-open' : '' ) +
+            ( this.data.search ? ' menu-search-open' : '' );
+
+        this.element.className = classname;
+    }
+
+  , toggleEvidence: function() {
+        this.data.evidence = !this.data.evidence;
+        if (this.data.evidence) {
+            this.data.profile = false;
+            this.data.search = false;
+        }
+        this.updateState();
+    }
+
+  , toggleProfile: function() {
+        this.data.profile = !this.data.profile;
+        if (this.data.profile) {
+            this.data.search = false;
+            this.data.evidence = false;
+        }
+        this.updateState();
+    }
+
+  , toggleSearch: function() {
+        this.data.search = !this.data.search;
+        if (this.data.search) {
+            this.data.profile = false;
+            this.data.evidence = false;
+        }
+        this.updateState();
+    }
+
+  , unfocus: function() {
+        this.data.profile = false;
+        this.updateState();
+    }
+
+};
+
+module.exports = {
+    forElement: function( el ) {
+        new TophatStates( el );
+    }
+};
+
+},{}],25:[function(require,module,exports){
 var utils = {};
 
 utils.find = function( root, search ){
@@ -751,7 +856,7 @@ utils.appendElement = function( element, parent ) {
 
 module.exports = utils;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 var xhr = {};
 
 xhr.get = function( url, resolve ) {
