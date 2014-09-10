@@ -20,10 +20,10 @@
         $(window).on('track', function( ev ) {
             $('#log').append('<li>' + ev.catgory + ', ' + ev.action + ', ' + ev.label + '</li>')
         });
-        $(document.body).on('generated', '.nice-tophat', function( ev ) {
+        $(document.body).on('load', '.nice-tophat', function( ev ) {
             $('#log').append('<li>Tophat generation completed</li>')
         });
-        $(document.body).on('generated.nice.tophat', '.nice-tophat', function( ev ) {
+        $(document.body).on('load.nice.tophat', '.nice-tophat', function( ev ) {
             $('#log').append('<li>Namespaced Tophat generation completed</li>')
         });
     </script>

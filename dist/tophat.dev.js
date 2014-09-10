@@ -100,28 +100,51 @@ function tophatEvents( document, tophatElement, serviceElement, config ) {
 
     attachTophatEvents( document, tophatElement );
 
-    fireDomEvent( document, tophatElement, 'generated' );
+    fireDomEvent( document, tophatElement, 'load' );
 }
 
 function attachTophatEvents( document, tophatElement ) {
     attachDomEvent( tophatElement, 'click', proxy( tophatElement, clickhandler ) );
     attachDomEvent( document, 'click', proxy( tophatElement, cancelhandler ) );
-
     attachDomEvent( tophatElement, 'click', proxy( tophatElement, trackingHandler ) );
 }
 
 function trackingHandler( ev ) {
     var target = ev.target || ev.srcElement;
 
-    var category = 'tophat'
-      , action = utils.find( target, 'menu-label' )[0].innerHTML
-      , label = window.location.href;
+    while ( !validateTrackedElement( target ) ) {
 
-    if (~target.className.indexOf( 'menu-evidence' )) {
-        action = action += !~this.className.indexOf( 'menu-evidence-open' ) ? ' expanded' : ' collapsed';
+        if ( !!~target.className.indexOf( 'nice-tophat' ) ) {
+            target = undefined;
+            break;
+        }
+
+        target = target.parentNode;
     }
 
-    fireAnalyticsEvent( category, action, label );
+    if (!target) return;
+
+    var event = enhance( ev ).preventDefault();
+    var href = target.href || target.getElementsByTagName('a')[0].href;
+
+    var category = 'tophat';
+    var labelEl = ( utils.find( target, 'menu-label' )[0] || target);
+    var action = labelEl.textContent || labelEl.innerText || labelEl.innerHTML;
+    var label = window.location.href;
+
+    switch (target.className) {
+        case 'menu-evidence':
+            action += (~this.className.indexOf('menu-evidence-open') ? ' expanded' : ' collapased');
+            break;
+
+        case 'menu-profile':
+            action = 'Your Profile' + (~this.className.indexOf('menu-profile-open') ? ' expanded' : ' collapased');
+            break;
+    }
+
+    sendTrackedEvent( category, action, label, function() {
+        window.location.href = href;
+    });
 }
 
 function clickhandler( ev ) {
@@ -150,7 +173,7 @@ function cancelhandler( ev ) {
       , tophatEvent = false;
 
     while ( target ) {
-        if ( target.className && ~target.className.indexOf( 'nice-tophat' ) ) {
+        if ( target.className && !!~target.className.indexOf( 'nice-tophat' ) ) {
             tophatEvent = true;
             break;
         }
@@ -164,16 +187,43 @@ function cancelhandler( ev ) {
     activeElement = undefined;
 }
 
-function fireAnalyticsEvent( tophatElement, c, a, l ) {
-    fireDomEvent( document, tophatElement, 'track', {
-        category: determineActualCategory( this, c )
-      , action: this.options.action || a || (this.$trackingElement.is('form') ? 'submitted' : this.$element.attr('rel') || 'clicked')
-      , label: this.options.label || l || determineAppropriateLabel( this )
-    });
+function sendTrackedEvent( category, action, label, cb ) {
+    if ( window._gaq && typeof window._gaq.push === 'function' ) {
+        return sendGAEvent( category, action, label, cb );
+    }
+
+    if ( typeof window.ga === 'function' ) {
+        return sendUAEvent( category, action, label, cb );
+    }
+
+    if (console && console.log) {
+        console.log( 'track', category, action, label );
+        if (cb) cb();
+    }
+}
+
+function sendGAEvent( category, action, label, cb ) {
+    var data = [ '_trackEvent', category, action, label ];
+
+    window._gaq.push( data );
+
+    if (cb) window.setTimeout( cb, 50 );
+}
+
+function sendUAEvent( category, action, label, cb ) {
+    var data = {
+        category: category,
+        action: action,
+        label: label
+    };
+
+    if (cb) data.hitCallback = cb;
+
+    window.ga( 'send', 'event', data );
 }
 
 function attachDomEvent( el, ev, fn ) {
-    el[add](prefix + ev, fn, true);
+    el[add]( prefix + ev, fn, true );
 }
 
 function fireDomEvent( document, el, event, data ) {
@@ -203,6 +253,14 @@ function proxy( context, fn ) {
     return function( ev ) {
         fn.call( context, ev );
     };
+}
+
+function validateTrackedElement( target ) {
+    var isTrackedElement = target &&
+            target.nodeName.toLowerCase() === 'li' &&
+            !!~target.className.indexOf( 'menu-' );
+
+    return isTrackedElement;
 }
 
 function validateTarget( target ) {
@@ -245,35 +303,6 @@ function enhance( event ) {
     };
 
     return event;
-}
-
-// event tracking methods
-
-function determineActualCategory( tracker, c ) {
-    var category = c || tracker.options.track
-      , alternative = tracker.options[ category ];
-
-    return alternative ? alternative : category;
-}
-
-function determineAppropriateLabel( tracker ) {
-    var page = window.location.href
-      , rel = tracker.$element.attr('rel')
-      , title = tracker.$element.attr('title')
-      , attr = tracker.$element.is('form') ? 'action' : 'href'
-      , href = tracker.$element.attr( attr );
-
-    if ( rel ) {
-        return rel;
-    }
-    if ( title ) {
-        return title;
-    }
-    if ( href ) {
-        return href;
-    }
-
-    return page;
 }
 
 module.exports = tophatEvents;
@@ -570,7 +599,7 @@ module.exports = generateSearchElement;
 },{"./tophat.search.html":17,"./tophat.search.service.html":19,"./tophat.utils":24}],19:[function(require,module,exports){
 module.exports = '<li class="menu-search"><a href="#nice-global"><i class="service-logo"><i class="service-logo-base"></i> <i class="service-logo-search"></i></i> <span class="menu-label">Search</span></a></li>';
 },{}],20:[function(require,module,exports){
-module.exports = '<div class="nice-services"><div class="tophat-inner"><a href="http://www.nice.org.uk" class="logo">NICE <small>National Institute of<br>Health and Care Excellence</small></a><ul class="menu">{{menu}}</ul></div></div>';
+module.exports = '<div class="nice-services"><div class="tophat-inner"><a href="{{homelink}}" class="logo">NICE <small>National Institute of<br>Health and Care Excellence</small></a><ul class="menu">{{menu}}</ul></div></div>';
 },{}],21:[function(require,module,exports){
 var utils = require('./tophat.utils');
 var serviceLinks = require('./tophat.services.links');
@@ -589,7 +618,11 @@ function generateServiceElement( tophatElement, config ) {
 }
 
 function generateServiceBar( menu, config ) {
-    var el = utils.create( tophatServices.replace( '{{menu}}', menu ) );
+    var services = tophatServices
+            .replace( '{{menu}}', menu )
+            .replace( '{{homelink}}', config.home || 'http://www.nice.org.uk');
+
+    var el = utils.create( services );
 
     if (config.internal) {
         utils.find( el, 'logo')[0].getElementsByTagName( 'small' )[0].innerHTML = config.internal;
