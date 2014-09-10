@@ -20,8 +20,11 @@
         $(window).on('track', function( ev ) {
             $('#log').append('<li>' + ev.catgory + ', ' + ev.action + ', ' + ev.label + '</li>')
         });
-        $(document.body).on('complete', '.nice-tophat', function( ev ) {
-            $('#log').append('<li>Tophat build completed</li>')
+        $(document.body).on('generated', '.nice-tophat', function( ev ) {
+            $('#log').append('<li>Tophat generation completed</li>')
+        });
+        $(document.body).on('generated.nice.tophat', '.nice-tophat', function( ev ) {
+            $('#log').append('<li>Namespaced Tophat generation completed</li>')
         });
     </script>
     <script src="./tophat.dev.js" data-environment="local" data-search="/Search" defer async></script>
