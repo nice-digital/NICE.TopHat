@@ -414,7 +414,7 @@
 .nice-profile,
 .nice-evidence {
     background: @evidenceBackgroundColor;
-    display: none;
+    display: block;
 
     .menu {
         border-right: 1px solid @evidenceBorderColor;
@@ -439,8 +439,10 @@
         background-color: @evidenceActiveBackgroundColor;
     }
 }
-.menu-profile-open .nice-profile,
-.menu-evidence-open .nice-evidence {
+.nice-profile {
+    display: none;
+}
+.menu-profile-open .nice-profile {
     display: block;
 }
 
@@ -462,6 +464,11 @@
     li:first-child a {
         border-top: 0;
     }
+}
+.layout-fill .nice-profile {
+    left: auto;
+    right: @halfSpacing;
+    margin-left: 0;
 }
 
 .nice-tophat {
@@ -693,10 +700,6 @@
         max-width: 100%;
         margin: 0 @halfSpacing;
     }
-    .menu-profile-open .nice-profile,
-    .menu-evidence-open .nice-evidence {
-        display: block;
-    }
 
     .nice-search {
         width: 100%;
@@ -787,9 +790,11 @@
         }
     }
 
+    .nice-evidence,
     .nice-global {
         display: none;
     }
+    .menu-evidence-open .nice-evidence,
     .menu-search-open .nice-global {
         display: block;
     }
