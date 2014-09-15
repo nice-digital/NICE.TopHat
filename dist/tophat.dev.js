@@ -101,8 +101,6 @@ function tophatEvents( document, tophatElement, serviceElement, config ) {
     StateControl.forElement( tophatElement );
 
     attachTophatEvents( document, tophatElement );
-
-    fireDomEvent( document, tophatElement, 'load' );
 }
 
 function attachTophatEvents( document, tophatElement ) {
@@ -490,7 +488,10 @@ composeTophat( tophatElement, serviceElement, evidenceElement, globalElement, co
 // attach all the events to the tophat
 require('./tophat.events')( document, tophatElement, serviceElement, config );
 
-
+// notify scripts that tophat has loaded
+if (document.onTophatReady) {
+    document.onTophatReady();
+}
 
 
 
@@ -540,7 +541,10 @@ function generateProfileElement( tophatElement, serviceElement, config ) {
     utils.appendElement( utils.create( tophatProfileService ), utils.find( serviceElement, 'menu' )[0] );
 
     xhr.get( config.accountsUrl, function( data ) {
-        if (!data) return disableProfile( tophatElement );
+        if (!data) {
+          disableProfile( tophatElement );
+          return;
+        }
 
         onGetProfileResult( tophatElement, data );
     });
@@ -548,7 +552,8 @@ function generateProfileElement( tophatElement, serviceElement, config ) {
 
 function onGetProfileResult( el, profile ) {
     if (profile.display_name) {
-        return generateProfile( el, profile );
+        generateProfile( el, profile );
+        return;
     }
 
     generateAnonymous( el, profile );
@@ -567,6 +572,11 @@ function generateProfile( el, profile ) {
     var menu = utils.create( tophatProfile.replace( '{{menu}}', linklist ) );
 
     utils.insertBeforeElement( menu, el.lastChild );
+}
+
+function disableProfile( el ) {
+    var profilenav = utils.find( el, 'menu-profile' )[0];
+    utils.remove( profilenav );
 }
 
 function generateAnonymous( el, profile ) {
@@ -842,6 +852,10 @@ utils.create = function( html ) {
     wrapper.innerHTML = html;
 
     return wrapper.firstChild;
+};
+
+utils.remove = function( element ) {
+    element.parentNode.removeChild( element );
 };
 
 utils.prependElement = function( element, parent ) {
