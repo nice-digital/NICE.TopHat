@@ -74,7 +74,9 @@ function getTophatScriptTag() {
     len = tags.length;
 
     for (i = 0; i < len; i++) {
-        if ( tags[i].src.indexOf('/tophat.js') || tags[i].src.indexOf('/tophat.dev.js') ) {
+        var src = tags[i].src.toLowerCase();
+
+        if ( !!~src.indexOf('/tophat.js') || !!~src.indexOf('/tophat.dev.js') ) {
             return tags[i];
         }
     }
@@ -875,10 +877,11 @@ utils.appendElement = function( element, parent ) {
 module.exports = utils;
 
 },{}],26:[function(require,module,exports){
+var utils = require('./tophat.utils');
 var xhr = {};
 
 xhr.get = function( url, resolve ) {
-    var head = document.getElementsByTagName("head")[0] || document.documentElement;
+    var body = document.body;
     var script = document.createElement("script");
     script.src = url + '?' + Math.floor(Math.random() * 10000000000);
 
@@ -893,17 +896,15 @@ xhr.get = function( url, resolve ) {
 
             // Handle memory leak in IE
             script.onload = script.onreadystatechange = null;
-            if ( head && script.parentNode ) {
-                head.removeChild( script );
+            if ( body && script.parentNode ) {
+                body.removeChild( script );
             }
         }
     };
 
-    // Use insertBefore instead of appendChild  to circumvent an IE6 bug.
-    // This arises when a base node is used (#2709 and #4378).
-    head.insertBefore( script, head.firstChild );
+    utils.prependElement( script, body );
 };
 
 module.exports = xhr;
 
-},{}]},{},[12]);
+},{"./tophat.utils":25}]},{},[12]);
