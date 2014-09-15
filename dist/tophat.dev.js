@@ -78,7 +78,7 @@ function getTophatScriptTag() {
     for (i = 0; i < len; i++) {
         var src = tags[i].src.toLowerCase();
 
-        if ( !!~src.indexOf('/tophat.js') || !!~src.indexOf('/tophat.dev.js') ) {
+        if ( !!~src.indexOf('tophat.js') || !!~src.indexOf('tophat.dev.js') ) {
             return tags[i];
         }
     }
