@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html lang="en-gb">
 <head>
     <meta charset="utf-8">
-    <meta name="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="X-UA-Compatible" content="IE=Edge,chrome=1" />
 
     <title>Basic unconfigured tophat</title>
 
@@ -15,12 +16,12 @@
 </head>
 
 <body>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         $(window).on('track', function( ev ) {
             $('#log').append('<li>' + ev.catgory + ', ' + ev.action + ', ' + ev.label + '</li>')
         });
-        
+
         document.onTophatReady = function( ev ) {
             $('#log').append('<li>{document.onTophatReady} Tophat generation completed</li>')
         };

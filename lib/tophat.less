@@ -43,8 +43,9 @@
 @searchButtonForegroundColor: #fff;
 @searchButtonBackgroundColor: #1167B7;
 
+// helpers
+.ie7icon(@inner) { *zoom: ~"expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '@{inner}')"; }
 
-// helper
 .clearfix() {
   *zoom: 1;
   &:before,
@@ -59,7 +60,6 @@
     clear: both;
   }
 }
-
 
 @font-face {
     font-family: "NICE.Glyphs";
@@ -267,6 +267,40 @@
           content: "\e01a";
           letter-spacing: -12px;
         }
+    }
+}
+.tophat-legacy {
+    .logo {
+        .ie7icon('&#xe01a;&#xe01b;');
+        font-size: @baseLogoSize;
+        line-height: @baseLogoSize;
+        letter-spacing: -.6em;
+    }
+
+    .service-logo-pathways {
+        .ie7icon('&#xe005;');
+    }
+    .service-logo-standards{
+        .ie7icon('&#xe002;');
+    }
+    .service-logo-guidance{
+        .ie7icon('&#xe00e;');
+    }
+    .service-logo-evidence{
+        .ie7icon('&#xe017;');
+    }
+    .icon-search,
+    .service-logo-search{
+        .ie7icon('&#xe004;');
+    }
+    .profile-avatar{
+        .ie7icon('&#xe01f;');
+    }
+    .service-logo-base {
+        .ie7icon('&#xe019;');
+    }
+    &.nice-internal .logo {
+        .ie7icon('&#xe019;');
     }
 }
 
@@ -688,10 +722,11 @@
 }
 
 @media (max-width: 1059px) {
-    .nice-tophat .logo{
-      &:before {
+    .nice-tophat .logo:before {
         content: "\e01a";
-      }
+    }
+    .tophat-legacy .logo {
+        .ie7icon('&#xe01a;');
     }
 }
 
