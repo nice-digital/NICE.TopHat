@@ -193,7 +193,6 @@
         height: 100%;
         font-size: @serviceIconSize;
         line-height: inherit;
-        vertical-align: baseline;
         speak: none;
 
         *line-height: @serviceIconBackgroundSize;
@@ -203,6 +202,9 @@
             height: @serviceIconBackgroundSize;
             width: @serviceIconBackgroundSize;
         }
+    }
+    [class^="service-logo-"] {
+        vertical-align: baseline;
     }
     .profile-avatar {
         float: none;
@@ -377,7 +379,8 @@
         display: inline-block;
         width: @serviceIconBackgroundSize - 4;
         height: @serviceIconBackgroundSize - 4;
-        line-height: @serviceIconBackgroundSize;
+        line-height: -35%;
+
     }
 
     .menu-pathways a {
