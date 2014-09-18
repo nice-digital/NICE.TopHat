@@ -424,18 +424,19 @@ module.exports = '<li class="evidence-{{id}}"><a href="{{href}}" title="{{title}
 },{}],8:[function(require,module,exports){
 module.exports = {
     search: {
-        href: "http://evidence.nhs.uk",
+        href: "http://www.evidence.nhs.uk",
+        beta: "http://beta.evidence.nhs.uk",
         label: "Evidence search",
         title: "Evidence search"
     },
     bnf: {
-        href: "http://evidence.nhs.uk/formulary/bnf/current",
+        href: "http://www.evidence.nhs.uk/formulary/bnf/current",
         beta: "http://beta.evidence.nhs.uk/formulary/bnf/current",
         label: "BNF",
         title: "British National Formulary"
     },
     bnfc: {
-        href: "http://evidence.nhs.uk/formulary/bnfc/current",
+        href: "http://www.evidence.nhs.uk/formulary/bnfc/current",
         beta: "http://beta.evidence.nhs.uk/formulary/bnfc/current",
         label: "BNFC",
         title: "British National Formulary for Children"
@@ -447,7 +448,7 @@ module.exports = {
         title: "Clinical Knowledge Summaries"
     },
     journals: {
-        href: "http://evidence.nhs.uk/about-evidence-services/journals-and-databases",
+        href: "http://www.evidence.nhs.uk/about-evidence-services/journals-and-databases",
         label: "Journals and databases",
         title: "Journals and databases"
     }
@@ -751,11 +752,11 @@ module.exports = {
         label: "NICE Pathways"
     },
     guidance: {
-        href: "http://nice.org.uk/Guidance",
+        href: "http://www.nice.org.uk/Guidance",
         label: "Guidance"
     },
     standards: {
-        href: "http://nice.org.uk/standards-and-indicators",
+        href: "http://www.nice.org.uk/standards-and-indicators",
         label: "Standards and&nbsp;indicators"
     }
 };
