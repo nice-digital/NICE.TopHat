@@ -82,7 +82,7 @@ function generateAccountsUrl( config ) {
     var env = (config.environment || 'live').toLowerCase();
     var accountsDomain = accountsDomains[env] || 'https://' + ( env !== 'live' ? env + '-' : '' ) + 'accounts.nice.org.uk';
 
-    return accountsDomain + '/tophat';
+    return accountsDomain;
 }
 
 function isLegacy()
@@ -370,7 +370,7 @@ function enhance( event ) {
 
 module.exports = tophatEvents;
 
-},{"./tophat.states":24,"./tophat.utils":25}],5:[function(require,module,exports){
+},{"./tophat.states":25,"./tophat.utils":26}],5:[function(require,module,exports){
 module.exports = '<div class="nice-evidence" id="nice-evidence"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
 },{}],6:[function(require,module,exports){
 var utils = require('./tophat.utils');
@@ -419,7 +419,7 @@ function generateLink( id, link, isBeta ) {
 
 module.exports = generateEvidenceElement;
 
-},{"./tophat.evidence.html":5,"./tophat.evidence.links":8,"./tophat.evidence.links.html":7,"./tophat.evidence.service.html":9,"./tophat.utils":25}],7:[function(require,module,exports){
+},{"./tophat.evidence.html":5,"./tophat.evidence.links":8,"./tophat.evidence.links.html":7,"./tophat.evidence.service.html":9,"./tophat.utils":26}],7:[function(require,module,exports){
 module.exports = '<li class="evidence-{{id}}"><a href="{{href}}" title="{{title}}">{{label}}</a></li>';
 },{}],8:[function(require,module,exports){
 module.exports = {
@@ -474,7 +474,7 @@ function generateGlobalElement( tophatElement ) {
 
 module.exports = generateGlobalElement;
 
-},{"./tophat.global.html":10,"./tophat.utils":25}],12:[function(require,module,exports){
+},{"./tophat.global.html":10,"./tophat.utils":26}],12:[function(require,module,exports){
 // stylesheet to be auto inserted
 require('./tophat.css');
 
@@ -553,21 +553,25 @@ function composeTophat( el, services, evidenceResources, globalMenu, config ) {
     utils.prependElement( tophatElement, body );
 }
 
-},{"./tophat.config.js":2,"./tophat.css":3,"./tophat.events":4,"./tophat.evidence":6,"./tophat.global":11,"./tophat.profile":14,"./tophat.search":18,"./tophat.services":21,"./tophat.utils":25}],13:[function(require,module,exports){
-module.exports = '<div class="nice-profile" id="nice-profile"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
+},{"./tophat.config.js":2,"./tophat.css":3,"./tophat.events":4,"./tophat.evidence":6,"./tophat.global":11,"./tophat.profile":15,"./tophat.search":19,"./tophat.services":22,"./tophat.utils":26}],13:[function(require,module,exports){
+module.exports = '<li class="menu-anonymous"><a href="{{root}}/signin">Sign in</a></li>';
 },{}],14:[function(require,module,exports){
+module.exports = '<div class="nice-profile" id="nice-profile"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
+},{}],15:[function(require,module,exports){
 var utils = require('./tophat.utils');
 var xhr = require('./tophat.xhr');
 var tophatProfile = require('./tophat.profile.html');
 var tophatProfileService = require('./tophat.profile.service.html');
+var tophatProfileAnon = require('./tophat.profile.anon.html');
 var tophatProfileLinks = require('./tophat.profile.links.html');
+var tophatProfileEndpoint = '/tophat';
 
 function generateProfileElement( tophatElement, serviceElement, config ) {
     if (config.profile === 'none') return;
 
-    utils.appendElement( utils.create( tophatProfileService ), utils.find( serviceElement, 'menu' )[0] );
+    utils.appendElement( utils.create( tophatProfileAnon.replace('{{root}}', config.accountsUrl) ), utils.find( serviceElement, 'menu' )[0] );
 
-    xhr.get( config.accountsUrl, function( data ) {
+    xhr.get( config.accountsUrl + tophatProfileEndpoint, function( data ) {
         if (!data) {
           disableProfile( tophatElement );
           return;
@@ -636,13 +640,13 @@ function generateLink( label, href ) {
 
 module.exports = generateProfileElement;
 
-},{"./tophat.profile.html":13,"./tophat.profile.links.html":15,"./tophat.profile.service.html":16,"./tophat.utils":25,"./tophat.xhr":26}],15:[function(require,module,exports){
+},{"./tophat.profile.anon.html":13,"./tophat.profile.html":14,"./tophat.profile.links.html":16,"./tophat.profile.service.html":17,"./tophat.utils":26,"./tophat.xhr":27}],16:[function(require,module,exports){
 module.exports = '<li><a href="{{href}}">{{label}}</a></li>';
-},{}],16:[function(require,module,exports){
-module.exports = '<li class="menu-profile"><a href="#nice-profile"><span class="profile-avatar"></span></a></li>';
 },{}],17:[function(require,module,exports){
-module.exports = '<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search"><div class="controls"><input name="q" autocomplete="off" spellcheck="false" placeholder="Search..." maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}"> <button type="submit"><i class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
+module.exports = '<li class="menu-profile"><a href="#nice-profile"><span class="profile-avatar"></span></a></li>';
 },{}],18:[function(require,module,exports){
+module.exports = '<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search"><div class="controls"><input name="q" autocomplete="off" spellcheck="false" placeholder="Search..." maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}"> <button type="submit"><i class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
+},{}],19:[function(require,module,exports){
 var utils = require('./tophat.utils');
 var tophatSearch = require('./tophat.search.html');
 var tophatSearchService = require('./tophat.search.service.html');
@@ -677,11 +681,11 @@ function addSearchToGlobal( el, searchForm ) {
 
 module.exports = generateSearchElement;
 
-},{"./tophat.search.html":17,"./tophat.search.service.html":19,"./tophat.utils":25}],19:[function(require,module,exports){
+},{"./tophat.search.html":18,"./tophat.search.service.html":20,"./tophat.utils":26}],20:[function(require,module,exports){
 module.exports = '<li class="menu-search"><a href="#nice-global"><i class="service-logo"><i class="service-logo-base"></i> <i class="service-logo-search"></i></i> <span class="menu-label">Search</span></a></li>';
-},{}],20:[function(require,module,exports){
-module.exports = '<div class="nice-services"><div class="tophat-inner"><a href="{{homelink}}" class="logo">NICE <small>National Institute of<br>Health and Care Excellence</small></a><ul class="menu">{{menu}}</ul></div></div>';
 },{}],21:[function(require,module,exports){
+module.exports = '<div class="nice-services"><div class="tophat-inner"><a href="{{homelink}}" class="logo">NICE <small>National Institute of<br>Health and Care Excellence</small></a><ul class="menu">{{menu}}</ul></div></div>';
+},{}],22:[function(require,module,exports){
 var utils = require('./tophat.utils');
 var serviceLinks = require('./tophat.services.links');
 var tophatServices = require('./tophat.services.html');
@@ -743,9 +747,9 @@ function cleanUp( tophatElement ) {
 
 module.exports = generateServiceElement;
 
-},{"./tophat.services.html":20,"./tophat.services.links":23,"./tophat.services.links.html":22,"./tophat.utils":25}],22:[function(require,module,exports){
+},{"./tophat.services.html":21,"./tophat.services.links":24,"./tophat.services.links.html":23,"./tophat.utils":26}],23:[function(require,module,exports){
 module.exports = '<li class="menu-{{id}}"><a href="{{href}}"><i class="service-logo"><i class="service-logo-base"></i> <i class="service-logo-{{id}}"></i></i> <span class="menu-label">{{label}}</span></a></li>';
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = {
     pathways: {
         href: "http://pathways.nice.org.uk",
@@ -761,7 +765,7 @@ module.exports = {
     }
 };
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 
 function TophatStates( el ) {
     this.element = el;
@@ -827,7 +831,7 @@ module.exports = {
     }
 };
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 var utils = {};
 
 utils.find = function( root, search ){
@@ -902,7 +906,7 @@ utils.appendElement = function( element, parent ) {
 
 module.exports = utils;
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 var utils = require('./tophat.utils');
 var xhr = {};
 
@@ -933,4 +937,4 @@ xhr.get = function( url, resolve ) {
 
 module.exports = xhr;
 
-},{"./tophat.utils":25}]},{},[12]);
+},{"./tophat.utils":26}]},{},[12]);
