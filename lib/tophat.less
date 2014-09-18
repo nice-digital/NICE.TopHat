@@ -101,7 +101,7 @@
         left: 0;
         display: block;
         float: right;
-        margin: 0 0 0 @halfSpacing;
+        margin: 0;
         padding: 0;
         list-style: none;
 
@@ -849,6 +849,7 @@
         position: absolute;
         width: 100%;
         z-index: 2003;
+        right: 0;
 
         a {
             border-left: 0;
@@ -892,5 +893,41 @@
         .anon a {
             padding: 4px @quarterSpacing;
         }
+    }
+}
+
+@media (max-width: 400px) {
+    .nice-tophat {
+        min-height: 32px;
+    }
+    .nice-tophat [class^=service-logo-],
+    .nice-tophat .service-logo,
+    .nice-services .menu-profile .profile-avatar {
+        font-size: 16px;
+        line-height: 32px;
+        height: 32px;
+        width: 32px;
+    }
+    .nice-tophat .service-logo-base {
+        font-size: 32px;
+    }
+    .nice-services .menu-anonymous a {
+        line-height: 32px;
+    }
+    .nice-services .menu .menu-profile a {
+        padding: 0 0 4px;
+    }
+    .nice-tophat .logo {
+        padding-left: 6px;
+        margin-left: -12px;
+    }
+    .nice-tophat .logo:before {
+        font-size: 38px;
+        line-height: 38px;
+    }
+    .nice-tophat .profile-avatar:before,
+    .nice-tophat [class^=service-logo-]:before {
+      height: 32px;
+      width: 32px;
     }
 }
