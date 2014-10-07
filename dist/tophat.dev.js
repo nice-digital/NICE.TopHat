@@ -260,6 +260,7 @@ function isTophatElement( el ) {
 // Tracking helpers
 
 function sendTrackedEvent( category, action, label, cb ) {
+
     if ( window._gaq && typeof window._gaq.push === 'function' ) {
         return sendGAEvent( category, action, label, cb );
     }
@@ -271,9 +272,9 @@ function sendTrackedEvent( category, action, label, cb ) {
     var console = window.console;
     if (console && console.log) {
         console.log( 'track', category, action, label );
-
-        if (cb) window.setTimeout( cb, 50 );
     }
+
+    if (cb) window.setTimeout( cb, 50 );
 }
 
 function sendGAEvent( category, action, label, cb ) {
