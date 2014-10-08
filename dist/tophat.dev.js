@@ -126,6 +126,7 @@ function attachTophatEvents( document, tophatElement ) {
     attachDomEvent( tophatElement, 'click', proxy( tophatElement, clickhandler ) );
     attachDomEvent( document, 'click', proxy( tophatElement, cancelhandler ) );
     attachDomEvent( tophatElement, 'click', proxy( tophatElement, trackingHandler ) );
+    attachDomEvent( tophatElement, 'submit', proxy( tophatElement, searchHandler ) );
 }
 
 
@@ -252,6 +253,22 @@ function isTophatElement( el ) {
     }
 
     return tophatEvent;
+}
+
+
+
+
+function searchHandler( ev ) {
+    var target = ev.target || ev.srcElement;
+
+    if ( target.className && ~target.className.indexOf( 'nice-search' ) &&
+            ~window.location.href.indexOf( 'q=' ) ) {
+        var location = window.location.href.replace( /q=?([^&]*)/g, 'q=' + target.q.value );
+
+        window.location.href = location;
+
+        ev.preventDefault();
+    }
 }
 
 
@@ -633,7 +650,7 @@ module.exports = '<li><a href="{{href}}">{{label}}</a></li>';
 },{}],17:[function(require,module,exports){
 module.exports = '<li class="menu-profile"><a href="#nice-profile"><span class="profile-avatar"></span></a></li>';
 },{}],18:[function(require,module,exports){
-module.exports = '<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search"><div class="controls"><input name="q" autocomplete="off" spellcheck="false" placeholder="Search..." maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}"> <button type="submit"><i class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
+module.exports = '<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search"><div class="controls"><input name="q" value="{{q}}" autocomplete="off" spellcheck="false" placeholder="Search..." maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}"> <button type="submit"><i class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
 },{}],19:[function(require,module,exports){
 var utils = require('./tophat.utils');
 var tophatSearch = require('./tophat.search.html');
@@ -644,11 +661,14 @@ function generateSearchElement( globalElement, serviceElement, config ) {
 
     utils.appendElement( utils.create( tophatSearchService ), utils.find( serviceElement, 'menu' )[0] );
 
+    var params = parseQueryStringWithRegExp( window.location.search );
+
     var view = tophatSearch
         .replace('{{method}}', 'get')
         .replace('{{action}}', config.search)
-        .replace('{{typeaheadtype}}', config.typeaheadtype)
-        .replace('{{typeaheadsource}}', config.typeaheadsource);
+        .replace('{{typeaheadtype}}', config.typeaheadtype || '')
+        .replace('{{typeaheadsource}}', config.typeaheadsource || '')
+        .replace('{{q}}', params.q || '');
 
     var searchElement = utils.create( view );
 
@@ -665,6 +685,44 @@ function addSearchToGlobal( el, searchForm ) {
     }
 
   utils.appendElement( searchForm, el.firstChild );
+}
+
+
+function decodeURIComponentExtended ( s ) {
+    return decodeURIComponent( (s || '').replace( /\+/g, ' ' ) );
+}
+
+function extendParam( obj, name, val ) {
+    var key = decodeURIComponentExtended( name );
+    var value = decodeURIComponentExtended( val );
+    var existing = obj[key];
+
+    if ( typeof existing === 'undefined' ) {
+        obj[key] = value;
+        return;
+    }
+
+    if ( typeof existing !== 'object' || !existing.length ) {
+        obj[key] = [ existing ];
+    }
+
+    obj[key].push( value );
+}
+
+
+function parseQueryStringWithRegExp( query ) {
+  var match;
+  var search = /([^&=]+)=?([^&]*)/g;
+
+  var params = query.substring(1);
+  var obj = {};
+
+  while ( (match = search.exec( params )) ) {
+     extendParam( obj, match[1], match[2] );
+  }
+
+  return obj;
+
 }
 
 module.exports = generateSearchElement;
