@@ -139,6 +139,7 @@
 .nice-tophat {
     .logo,
     .icon-search,
+    .icon-offcanvas,
     .profile-avatar,
     [class^="service-logo-"] {
         font-style: normal;
@@ -171,6 +172,10 @@
             line-height: @baseLogoSize;
             letter-spacing: -.6em;
         }
+    }
+
+    .offcanvas-toggle {
+        display: none;
     }
 
     .profile-avatar,
@@ -229,6 +234,9 @@
     }
     .profile-avatar:before {
         content: "\e01f";
+    }
+    .icon-offcanvas:before {
+        content: "\e03d";
     }
     .service-logo-base {
         color: #333;
@@ -300,6 +308,9 @@
     }
     .service-logo-base {
         .ie7icon('&#xe019;');
+    }
+    .icon-offcanvas:before {
+        .ie7icon('&#xe03d;');
     }
     &.nice-internal .logo {
         float: left;
@@ -779,7 +790,7 @@
     }
 }
 
-@media (max-width: 797px) {
+@media (max-width: 829px) {
     .nice-tophat {
         min-height: 48px;
         background: @shadowColor;
@@ -896,7 +907,7 @@
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 415px) {
     .nice-tophat {
         min-height: 32px;
     }
@@ -929,5 +940,76 @@
     .nice-tophat [class^=service-logo-]:before {
       height: 32px;
       width: 32px;
+    }
+
+}
+
+@media (max-width: 979px) {
+    .layout-offcanvas-fixed {
+
+        .offcanvas-toggle {
+            display: block;
+            float: left;
+            padding: 17px;
+            font-size: 36px;
+            margin-left: -24px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .nice-tophat .logo {
+                margin-left: 0;
+                padding-left: 0;
+
+        }
+
+    }
+
+    .layout-offcanvas-fixed.in {
+
+        .offcanvas-toggle {
+            margin-left: -45px;
+        }
+
+    }
+}
+
+@media (max-width: 829px) {
+    .layout-offcanvas-fixed {
+
+        .offcanvas-toggle {
+            padding: 12px;
+            font-size: 32px;
+            margin-left: -16px
+        }
+
+    }
+
+    .layout-offcanvas-fixed.in {
+
+        .offcanvas-toggle {
+            margin-left: -45px;
+        }
+
+    }
+}
+
+@media (max-width: 415px) {
+    .layout-offcanvas-fixed {
+
+        .offcanvas-toggle {
+            padding: 7px;
+            font-size: 28px;
+            margin-left: -12px
+        }
+
+    }
+
+    .layout-offcanvas-fixed.in {
+
+        .offcanvas-toggle {
+            margin-left: -35px;
+        }
+
     }
 }
