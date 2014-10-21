@@ -262,10 +262,13 @@ function searchHandler( ev ) {
     var target = ev.target || ev.srcElement;
 
     if ( target.className && ~target.className.indexOf( 'nice-search' ) &&
-            ~window.location.href.indexOf( 'q=' ) ) {
-        var location = window.location.href.replace( /q=?([^&]*)/g, 'q=' + target.q.value );
+            ~target.action.indexOf( '%term' ) ) {
+        var term = target.q.value;
+        var location = target.action.replace(/%term/ig, term);
 
-        window.location.href = location;
+        sendTrackedEvent( 'Search', term, location, function() {
+            window.location.href = location;
+        });
 
         ev.preventDefault();
     }
