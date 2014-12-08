@@ -264,7 +264,7 @@ function searchHandler( ev ) {
 
     if ( target.className && ~target.className.indexOf( 'nice-search' ) &&
             ~target.action.indexOf( '%term' ) ) {
-        var term = target.q.value;
+        var term = escape( target.q.value.replace(/\s/g, '+') );
         var location = target.action.replace(/%term/ig, term);
 
         sendTrackedEvent( 'Search', term, location, function() {
@@ -285,8 +285,12 @@ function sendTrackedEvent( category, action, label, cb ) {
         window.setTimeout( cb, 50 );
     }
 
+    if ( window.dataLayer && typeof window.dataLayer.push === 'function' ) {
+      return sendDataLayerEvent( category, action, label, value, cb );
+    }
+
     if ( window._gaq && typeof window._gaq.push === 'function' ) {
-        return sendGAEvent( category, action, label );
+      return sendGAEvent( category, action, label );
     }
 
     if ( typeof window.ga === 'function' ) {
@@ -294,6 +298,21 @@ function sendTrackedEvent( category, action, label, cb ) {
     }
 
     logEventToConsole( category, action, label );
+}
+
+function sendDataLayerEvent( category, action, label, value ) {
+  var data = {
+    event: 'GAevent',
+    eventCategory: category,
+    eventAction: action,
+    eventLabel: label
+  };
+
+  if ( value ) {
+    data.eventValue = value;
+  }
+
+  window.dataLayer.push( data );
 }
 
 function sendGAEvent( category, action, label ) {
