@@ -263,12 +263,10 @@ function searchHandler( ev ) {
     var target = ev.target || ev.srcElement;
 
     if ( target.className && ~target.className.indexOf( 'nice-search' ) &&
-            ~target.action.indexOf( '%term' ) ) {
+            ~target.action.indexOf( '%term' ) && target.q ) {
+
         var placeholder = target.q.getAttribute('placeholder');
         var q = target.q.value;
-
-        alert( '"' + q + '" "' + placeholder + '"' );
-
         var term = ( q !== placeholder ) ? escape( q.replace(/\s/g, '+') ) : '';
         var location = target.action.replace(/%term/ig, term);
 
