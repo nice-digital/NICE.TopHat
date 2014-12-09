@@ -147,7 +147,7 @@ function trackingHandler( ev ) {
         target = target.parentNode;
     }
 
-    var href = target.href || target.getElementsByTagName('a')[0].href;
+    var href = target && ( target.href || target.getElementsByTagName('a')[0].href );
 
     if (!target || !href) return;
 
@@ -264,7 +264,12 @@ function searchHandler( ev ) {
 
     if ( target.className && ~target.className.indexOf( 'nice-search' ) &&
             ~target.action.indexOf( '%term' ) ) {
-        var term = escape( target.q.value.replace(/\s/g, '+') );
+        var placeholder = target.q.getAttribute('placeholder');
+        var q = target.q.value;
+
+        alert( '"' + q + '" "' + placeholder + '"' );
+
+        var term = ( q !== placeholder ) ? escape( q.replace(/\s/g, '+') ) : '';
         var location = target.action.replace(/%term/ig, term);
 
         sendTrackedEvent( 'Search', term, location, function() {
