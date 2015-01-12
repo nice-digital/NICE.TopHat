@@ -34,7 +34,7 @@ module.exports.byUrl = function(url) {
 };
 
 },{}],2:[function(require,module,exports){
-var attributes = [ 'service', 'evidence', 'environment', 'timestamp', 'search', 'typeaheadtype', 'typeaheadsource', 'internal', 'home' ];
+var attributes = [ 'service', 'evidence', 'environment', 'timestamp', 'search', 'typeaheadtype', 'typeaheadsource', 'internal', 'home', 'wtrealm' ];
 
 var accountsDomains = {
     "local": "http://nice.sts.local"
@@ -289,7 +289,7 @@ function sendTrackedEvent( category, action, label, cb ) {
     }
 
     if ( window.dataLayer && typeof window.dataLayer.push === 'function' ) {
-      return sendDataLayerEvent( category, action, label, value, cb );
+      return sendDataLayerEvent( category, action, label );
     }
 
     if ( window._gaq && typeof window._gaq.push === 'function' ) {
@@ -303,17 +303,13 @@ function sendTrackedEvent( category, action, label, cb ) {
     logEventToConsole( category, action, label );
 }
 
-function sendDataLayerEvent( category, action, label, value ) {
+function sendDataLayerEvent( category, action, label ) {
   var data = {
     event: 'GAevent',
     eventCategory: category,
     eventAction: action,
     eventLabel: label
   };
-
-  if ( value ) {
-    data.eventValue = value;
-  }
 
   window.dataLayer.push( data );
 }
@@ -615,7 +611,7 @@ function generateProfileElement( tophatElement, serviceElement, config ) {
 
     utils.appendElement( utils.create( tophatProfileAnon.replace('{{root}}', config.accountsUrl) ), utils.find( serviceElement, 'menu' )[0] );
 
-    xhr.get( config.accountsUrl + tophatProfileEndpoint, function( data ) {
+    xhr.get( config.accountsUrl + tophatProfileEndpoint + ( config.wtrealm ? '?wtrealm=' + config.wtrealm : '' ), function( data ) {
         if (!data) {
           disableProfile( tophatElement );
           return;
@@ -999,7 +995,7 @@ var xhr = {};
 xhr.get = function( url, resolve ) {
     var body = document.body;
     var script = document.createElement("script");
-    script.src = url + '?' + Math.floor(Math.random() * 10000000000);
+    script.src = url + ( ~url.indexOf('?') ? '&' : '?' ) + Math.floor(Math.random() * 10000000000);
 
     // Handle Script loading
     var done = false;
