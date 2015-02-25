@@ -565,37 +565,39 @@
 }
 
 // tophat global menu
+.nice-tophat {
+  .nice-global {
+      background: @globalBackgroundColor;
 
-.nice-global {
-    background: @globalBackgroundColor;
+      a {
+          font-size: 16px;
+          color: #000;
+          padding: 19px @halfSpacing 20px;
 
-    a {
-        font-size: 16px;
-        color: #000;
-        padding: 19px @halfSpacing 20px;
-
-        &:hover,
-        &:focus,
-        &:active {
-            color: #000;
-            background: @globalHoverBackgroundColor;
-            padding-bottom: 16px;
-            border-bottom: 4px solid @globalLinkBorderColor;
-        }
-    }
-    .active a {
-        &,
-        &:hover,
-        &:focus,
-        &:active {
-            background: @globalActiveBackgroundColor;
-            padding-bottom: 16px;
-            border-bottom: 4px solid @globalLinkBorderColor;
-        }
-    }
-    .icon-search {
-        font-size: 24px;
-    }
+          &:hover,
+          &:focus,
+          &:active {
+              color: #000;
+              background: @globalHoverBackgroundColor;
+              padding-bottom: 16px;
+              border-bottom: 4px solid @globalLinkBorderColor;
+          }
+      }
+      .active a {
+          &,
+          &:hover,
+          &:focus,
+          &:active {
+              color: #000;
+              background: @globalActiveBackgroundColor;
+              padding-bottom: 16px;
+              border-bottom: 4px solid @globalLinkBorderColor;
+          }
+      }
+      .icon-search {
+          font-size: 24px;
+      }
+  }
 }
 
 .nice-internal {
