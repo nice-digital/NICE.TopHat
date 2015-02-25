@@ -263,7 +263,7 @@ function searchHandler( ev ) {
     var target = ev.target || ev.srcElement;
 
     if ( target.className && ~target.className.indexOf( 'nice-search' ) &&
-            ~target.action.indexOf( '%term' ) && target.q ) {
+            ~target.action.search( /%(25)?term/ig ) && target.q ) {
 
         var placeholder = target.q.getAttribute('placeholder');
         var q = target.q.value;
