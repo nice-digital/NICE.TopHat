@@ -1,78 +1,18 @@
-@tophatMinHeight: 60px;
-@tophatMaxWidth: 1170px;
-
-@baseFontSize: 14px;
-@baseLineHeight: 24px;
-
-@serviceIconSize: 20px;
-@serviceIconBackgroundSize: @serviceIconSize * 2;
-@baseLogoSize: @baseLineHeight * 2;
-
-@fullSpacing: @baseLineHeight;
-@halfSpacing: @fullSpacing / 2;
-@quarterSpacing: @fullSpacing / 4;
-
-@foregroundColor: #fff;
-@shadowColor: rgba(0, 0, 0, 0.075);
-
-@internalServiceForegroundColor: #263238;
-@serviceBackgroundColor: #333;
-@internalServiceBackgroundColor: #fff;
-@serviceHoverBackgroundColor: #234E5B;
-@serviceActiveBackgroundColor: #316E80;
-@serviceBorderColor: #343C41;
-
-@internalEvidenceForegroundColor: #fff;
-@evidenceBackgroundColor: #316E80;
-@internalEvidenceBackgroundColor: #37474f;
-@evidenceHoverBackgroundColor: #387E92;
-@internalEvidenceHoverBackgroundColor: #03a9f4;
-@evidenceActiveBackgroundColor: #FFC100;
-@evidenceBorderColor: #2D6475;
-@internalEvidenceBorderColor: #37474f;
-
-@globalForegroundColor: #333;
-@globalBackgroundColor: #EFF1F3;
-@globalHoverBackgroundColor: rgba(255, 255, 255, 0.4);
-@globalActiveBackgroundColor: rgba(255, 255, 255, 0.6);
-@globalLinkBorderColor: #FFC100;
-
-@searchControlHeight: 36px;
-@searchControlFontSize: 18px;
-@searchBorderColor: #ccc;
-@searchButtonForegroundColor: #fff;
-@searchButtonBackgroundColor: #1167B7;
-
-// helpers
-.ie7icon(@inner) { *zoom: ~"expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '@{inner}')"; }
-
-.clearfix() {
-  *zoom: 1;
-  &:before,
-  &:after {
-    display: table;
-    content: "";
-    // Fixes Opera/contenteditable bug:
-    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
-    line-height: 0;
-  }
-  &:after {
-    clear: both;
-  }
-}
-
-@font-face {
-    font-family: "NICE.Glyphs";
-    src: url('//cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.eot?#iefix&v=1.3') format('embedded-opentype'),
-      url('//cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.woff?v=1.3') format('woff'),
-      url('//cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.ttf?v=13') format('truetype'),
-      url('//cdn.nice.org.uk/V3/Content/nice-glyphs/NICE.Glyphs.svg#niceglyphregular?v=1.3') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+@import "./variables";
+@import "./helpers";
+@import "./fonts";
+/*
+@import "./core";
+@import "./services";
+@import "./evidence";
+@import "./global";
+@import "./partner";
+@import "./internal";
+*/
 
 .nice-tophat {
     min-height: @tophatMinHeight;
+    margin-bottom: 24px;
 
     // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
     *position: relative;
@@ -151,7 +91,7 @@
     }
 
     .logo,
-    .partner-logo {
+    .nice-global .partner-logo {
         float: left;
         display: block;
         padding: @quarterSpacing @fullSpacing;
@@ -270,6 +210,7 @@
         }
     }
 }
+
 .tophat-legacy {
     .logo {
         .ie7icon('&#xe01a;&#xe01b;');
@@ -317,7 +258,8 @@
 .nice-services,
 .nice-evidence,
 .nice-profile,
-.nice-global {
+.nice-global,
+.nice-global .tophat-inner {
     .clearfix()
 }
 
@@ -325,17 +267,21 @@
 .nice-services {
     background-color: @serviceBackgroundColor;
 
-    a:hover [class^="service-logo-"],
-    a:focus [class^="service-logo-"],
-    a:active [class^="service-logo-"],
-    .active [class^="service-logo-"] {
+    a:hover,
+    a:focus,
+    a:active,
+    .active {
+      [class^="service-logo-"] {
         color: #000;
+      }
     }
-    a:hover .service-logo-base,
-    a:focus .service-logo-base,
-    a:active .service-logo-base,
-    .active .service-logo-base {
+    a:hover,
+    a:focus,
+    a:active,
+    .active {
+      .service-logo-base {
         color: #FFC100;
+      }
     }
 
     .menu a {
@@ -357,6 +303,8 @@
         &:focus,
         &:active {
             background-color: @serviceActiveBackgroundColor;
+            border-bottom: 1px solid #343c41;
+            padding-bottom: 9px;
         }
     }
 
@@ -398,7 +346,7 @@
 
 .nice-internal {
     .nice-services {
-        background: @internalServiceBackgroundColor;
+        background-color: @internalServiceBackgroundColor;
 
         a {
             color: @internalServiceForegroundColor;
@@ -411,7 +359,7 @@
         .menu a:focus,
         .menu a:active {
             color: @internalServiceForegroundColor;
-            background: none;
+            background-color: transparent;
         }
 
         .active a {
@@ -420,7 +368,7 @@
             &:focus,
             &:active {
                 color: @internalServiceForegroundColor;
-                background: none;
+                background-color: transparent;
             }
         }
     }
@@ -428,13 +376,14 @@
 
 .menu-profile-open .menu-profile,
 .menu-search-open .menu-search,
-.menu-evidence-open .menu-evidence {
+.menu-evidence-open .menu-evidence,
+.menu-evidence-active .menu-evidence {
     a {
         &,
         &:hover,
         &:focus,
         &:active {
-            background-color: @serviceActiveBackgroundColor;
+            background-color: @serviceOpenBackgroundColor;
         }
     }
 }
@@ -442,22 +391,25 @@
 .menu-profile-open .menu-profile,
 .menu-search-open .menu-search,
 .menu-evidence-open .menu-evidence {
-    [class^="service-logo-"] {
-        color: #000;
-    }
+  [class^="service-logo-"] {
+      color: #000;
+  }
 
-    .service-logo-base,
-    .service-logo-base,
-    .service-logo-base {
-        color: #FFC100;
-    }
+  .service-logo-base {
+      color: #FFC100;
+  }
+}
+
+.menu-evidence-active .menu-evidence a {
+  border-bottom: 0;
+  padding-bottom: 10px;
 }
 
 // tophat evidence menu
 .nice-profile,
 .nice-evidence {
-    background: @evidenceBackgroundColor;
-    display: block;
+    background-color: @evidenceBackgroundColor;
+    display: none;
 
     .menu {
         border-right: 1px solid @evidenceBorderColor;
@@ -482,12 +434,16 @@
         background-color: @evidenceActiveBackgroundColor;
     }
 }
-.nice-profile {
-    display: none;
-}
-.menu-profile-open .nice-profile {
+.menu-profile-open .nice-profile,
+.menu-evidence-open .nice-evidence,
+.menu-evidence-active .nice-evidence {
     display: block;
 }
+
+
+
+
+
 
 // additional profile menu config
 
@@ -537,7 +493,7 @@
         &:hover,
         &:focus,
         &:active {
-            background: none;
+          background-color: transparent;
         }
     }
 
@@ -560,14 +516,14 @@
     }
 
     .profile-container.open {
-        background: #f5f5f5;
+        background-color: #f5f5f5;
     }
 }
 
 // tophat global menu
 .nice-tophat {
   .nice-global {
-      background: @globalBackgroundColor;
+      background-color: @globalBackgroundColor;
 
       a {
           font-size: 16px;
@@ -579,7 +535,7 @@
           &:focus,
           &:active {
               color: #000;
-              background: @globalHoverBackgroundColor;
+              background-color: @globalHoverBackgroundColor;
               padding-bottom: 16px;
               border-bottom: 4px solid @globalLinkBorderColor;
           }
@@ -590,7 +546,7 @@
           &:focus,
           &:active {
               color: #000;
-              background: @globalActiveBackgroundColor;
+              background-color: @globalActiveBackgroundColor;
               padding-bottom: 16px;
               border-bottom: 4px solid @globalLinkBorderColor;
           }
@@ -624,48 +580,75 @@
             }
         }
     }
+    .nice-partner {
+        a {
+            padding-top: 19px;
+            padding-bottom: 20px;
+
+            &:hover,
+            &:focus,
+            &:active {
+                padding-bottom: 16px;
+                border-bottom-width: 4px;
+            }
+        }
+        .active a {
+            &,
+            &:hover,
+            &:focus,
+            &:active {
+                padding-bottom: 16px;
+                border-bottom-width: 4px;
+            }
+        }
+        .menu > li > a {
+          line-height: 24px;
+        }
+    }
 }
 
-.nice-partner {
-    .partner-logo {
-        float: left;
-        display: block;
-        margin: @halfSpacing 0 0 (@fullSpacing * -1);
+.nice-tophat {
+  .nice-global {
+      .partner-logo {
+          float: left;
+          display: block;
+          margin: @halfSpacing 0 0 (@fullSpacing * -1);
 
-        &:hover,
-        &:focus,
-        &:active {
-            background: none;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
+          &:hover,
+          &:focus,
+          &:active {
+            background-color: transparent;
+              padding-bottom: 0;
+              border-bottom: none;
+          }
 
-        img {
-            height: 72px;
-        }
-    }
+          img {
+              height: 72px;
+          }
+      }
 
-    .partner-brand {
-        display: block;
-        font-size: 24px;
-        line-height: 36px;
-        margin: 0 0 (@quarterSpacing * -1);
-        padding: @halfSpacing 0 0;
-        color: #888;
+      .partner-brand {
+          display: block;
+          font-size: 24px;
+          line-height: 36px;
+          margin: 0 0 (@quarterSpacing * -1);
+          padding: @halfSpacing 0 0;
+          color: #888;
 
-        small {
-            float: right;
-            margin: -10px 10px 0 0;
-        }
-    }
+          small {
+              float: right;
+              margin: -10px 10px 0 0;
+          }
+      }
 
-    .publication-date {
-        float: right;
-        font-size: 16px;
-        margin-top: -4px;
-        margin-right: @halfSpacing;
-        color: #666;
-    }
+      .publication-date {
+          float: right;
+          font-size: 16px;
+          margin-top: -4px;
+          margin-right: @halfSpacing;
+          color: #666;
+      }
+  }
 }
 
 // search form
@@ -711,7 +694,7 @@
     button {
         display: inline-block;
         color: @searchButtonForegroundColor;
-        background: @searchButtonBackgroundColor;
+        background-color: @searchButtonBackgroundColor;
         overflow: hidden;
         position: absolute;
         height: @searchControlHeight + 2;
@@ -726,6 +709,10 @@
     }
 
     .twitter-typeahead {
+        width: 100%;
+    }
+
+    .tt-dropdown-menu {
         width: 100%;
     }
 }
@@ -773,7 +760,7 @@
         }
     }
 
-    .nice-partner {
+    .nice-global {
         .partner-logo {
             position: absolute;
             top: @halfSpacing;
@@ -792,7 +779,7 @@
 @media (max-width: 829px) {
     .nice-tophat {
         min-height: 48px;
-        background: @shadowColor;
+        background-color: @shadowColor;
         padding-bottom: 2px;
         margin-bottom: -2px;
 
@@ -847,6 +834,7 @@
     .nice-global {
         display: none;
     }
+    .menu-evidence-active .nice-evidence,
     .menu-evidence-open .nice-evidence,
     .menu-search-open .nice-global {
         display: block;

@@ -9,7 +9,7 @@ module.exports = function( config ) {
 
         dist: {
             files: {
-                "temp/tophat.css": "lib/tophat.less"
+                "temp/tophat.css": "lib/styles/tophat.less"
             }
         }
     };
