@@ -1,0 +1,81 @@
+.nice-tophat {
+  .nice-global {
+    background-color: @globalBackgroundColor;
+
+    .menu {
+      a {
+        color: #000;
+        padding: 19px @halfSpacing 20px;
+        line-height: @baseLineHeight;
+
+        &:hover,
+        &:focus {
+          color: #000;
+          background-color: @globalHoverBackgroundColor;
+          padding-bottom: 16px;
+          border-bottom: 4px solid @globalLinkBorderColor;
+        }
+      }
+
+      .active a {
+        &,
+        &:hover,
+        &:focus {
+          color: #000;
+          background-color: @globalActiveBackgroundColor;
+          padding-bottom: 16px;
+          border-bottom: 4px solid @globalLinkBorderColor;
+        }
+      }
+    }
+
+    .tool-brand {
+      display: block;
+      font-size: @baseLineHeight * 1.5;
+      line-height: @baseLineHeight * 1.5;
+      margin: 0 0 (@fullSpacing * -1);
+      padding: @halfSpacing 0 0;
+
+      small {
+        font-size: @baseLineHeight;
+        color: #777;
+      }
+    }
+
+    .publication-date {
+      float: right;
+      font-size: @baseFontSize;
+      margin-top: -4px;
+      margin-right: @halfSpacing;
+      color: #666;
+    }
+  }
+}
+
+@media (max-width: 979px) {
+  .nice-tophat {
+    .nice-global {
+      position: relative;
+
+      .menu {
+        display: none;
+        visibility: hidden;
+        speak: none;
+      }
+    }
+  }
+}
+
+@media (max-width:768px) {
+  .nice-tophat {
+    .nice-global {
+      background-image: none !important;
+      
+      .tool-brand {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}

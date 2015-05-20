@@ -26,12 +26,24 @@
     }
 
     iframe {
+      float:left;
       display: block;
       box-sizing: border-box;
-      width: 100%;
+      width: 1200px;
       height: 200px;
       border: 0;
       background: white;
+    }
+
+    iframe+iframe {
+      width: 450px;
+      height: 600px;
+      margin-left: 24px;
+    }
+
+    hr {
+      margin: 24px;
+      clear:left;
     }
 
     .microsite {
@@ -43,60 +55,72 @@
 <body>
   <h2>Nice org</h2>
   <iframe src="./example.niceorg.html"></iframe>
+  <iframe src="./example.niceorg.html"></iframe>
 
   <hr/>
 
   <h2>Guidance</h2>
+  <iframe src="./example.guidance.html"></iframe>
   <iframe src="./example.guidance.html"></iframe>
 
   <hr/>
 
   <h2>Standards and Indicators</h2>
   <iframe src="./example.standards.html"></iframe>
+  <iframe src="./example.standards.html"></iframe>
 
   <hr/>
 
   <h2>Evidence</h2>
+  <iframe src="./example.evidence.html"></iframe>
   <iframe src="./example.evidence.html"></iframe>
 
   <hr/>
 
   <h2>Evidence search</h2>
   <iframe src="./example.evidence-search.html"></iframe>
+  <iframe src="./example.evidence-search.html"></iframe>
 
   <hr/>
 
   <h2>BNF microsite</h2>
   <iframe src="./example.bnf.html" class="microsite"></iframe>
+  <iframe src="./example.bnf.html"></iframe>
 
   <hr/>
 
   <h2>BNFC microsite</h2>
   <iframe src="./example.bnfc.html" class="microsite"></iframe>
+  <iframe src="./example.bnfc.html"></iframe>
 
   <hr/>
 
   <h2>CKS microsite</h2>
   <iframe src="./example.cks.html" class="microsite"></iframe>
+  <iframe src="./example.cks.html"></iframe>
 
   <hr/>
 
   <h2>Appraisals tool</h2>
   <iframe src="./example.appraisals.html"></iframe>
+  <iframe src="./example.appraisals.html"></iframe>
 
   <hr/>
 
   <h2>ROI tools</h2>
+  <iframe src="./example.roi.html" class="microsite"></iframe>
   <iframe src="./example.roi.html"></iframe>
 
   <hr/>
 
   <h2>InDev tool</h2>
   <iframe src="./example.indev.html"></iframe>
+  <iframe src="./example.indev.html"></iframe>
 
   <hr/>
 
   <h2>Pathways</h2>
+  <iframe src="./example.pathways.html"></iframe>
   <iframe src="./example.pathways.html"></iframe>
 
 </body>

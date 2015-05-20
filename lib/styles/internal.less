@@ -1,0 +1,116 @@
+.nice-internal {
+  min-height: 50px;
+  width: 100%;
+
+  .logo {
+    font-size: 0;
+    line-height: (@baseLineHeight * 1.5);
+    .ie7icon('&#xe019;');
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      color: @internalServiceForegroundColor;
+    }
+
+    small {
+      font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      display: inline;
+      font-size: @baseFontSize * 2;
+      line-height: 46px;
+    }
+
+    &:before {
+      float: none;
+      margin-right: .5em;
+      font-size: 32px;
+      content: "\e01a";
+      vertical-align: top;
+    }
+  }
+
+  .nice-services {
+    background-color: @internalServiceBackgroundColor;
+
+    .menu {
+      a {
+        color: @internalServiceForegroundColor;
+        border-left: none;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: @internalServiceForegroundColor;
+          background-color: transparent;
+        }
+
+        .active & {
+          &,
+          &:hover,
+          &:focus,
+          &:active {
+            color: @internalServiceForegroundColor;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+
+    .menu-mobile {
+      display: none;
+    }
+  }
+
+  .nice-global {
+    a {
+      padding-top: 9px;
+      padding-bottom: 10px;
+
+      &:hover,
+      &:focus {
+          padding-bottom: 8px;
+          border-bottom-width: 2px;
+      }
+
+      .menu & {
+        padding-top: 19px;
+        padding-bottom: 20px;
+        line-height: 24px;
+
+        &:hover,
+        &:focus {
+            padding-bottom: 16px;
+            border-bottom-width: 4px;
+        }
+      }
+
+      .active & {
+        &,
+        &:hover,
+        &:focus {
+            padding-bottom: 8px;
+            border-bottom-width: 2px;
+        }
+      }
+
+      .menu .active & {
+        &,
+        &:hover,
+        &:focus {
+            padding-bottom: 16px;
+            border-bottom-width: 4px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .nice-internal .logo {
+    margin: 0;
+    padding: 0;
+  }
+}

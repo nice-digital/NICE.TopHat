@@ -1,0 +1,179 @@
+.nice-tophat {
+
+  .menu-anonymous,
+  .menu-profile {
+    float: right;
+
+    &,
+    &:hover,
+    &:focus {
+      color: @foregroundColor;
+    }
+  }
+
+  .menu-anonymous {
+    margin: ( @fullSpacing * .75 ) - 3 0 0 @halfSpacing;
+    padding: @quarterSpacing @halfSpacing;
+    border: 1px solid @foregroundColor;
+  }
+
+  .menu-profile {
+    position: relative;
+    width: @serviceIconBackgroundSize - 4;
+    height: @serviceIconBackgroundSize - 4;
+    padding: @quarterSpacing * 1.5;
+    line-height: @serviceIconBackgroundSize - 4;
+
+    &,
+    &:hover,
+    &:focus {
+      background-color: transparent;
+    }
+  }
+
+  .profile-avatar {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    vertical-align: -35%;
+
+    color: @internalServiceForegroundColor;
+    text-align: center;
+    font-size: @serviceIconSize;
+    font-style: normal;
+    font-family: "NICE.Glyphs";
+    speak: none;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+
+    line-height: inherit;
+    *line-height: @serviceIconBackgroundSize;
+
+    &:before {
+      content: "\e01f";
+    }
+  }
+
+  .nice-profile {
+    position: absolute;
+    z-index: 2003;
+    width: 250px;
+    padding: 6px 0;
+    left: 50%;
+    margin-left: 340px;
+    top: 50px;
+    background-color: @evidenceBackgroundColor;
+    display: none;
+
+    .menu {
+      border-right: 1px solid @evidenceBorderColor;
+
+      &,
+      & li {
+        float: none;
+        display: block;
+        margin-left: 0;
+        border-right: 0;
+      }
+
+      a {
+        padding-left: @halfSpacing;
+        padding-right: @halfSpacing;
+        border-top: 1px solid @evidenceBorderColor;
+
+        &:hover,
+        &:focus {
+          background-color: @evidenceHoverBackgroundColor;
+        }
+
+        .active &,
+        .active &:hover,
+        .active &:focus {
+          color: #000;
+          background-color: @evidenceActiveBackgroundColor;
+        }
+
+        li:first-child & {
+          border-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.tophat-legacy {
+  .profile-avatar {
+    .ie7icon('&#xe01f;');
+  }
+}
+
+.menu-profile-open .nice-profile {
+  display: block;
+}
+
+.layout-fill {
+  .nice-tophat {
+    .nice-profile {
+      left: auto;
+      right: @halfSpacing;
+      margin-left: 0;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .nice-tophat {
+    .menu-anonymous,
+    .menu-profile {
+      top: 0;
+      right: 0;
+      position: absolute;
+    }
+
+    .menu-anonymous {
+      margin: 8px 12px;
+      padding: @quarterSpacing / 2 @quarterSpacing;
+      border: 0;
+    }
+
+    .nice-profile {
+      position: relative;
+      left: 0;
+      top: 0;
+      width: auto;
+      margin: 0;
+      padding: 0;
+
+      .menu {
+        border: 0;
+        margin: 0 @halfSpacing * -1;
+
+        li {
+          a {
+            padding: @halfSpacing;
+            border: 0;
+            border-top: 1px solid @evidenceBorderColor;
+            line-height: 24px;
+          }
+
+          &:first-child a {
+            border-top: 0;
+          }
+        }
+      }
+    }
+
+    .profile-avatar {
+      font-size: 16px;
+      line-height: 32px;
+      height: 32px;
+      width: 32px;
+
+      &:before {
+        height: 32px;
+        width: 32px;
+      }
+    }
+  }
+}

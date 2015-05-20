@@ -1,0 +1,235 @@
+.nice-tophat {
+  * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+
+  min-height: @tophatMinHeight;
+  margin-bottom: 24px;
+
+  // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
+  *position: relative;
+  *z-index: 2001;
+
+  font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: @baseFontSize;
+  font-weight: 400;
+  line-height: @baseLineHeight;
+  -moz-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+// widths
+
+.nice-tophat {
+  .tophat-inner {
+      width: 95.74468085%;
+      max-width: @tophatMaxWidth;
+      margin: 0 auto;
+
+      .clearfix()
+  }
+}
+
+.layout-fill {
+  .nice-tophat {
+    .tophat-inner {
+      width: auto;
+      max-width: 100%;
+      margin: 0 @fullSpacing;
+    }
+  }
+}
+
+@media (max-width: 979px) {
+  .nice-tophat .tophat-inner {
+    &,
+    .layout-fill & {
+      width: auto;
+      max-width: 100%;
+      margin: 0 @halfSpacing;
+    }
+  }
+}
+
+// links
+
+.nice-tophat {
+  a {
+    text-decoration: none;
+    font-weight: normal;
+
+    &:focus,
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+  }
+
+  .menu-mobile {
+    display: none;
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin: 8px 12px;
+    padding: @quarterSpacing / 2 @quarterSpacing;
+
+    &,
+    &:hover,
+    &:focus {
+      color: @foregroundColor;
+    }
+  }
+}
+
+// menus
+
+.nice-tophat {
+  //  generic menus
+  .menu {
+    position: relative;
+    left: 0;
+    display: block;
+    float: right;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      list-style: none;
+      float: left;
+      margin: 0;
+    }
+
+    a {
+      display: block;
+      padding: @quarterSpacing @halfSpacing;
+      color: @foregroundColor;
+
+      &:focus,
+      &:hover,
+      &:active {
+        color: @foregroundColor;
+      }
+    }
+  }
+}
+
+@media ( max-width: 767px ) {
+
+  .nice-tophat {
+    .menu {
+      margin: 0 @halfSpacing * -1;
+      clear: left;
+
+      &,
+      & li {
+        position: relative;
+        display: block;
+        float: none;
+      }
+
+      a {
+        padding: 0 @halfSpacing;
+        line-height: @fullSpacing;
+      }
+    }
+  }
+
+}
+
+// logos and icons
+
+.nice-tophat {
+  .logo,
+  .icon-offcanvas {
+    color: @foregroundColor;
+    font-style: normal;
+    font-family: "NICE.Glyphs";
+    speak: none;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .logo {
+    float: left;
+    display: block;
+    padding: @quarterSpacing @fullSpacing;
+    margin-left: @fullSpacing * -1;
+    font-size: 0;
+    line-height: 0;
+    border: 0;
+
+    small {
+      display: none;
+    }
+
+    &:before {
+      content: "\e01a\e01b";
+      font-size: @baseLogoSize;
+      line-height: @baseLogoSize;
+      letter-spacing: -.6em;
+    }
+  }
+
+  .icon-offcanvas:before {
+    content: "\e03d";
+  }
+}
+
+.tophat-legacy {
+    .logo {
+        .ie7icon('&#xe01a;&#xe01b;');
+        font-size: @baseLogoSize;
+        line-height: @baseLogoSize;
+        letter-spacing: -.6em;
+    }
+    .icon-offcanvas:before {
+        .ie7icon('&#xe03d;');
+    }
+}
+
+
+// responsive
+
+@media (max-width: 1059px) {
+  .nice-tophat .logo:before {
+    content: "\e01a";
+  }
+}
+
+@media (max-width: 829px) {
+  .nice-tophat {
+    min-height: 48px;
+    background-color: @shadowColor;
+    padding-bottom: 2px;
+    margin-bottom: -2px;
+
+    .logo {
+      padding: 0 0 0 @fullSpacing;
+
+      &:before {
+        font-size: 38px;
+      }
+      small {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .nice-tophat .logo {
+    text-align: center;
+    width: auto;
+    margin: 0 @fullSpacing * 3.5;
+    padding: 0 @fullSpacing;
+    float: none;
+  }
+}

@@ -1,0 +1,102 @@
+.nice-search {
+  float: left;
+  position: relative;
+  width: 40%;
+  margin: @halfSpacing 0;
+
+  .controls {
+    margin-right: @searchControlHeight + 4;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    height: @searchControlHeight;
+    padding: 0 12px;
+    margin: 0;
+
+    font-family: Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: @searchControlFontSize;
+    font-weight: 400;
+    line-height: @searchControlHeight;
+    color: @globalForegroundColor;
+    border: 1px solid @searchBorderColor;
+    border-radius: 0;
+    vertical-align: middle;
+
+    -webkit-box-shadow: inset 0 1px 1px @shadowColor;
+    -moz-box-shadow: inset 0 1px 1px @shadowColor;
+    box-shadow: inset 0 1px 1px @shadowColor;
+
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+
+    -webkit-appearance: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    display: inline-block;
+    color: @searchButtonForegroundColor;
+    background-color: @searchButtonBackgroundColor;
+    overflow: hidden;
+    position: absolute;
+    height: @searchControlHeight;
+    width: @searchControlHeight;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    right: 0;
+    border: 1px solid @searchButtonBackgroundColor;
+    font-size: 0;
+    line-height: normal;
+  }
+
+  .icon-search {
+    font-size: 24px;
+    font-style: normal;
+    font-family: "NICE.Glyphs";
+    speak: none;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+
+    &:before {
+      content: "\e004";
+    }
+  }
+
+  .twitter-typeahead {
+    width: 100%;
+  }
+
+  .tt-dropdown-menu {
+    width: 100%;
+  }
+}
+
+.tophat-legacy {
+  .icon-search{
+    .ie7icon('&#xe004;');
+  }
+}
+
+
+@media (max-width: 979px) {
+  .nice-search {
+    float: none;
+    width: 100%;
+  }
+
+  .nice-partner {
+    .nice-search {
+      .controls {
+        margin-left: 110px;
+      }
+    }
+  }
+}

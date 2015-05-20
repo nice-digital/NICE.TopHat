@@ -1,0 +1,135 @@
+.nice-tophat {
+  .nice-services {
+    background-color: @serviceBackgroundColor;
+    font-size: @baseFontSize * 1.1;
+
+    .menu {
+      border-right: 1px solid @serviceBorderColor;
+
+      a {
+        width: @fullSpacing * 3.5;
+        padding: @halfSpacing @quarterSpacing * .75 (@halfSpacing * 1.5) + 1 @halfSpacing;
+        border-left: 1px solid @serviceBorderColor;
+        border-bottom: 1px solid @serviceBackgroundColor;
+        line-height: @baseLineHeight - 4;
+        font-size: @baseFontSize * 1.1;
+
+        &:hover,
+        &:focus {
+          background-color: @serviceHoverBackgroundColor;
+        }
+      }
+
+      .menu-standards a {
+        width: @fullSpacing * 5;
+      }
+
+      .menu-evidence {
+        position: relative;
+
+        a:before {
+          border: 6px solid transparent;
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          border-bottom-color: #eff1f3;
+          margin-left: (@quarterSpacing * -1) - 1;
+        }
+      }
+
+      .active a {
+        &,
+        &:hover,
+        &:focus {
+          background-color: @serviceActiveBackgroundColor;
+        }
+      }
+    }
+  }
+}
+
+.menu-evidence-open .nice-services .menu .menu-evidence,
+.menu-evidence-active .nice-services .menu .menu-evidence {
+  a {
+    border-bottom: 0;
+    padding-bottom: (@halfSpacing * 1.5) + 2;
+
+    &,
+    &:hover,
+    &:focus {
+      background-color: @serviceOpenBackgroundColor;
+    }
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+@media ( max-width: 767px ) {
+
+  .nice-tophat {
+    .nice-services {
+      .menu {
+        display: none;
+
+        a {
+          padding-bottom: @halfSpacing;
+        }
+
+        li,
+        .menu-standards {
+          a {
+            border-left: 0;
+            line-height: @fullSpacing;
+            width: auto;
+          }
+        }
+
+        .menu-evidence {
+          a {
+            &,
+            &:hover,
+            &:focus {
+              padding-bottom: @quarterSpacing / 2;
+              background-color: @serviceOpenBackgroundColor;
+              border: 0;
+            }
+
+            &:before {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    .menu-mobile {
+      display: block;
+    }
+  }
+
+  .menu-mobile-open .nice-services .menu {
+    display: block;
+  }
+
+}
+
+@media (max-width: 415px) {
+
+  .nice-tophat {
+    .nice-services {
+      .logo {
+        padding-left: @quarterSpacing;
+        margin-left: @halfSpacing * -1;
+
+        &:before {
+          font-size: 38px;
+          line-height: 38px;
+        }
+      }
+    }
+  }
+
+}

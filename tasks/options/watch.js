@@ -8,7 +8,7 @@ module.exports = function( config ) {
         },
 
         src: {
-            files: 'lib/**/*',
+            files: 'lib/**/*.*',
             tasks: [ 'build' ]
         }
 

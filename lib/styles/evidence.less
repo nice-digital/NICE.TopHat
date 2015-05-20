@@ -1,0 +1,65 @@
+.nice-tophat {
+  .nice-evidence {
+    background-color: @evidenceBackgroundColor;
+    display: none;
+
+    .menu {
+      border-right: 1px solid @evidenceBorderColor;
+
+      a {
+        padding-left: @halfSpacing;
+        padding-right: @halfSpacing;
+        border-left: 1px solid @evidenceBorderColor;
+        font-size: @baseFontSize;
+
+        &:hover,
+        &:focus {
+          background-color: @evidenceHoverBackgroundColor;
+        }
+      }
+
+      .active a:hover,
+      .active a:focus,
+      .active a {
+        color: #000;
+        background-color: @evidenceActiveBackgroundColor;
+      }
+    }
+  }
+}
+
+.menu-evidence-open,
+.menu-evidence-active {
+  .nice-evidence {
+    display: block;
+  }
+}
+
+@media ( max-width: 767px ) {
+  .nice-tophat {
+    .nice-evidence {
+      display: none;
+
+      .menu {
+        border: 0;
+
+        li {
+          a {
+            padding: @halfSpacing @halfSpacing @halfSpacing @fullSpacing * 1.5;
+            border: 0;
+            border-top: 1px solid @evidenceBorderColor;
+            line-height: 24px;
+          }
+
+          &:first-child a {
+            border-top: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .menu-mobile-open .nice-evidence {
+    display: block;
+  }
+}

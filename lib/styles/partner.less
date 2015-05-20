@@ -1,0 +1,60 @@
+.nice-tophat {
+  .nice-partner {
+    .partner-logo {
+      float: left;
+      display: block;
+      margin: @fullSpacing - 2 @fullSpacing 0 0;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: transparent;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      img {
+        height: 72px;
+      }
+    }
+
+    .partner-brand {
+      display: block;
+      font-size: 24px;
+      line-height: 36px;
+      margin: 0 0 (@quarterSpacing * -1);
+      padding: @halfSpacing 0 0;
+      color: #888;
+
+      small {
+        float: right;
+        margin: -10px 10px 0 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 979px) {
+  .nice-tophat {
+    .nice-partner {
+      .partner-brand {
+        display: none;
+        visibility: hidden;
+        speak: none;
+      }
+
+      .partner-logo {
+        position: absolute;
+        top: @halfSpacing;
+        left: @halfSpacing;
+        padding: 0;
+        margin: 0;
+        z-index: 2002;
+
+        img {
+          height: 38px;
+        }
+      }
+    }
+  }
+}
