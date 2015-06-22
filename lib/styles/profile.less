@@ -90,7 +90,7 @@
         .active &,
         .active &:hover,
         .active &:focus {
-          color: #000;
+          color: @evidenceActiveForegroundColor;
           background-color: @evidenceActiveBackgroundColor;
         }
 
@@ -122,6 +122,14 @@
   }
 }
 
+@media (max-width: 979px) {
+  .nice-tophat {
+    .menu-anonymous {
+      margin-top: @halfSpacing;
+    }
+  }
+}
+
 @media (max-width: 767px) {
   .nice-tophat {
     .menu-anonymous,
@@ -132,7 +140,7 @@
     }
 
     .menu-anonymous {
-      margin: 8px 12px;
+      margin: @quarterSpacing + 2 @halfSpacing;
       padding: @quarterSpacing / 2 @quarterSpacing;
       border: 0;
     }
@@ -154,7 +162,7 @@
             padding: @halfSpacing;
             border: 0;
             border-top: 1px solid @evidenceBorderColor;
-            line-height: 24px;
+            line-height: @baseLineHeight;
           }
 
           &:first-child a {
@@ -165,14 +173,36 @@
     }
 
     .profile-avatar {
-      font-size: 16px;
-      line-height: 32px;
-      height: 32px;
-      width: 32px;
+      font-size: @baseFontSize;
+      line-height: @baseFontSize * 2;
+      height: @baseFontSize * 2;
+      width: @baseFontSize * 2;
 
       &:before {
-        height: 32px;
-        width: 32px;
+        height: @baseFontSize * 2;
+        width: @baseFontSize * 2;
+      }
+    }
+  }
+
+  .layout-fill {
+    .nice-tophat {
+      .nice-profile {
+        right: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .nice-tophat {
+    .nice-profile {
+      .menu {
+        li {
+          a {
+            padding: @quarterSpacing @halfSpacing;
+          }
+        }
       }
     }
   }

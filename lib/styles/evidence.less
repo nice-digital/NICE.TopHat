@@ -21,7 +21,7 @@
       .active a:hover,
       .active a:focus,
       .active a {
-        color: #000;
+        color: @evidenceActiveForegroundColor;
         background-color: @evidenceActiveBackgroundColor;
       }
     }
@@ -45,7 +45,7 @@
 
         li {
           a {
-            padding: @halfSpacing @halfSpacing @halfSpacing @fullSpacing * 1.5;
+            padding: @halfSpacing @halfSpacing @halfSpacing @halfSpacing * 3;
             border: 0;
             border-top: 1px solid @evidenceBorderColor;
             line-height: 24px;
@@ -61,5 +61,19 @@
 
   .menu-mobile-open .nice-evidence {
     display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .nice-tophat {
+    .nice-evidence {
+      .menu {
+        li {
+          a {
+            padding: @quarterSpacing @quarterSpacing @quarterSpacing @fullSpacing;
+          }
+        }
+      }
+    }
   }
 }
