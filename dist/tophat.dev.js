@@ -717,7 +717,7 @@ function addSearchToGlobal( el, searchForm ) {
 
 
 function decodeURIComponentExtended ( s ) {
-    return decodeURIComponent( (s || '').replace( /\+/g, ' ' ) );
+    return decodeURIComponent( unescape( (s || '').replace( /\+/g, ' ' ) ) );
 }
 
 function extendParam( obj, name, val ) {
