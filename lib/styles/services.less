@@ -7,9 +7,8 @@
 
       a {
         width: @fullSpacing * 3.5;
-        padding: @halfSpacing @quarterSpacing * .75 (@halfSpacing * 1.5) + 1 @halfSpacing;
+        padding: @halfSpacing @quarterSpacing * .75 (@halfSpacing * 1.5 + 1) + 1 @halfSpacing;
         border-left: 1px solid @serviceBorderColor;
-        border-bottom: 1px solid @serviceBackgroundColor;
         line-height: @baseLineHeight - 4;
         font-size: @baseFontSize;
 
@@ -32,7 +31,7 @@
           position: absolute;
           bottom: 0;
           left: 50%;
-          border-top-color: #eff1f3;
+          border-top-color: #0e0e0e;
           margin-left: (@quarterSpacing * -1) - 1;
         }
       }
@@ -42,6 +41,7 @@
         &:hover,
         &:focus {
           background-color: @serviceActiveBackgroundColor;
+          color: @serviceActiveTextColor;
         }
       }
     }
@@ -58,6 +58,7 @@
     &:hover,
     &:focus {
       background-color: @serviceOpenBackgroundColor;
+      color: @foregroundColor;
     }
 
     &:before {
