@@ -27,9 +27,25 @@ npm i
 | `grunt webserver` | Starts a dev web server on the first available port starting from 8000 |
 | `grunt test` or `npm test` | Runs jshint against the script and test files then runs the html screenshot tests (via Casper) to check for changes to the designs |
 
+## Development
+
+Typically in development you would run `grunt` and `grunt webserver` alongside each other in 2 separate command windows.
+
+To test a local instance of TopHat in-context against other services, temporarily swap the TopHat reference for the local one, e.g. swap:
+
+```html
+<script src="//cdn.nice.org.uk/V3/Scripts/nice/NICE.TopHat.dev.js"></script>
+```
+
+with:
+
+```html
+<script src="http://localhost:8000/tophat.dev.js"></script>
+```
+
 ## Deployment
 
-1) Update version parameter in package.json
-1) Create a tag
+1. Update version parameter in package.json
+1. Create a tag for that version
 
 Deployment to the CDN is currently done manually, so speak to ops. Once the tophat dist files have been created, these should then be copied into https://github.com/nhsevidence/NICE.Bootstrap/tree/master/src/scripts/nice. 
