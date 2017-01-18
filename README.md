@@ -43,6 +43,31 @@ with:
 <script src="http://localhost:8000/tophat.dev.js"></script>
 ```
 
+## Usage/configuration options
+
+TopHat can be configured with a set of `data-` attributes on the script tag, e.g.:
+
+```html
+<script src="//cdn.nice.org.uk/V3/Scripts/nice/NICE.TopHat.dev.js" data-environment="Live"></script>
+```
+
+These are parsed out in [config.js](lib/config.js).
+
+The attributes are as follows and are all optional:
+
+| Attribute | Type | Description |
+| --------- | ---- | ----------- |
+| `data-service` | {pathways,guidance,standards} | The key for the active top-level service (if any) |
+| `data-evidence` | {search,bnf,bnfc,cks,journals} | The key for the active Evidence service (if any) |
+| `data-environment` | {beta,live} | The environment of the current service |
+| `data-timestamp` | ? | Not used? |
+| `data-search` | URL | The action URL for the search form E.g. `/search?q=` |
+| `data-typeaheadtype` | {remote} | The type of typehead request. Usually *remote* (if used). |
+| `data-typeaheadsource` | URL | The source URL used for typeahead requests e.g. `/autocomplete?%query` or `/typeahead?q=%term` |
+| `data-internal` | Boolean | If the current service is internal only. TODO: What does this affect? |
+| `data-home` | URL | The URL used for the NICE Logo. Defaults to http://www.nice.org.uk if not set. |
+| `data-wtrealm` | String | Passed to NICE Accounts as a querystring for authentication |
+
 ## Deployment
 
 1. Update version parameter in package.json
