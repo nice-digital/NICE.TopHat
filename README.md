@@ -2,6 +2,17 @@
 
 Distributable, branded tophat component for NICE Services and Web Applications
 
+## Table of contents
+
+- [Project structure](#project-structure)
+- [Installation](#installation)
+- [Commands](#commands)
+- [Development](#development)
+- [Usage](#usage)
+  - [Markup](#markup)
+  - [Configuration options](#configuration-options)
+- [Deployment](#deployment)
+
 ## Project structure
 
 - The [JavaScript](lib) is written in modular ES5
@@ -43,7 +54,48 @@ with:
 <script src="http://localhost:8000/tophat.dev.js"></script>
 ```
 
-## Usage/configuration options
+## Usage
+
+The basics of tophat usage to add a reference to the TopHat script, ideally from a CDN, just before the closing body tag:
+
+```html
+<script src="//cdn.nice.org.uk/V3/Scripts/nice/NICE.TopHat.dev.js"></script>
+```
+But TopHat can be extended with extra markup and configured via data attributes.
+
+### Markup
+
+TopHat will render into `.nice-tophat` if it exists or will create a new containing div (`.nice-tophat`) if it doesn't. It will always prepend the result to the body element.
+
+If you need extra markup for header elements such as search, menus, logos etc, you can add these into the `.nice-tophat` div:
+
+```html
+<div class="nice-tophat">
+    <div class="nice-global" id="nice-global">
+        <div class="tophat-inner">
+        
+            <!-- Optional. Partner (service) logo will be styled by TopHat -->
+            <a href="/" class="partner-logo">
+              <img src="/logo.png">
+            </a>
+            
+            <!-- Optional. Partner (service) name will be styled by TopHat -->
+            <span class="partner-brand">Service name here</span>
+            
+            <!-- The search box (if `data-search` is specified) will be rendered here, just before .menu -->
+            
+            <!-- This nav will be styled by TopHat -->
+            <ul class="menu">
+                <li><a href="#">Item 1</a></li>
+                <li><a href="#">Item 2</a></li>
+                <li><a href="#">Item 3</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+```
+
+### Configuration options
 
 TopHat can be configured with a set of `data-` attributes on the script tag, e.g.:
 
