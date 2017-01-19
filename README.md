@@ -110,7 +110,7 @@ The attributes are as follows and are all optional:
 | Attribute | Type | Description |
 | --------- | ---- | ----------- |
 | `data-service` | {pathways,guidance,standards} | The key for the active top-level service (if any) |
-| `data-evidence` | {search,bnf,bnfc,cks,journals} | The key for the active Evidence service (if any) |
+| `data-evidence` | {search,bnf,bnfc,cks,journals} | The key for the active Evidence service (if any). This automatically highlights 'Evidence' in the Top Level menu if set. |
 | `data-environment` | {beta,live} | The environment of the current service |
 | `data-timestamp` | ? | Not used? |
 | `data-search` | URL | The action URL for the search form E.g. `/search?q=` |
