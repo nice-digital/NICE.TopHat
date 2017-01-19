@@ -4,7 +4,7 @@ module.exports = function( config ) {
         dist: {
             options: {
                 mangle: true,
-                preserveComments: false,
+                preserveComments: /^!/,
                 sourceMap: true,
                 sourceMapName: 'dist/tophat.map',
                 compress: {
