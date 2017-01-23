@@ -1,4 +1,5 @@
 .nice-search {
+  color: @foregroundColor;
   float: left;
   position: relative;
   width: 40%;
@@ -19,7 +20,7 @@
     font-size: @searchControlFontSize;
     font-weight: 400;
     line-height: @searchControlHeight;
-    color: @globalForegroundColor;
+    color: @foregroundColor;
     border: 1px solid @searchBorderColor;
     border-radius: 0;
     vertical-align: middle;
@@ -54,6 +55,11 @@
     border: 1px solid @searchButtonBackgroundColor;
     font-size: 0;
     line-height: normal;
+
+    &:hover {
+      background-color: @searchButtonHoverBackgroundColor;
+      border-colour: @searchButtonHoverBackgroundColor;
+    }
   }
 
   .icon-search {
