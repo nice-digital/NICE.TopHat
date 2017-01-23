@@ -7,7 +7,7 @@
 
       a {
         width: @fullSpacing * 3.5;
-        padding: @halfSpacing @quarterSpacing * .75 (@halfSpacing * 1.5 + 1) + 1 @halfSpacing;
+        padding: @halfSpacing @quarterSpacing * .75 (@halfSpacing * 1.5 + 2) @halfSpacing;
         border-left: 1px solid @serviceBorderColor;
         line-height: @baseLineHeight - 4;
         font-size: @baseFontSize;
@@ -52,7 +52,7 @@
 .menu-evidence-active .nice-services .menu .menu-evidence {
   a {
     border-bottom: 0;
-    padding-bottom: (@halfSpacing * 1.5) + 2;
+    padding-bottom: (@halfSpacing * 1.5 + 2);
 
     &,
     &:hover,
@@ -73,7 +73,7 @@
       .menu {
         a {
           padding-top: @halfSpacing;
-          padding-bottom: @halfSpacing;
+          padding-bottom: (@halfSpacing * 1.5 + 2);
         }
       }
     }
@@ -82,7 +82,7 @@
   .menu-evidence-open .nice-services .menu .menu-evidence,
   .menu-evidence-active .nice-services .menu .menu-evidence {
     a {
-      padding-bottom: @halfSpacing + 1;
+      padding-bottom: (@halfSpacing * 1.5 + 2);
     }
   }
 }
