@@ -80,6 +80,7 @@
     }
 
     .tophat-inner {
+      margin-left: 0;
       width: 100%;
     }
 
@@ -137,8 +138,21 @@
   .nice-tophat {
     .nice-profile {
       left: auto;
-      right: @halfSpacing;
+      right: 16px;
       margin-left: 0;
+
+      .tophat-inner {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 1220px) {
+  .nice-tophat {
+    .nice-profile {
+      left: auto;
+      right: 1.5%;
     }
   }
 }
@@ -147,6 +161,16 @@
   .nice-tophat {
     .menu-anonymous {
       margin-top: @halfSpacing;
+    }
+    .nice-profile {
+      right: 5px;
+    }
+  }
+  .layout-fill {
+    .nice-tophat {
+      .nice-profile {
+        right: 5px;
+      }
     }
   }
 }
@@ -174,9 +198,13 @@
       margin: 0;
       padding: 0;
 
+      &:before {
+        right: 21px;
+      }
+
       .menu {
         border: 0;
-        margin: 0 @halfSpacing * -1;
+        margin: 0;
 
         li {
           a {
