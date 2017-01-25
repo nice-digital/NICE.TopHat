@@ -1,6 +1,7 @@
 .nice-tophat {
   .nice-services {
     background-color: @serviceBackgroundColor;
+    border-bottom: 1px solid @serviceBorderColor;
 
     .menu {
       border-right: 1px solid @serviceBorderColor;
@@ -50,6 +51,18 @@
 
 .menu-evidence-open .nice-services .menu .menu-evidence,
 .menu-evidence-active .nice-services .menu .menu-evidence {
+
+  // Pseudo to cover the service's bottom border
+  &:after {
+    background-color: @serviceOpenBackgroundColor;
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+  }
+
   a {
     border-bottom: 0;
     padding-bottom: (@halfSpacing * 1.5 + 2);
