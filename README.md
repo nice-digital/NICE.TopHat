@@ -114,6 +114,7 @@ The attributes are as follows and are all optional:
 | `data-environment` | {beta,live} | The environment of the current service |
 | `data-timestamp` | ? | Not used? |
 | `data-search` | URL | The action URL for the search form E.g. `/search?q=` |
+| `data-search-placeholder` | String | Placeholder value for the search input field. Default: 'Search...' |
 | `data-typeaheadtype` | {remote} | The type of typehead request. Usually *remote* (if used). |
 | `data-typeaheadsource` | URL | The source URL used for typeahead requests e.g. `/autocomplete?%query` or `/typeahead?q=%term` |
 | `data-internal` | Boolean | If the current service is internal only. TODO: What does this affect? |
