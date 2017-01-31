@@ -8,13 +8,14 @@
     &:hover,
     &:focus {
       color: @foregroundColor;
+      font-weight: 600;
     }
   }
 
   .menu-anonymous {
     margin: ( @fullSpacing * .75 ) - 3 0 0 @halfSpacing;
     padding: @quarterSpacing @halfSpacing;
-    border: 1px solid @foregroundColor;
+    border: 2px solid @foregroundColor;
   }
 
   .menu-profile {
@@ -29,6 +30,10 @@
     &:focus {
       background-color: transparent;
     }
+
+    &:hover {
+      color: #999;
+    }
   }
 
   .profile-avatar {
@@ -37,7 +42,6 @@
     height: 100%;
     vertical-align: -35%;
 
-    color: @foregroundColor;
     text-align: center;
     font-size: @serviceIconSize;
     font-style: normal;
@@ -59,12 +63,26 @@
     position: absolute;
     z-index: 2003;
     width: 250px;
-    padding: 6px 0;
     left: 50%;
     margin-left: 340px;
     top: 50px;
     background-color: @evidenceBackgroundColor;
     display: none;
+    border: 1px solid @serviceBorderColor;
+
+    &:before {
+      border: 6px solid transparent;
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      right: 18px;
+      border-bottom-color: @foregroundColor;
+    }
+
+    .tophat-inner {
+      margin-left: 0;
+      width: 100%;
+    }
 
     .menu {
       border-right: 1px solid @evidenceBorderColor;
@@ -99,6 +117,10 @@
         }
       }
     }
+
+    .menu li:first-child a {
+      border-top: 0;
+    }
   }
 }
 
@@ -116,8 +138,21 @@
   .nice-tophat {
     .nice-profile {
       left: auto;
-      right: @halfSpacing;
+      right: 16px;
       margin-left: 0;
+
+      .tophat-inner {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 1220px) {
+  .nice-tophat {
+    .nice-profile {
+      left: auto;
+      right: 1.5%;
     }
   }
 }
@@ -126,6 +161,16 @@
   .nice-tophat {
     .menu-anonymous {
       margin-top: @halfSpacing;
+    }
+    .nice-profile {
+      right: 5px;
+    }
+  }
+  .layout-fill {
+    .nice-tophat {
+      .nice-profile {
+        right: 5px;
+      }
     }
   }
 }
@@ -153,9 +198,13 @@
       margin: 0;
       padding: 0;
 
+      &:before {
+        right: 21px;
+      }
+
       .menu {
         border: 0;
-        margin: 0 @halfSpacing * -1;
+        margin: 0;
 
         li {
           a {

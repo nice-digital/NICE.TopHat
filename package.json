@@ -1,6 +1,6 @@
 {
   "name": "NICE.TopHat",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Distributable, branded tophat component for NICE Services and Web Applications",
   "private": true,
   "scripts": {
@@ -34,6 +34,7 @@
     "grunt-contrib-watch": "*",
     "load-grunt-tasks": "*",
     "minifyify": "*",
+    "cssify": "*",
     "node-lessify": "*",
     "partialify": "*"
   }

@@ -5,7 +5,8 @@ var cssify = require('cssify')
 module.exports = function( config ) {
     return {
         options: {
-            transform: [ cssify, partialify.onlyAllow(['html']) ]
+            transform: [ cssify, partialify.onlyAllow(['html']) ],
+            banner: '/*!\n@name <%= pkg.name %>\n@version <%= pkg.version %> | <%= grunt.template.today("yyyy-mm-dd") %>\n*/\n'
         },
 
         dist: {

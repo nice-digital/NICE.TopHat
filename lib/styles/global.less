@@ -1,19 +1,18 @@
 .nice-tophat {
   .nice-global {
     background-color: @globalBackgroundColor;
+    color: @globalForegroundColor;
 
     .menu {
       a {
-        color: #000;
+        color: @globalForegroundColor;
         padding: 19px @halfSpacing 20px;
         line-height: @baseLineHeight;
 
         &:hover,
         &:focus {
-          color: #000;
+          color: @globalHoverForegroundColor;
           background-color: @globalHoverBackgroundColor;
-          padding-bottom: 16px;
-          border-bottom: 4px solid @globalLinkBorderColor;
         }
       }
 
@@ -23,8 +22,6 @@
         &:focus {
           color: #000;
           background-color: @globalActiveBackgroundColor;
-          padding-bottom: 16px;
-          border-bottom: 4px solid @globalLinkBorderColor;
         }
       }
     }

@@ -1,0 +1,21 @@
+{
+  "name": "nice.tophat",
+  "description": "Distributable, branded tophat component for NICE Services and Web Applications",
+  "main": "dist/tophat.js",
+  "authors": [
+    "NICE Digital Services"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "nice",
+    "tophat"
+  ],
+  "homepage": "https://github.com/nhsevidence/NICE.TopHat",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
