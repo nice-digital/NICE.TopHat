@@ -49,79 +49,213 @@
     .microsite {
       height: 300px;
     }
+    .dropbtn {
+      background-color: #126470;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .dropbtn:hover, .dropbtn:focus {
+      background-color: #004650;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      background-color: #126470;
+      width: 100%;
+      height: 70px;
+      color: white
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown a:hover {background-color: #f1f1f1}
+
+    .show {display:block;}
+    .hidden{display: none;}
+    #myDropdown{
+      height:  250px;
+      overflow: scroll;
+      overflow-x: hidden;
+    }
+    form{
+      display: inline;
+    }
+
+
   </style>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+  <script>
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+function remove(classname){
+  if(!document.getElementById('Compare').checked){ 
+      var items = document.getElementsByClassName('pages');
+  for(var i = 0; i < items.length; i++)
+  {
+      if(!items[i].classList.contains('hidden')){
+        items[i].classList.add("hidden");
+      }
+  }
+  }
+  document.getElementsByClassName(classname)[0].classList.toggle("hidden");
+
+}
+
+</script>
 </head>
 
 <body>
-  <h2>Nice org</h2>
-  <iframe src="./example.niceorg.html"></iframe>
-  <iframe src="./example.niceorg.html"></iframe>
 
-  <hr/>
+  <section>
 
+    <div class="dropdown">
+
+      <button onclick="myFunction()" on class="dropbtn">Project tophats ⮟ </button>
+      <div id="myDropdown"  class="dropdown-content">
+        <a id="niceorg" onclick="remove('niceorg')" href="#">Nice org</a>
+        <a id="guidance" onclick="remove('guidance')" href="#">Guidence</a>
+        <a id="sandi" onclick="remove('sandi')" href="#">Standards and guidence</a>
+        <a id="evidence" onclick="remove('evidence')" href="#">Evidence</a>
+        <a id="eSearch" onclick="remove('eSearch')" href="#">Eviedence Search</a>
+        <a id="BNF" onclick="remove('bnf')" href="#">BNF</a>
+        <a id="BNFc" onclick="remove('bnfc')" href="#">BNFc</a>
+        <a id="CKS" onclick="remove('guidance')" href="#">CKS</a>
+        <a id="appraisals" onclick="remove('appraisals')" href="#">Appraisals</a>
+        <a id="ROI" onclick="remove('ROI)" href="#">ROI</a>
+        <a id="InDev" onclick="remove('InDev')" href="#">In Dev</a>
+        <a id="Pathways" onclick="remove('Pathways')" href="#">Pathways</a>
+        <a href="#contact">Contact</a>
+      </div>
+    
+    <form>
+      <input type="checkbox" id="Compare"> Compare
+    </form>
+    </div>
+  </section>
+
+  <div class="niceorg hidden pages">
+   <h2>Nice org</h2>
+   <iframe src="./example.niceorg.html"></iframe>
+   <iframe src="./example.niceorg.html"></iframe>
+ </div>
+ 
+
+ <div class="guidance hidden pages">
   <h2>Guidance</h2>
   <iframe src="./example.guidance.html"></iframe>
   <iframe src="./example.guidance.html"></iframe>
+</div>
 
-  <hr/>
-
+<div class="sandi hidden pages">
   <h2>Standards and Indicators</h2>
   <iframe src="./example.standards.html"></iframe>
   <iframe src="./example.standards.html"></iframe>
+</div>
 
-  <hr/>
 
+<div class="evidence hidden pages">
   <h2>Evidence</h2>
   <iframe src="./example.evidence.html"></iframe>
   <iframe src="./example.evidence.html"></iframe>
+</div>
 
-  <hr/>
 
+<div class="eSearch hidden pages">
   <h2>Evidence search</h2>
   <iframe src="./example.evidence-search.html"></iframe>
   <iframe src="./example.evidence-search.html"></iframe>
+</div>
 
-  <hr/>
 
-  <h2>BNF microsite</h2>
+<div class="BNF hidden pages">
+  <h2>BNF</h2>
   <iframe src="./example.bnf.html" class="microsite"></iframe>
   <iframe src="./example.bnf.html"></iframe>
+</div>
 
-  <hr/>
 
+<div class="BNFc hidden pages">
   <h2>BNFC microsite</h2>
   <iframe src="./example.bnfc.html" class="microsite"></iframe>
   <iframe src="./example.bnfc.html"></iframe>
+</div>
 
-  <hr/>
 
+
+<div class="CKS hidden pages">
   <h2>CKS microsite</h2>
   <iframe src="./example.cks.html" class="microsite"></iframe>
   <iframe src="./example.cks.html"></iframe>
+</div>
 
-  <hr/>
-
+<div class="appraisals hidden pages">
   <h2>Appraisals tool</h2>
   <iframe src="./example.appraisals.html"></iframe>
   <iframe src="./example.appraisals.html"></iframe>
+</div>
 
-  <hr/>
 
+<div class="ROI hidden pages">
   <h2>ROI tools</h2>
   <iframe src="./example.roi.html" class="microsite"></iframe>
   <iframe src="./example.roi.html"></iframe>
+</div>
 
-  <hr/>
 
+<div class="InDev hidden pages">
   <h2>InDev tool</h2>
   <iframe src="./example.indev.html"></iframe>
   <iframe src="./example.indev.html"></iframe>
+</div>
 
-  <hr/>
 
+<div class="Pathways hidden pages">
   <h2>Pathways</h2>
   <iframe src="./example.pathways.html"></iframe>
   <iframe src="./example.pathways.html"></iframe>
+</div>
 
 </body>
 </html>
