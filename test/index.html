@@ -149,8 +149,11 @@ $( document ).ready(function() {
       $("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
 
     }
-    
+
   });
+ $('.dropbtn, #myDropdown').hover(function(){
+      dropdown();
+    });
 
 
 });
@@ -164,7 +167,7 @@ $( document ).ready(function() {
 
     <div class="dropdown">
 
-      <button onclick="dropdown()" on class="dropbtn">Project tophats ⮟ </button>
+    <button class="dropbtn">Project tophats ⮟ </button>
       <div id="myDropdown"  class="dropdown-content">
         <a class="button" data-page="./example.niceorg.html" href="#">Nice org</a>
         <a class="button" data-page='./example.guidance.html' href="#">Guidence</a>
@@ -180,7 +183,7 @@ $( document ).ready(function() {
         <a class="button" data-page='./example.pathways.html' href="#">Pathways</a>
         <a href="#contact">Contact</a>
       </div>
-      
+
       <form>
         <input type="checkbox" id="Compare"> Compare
       </form>
