@@ -71,7 +71,7 @@
       color: white
     }
 
-    .dropdown-content {
+    .dropdownContent {
       display: none;
       position: absolute;
       background-color: #f9f9f9;
@@ -81,7 +81,7 @@
       z-index: 1;
     }
 
-    .dropdown-content a {
+    .dropdownContent a {
       color: black;
       padding: 12px 16px;
       text-decoration: none;
@@ -110,53 +110,57 @@
   <script>
     /* When the user clicks on the button, 
     toggle between hiding and showing the dropdown content */
+    
+
     function dropdown() {
-      document.getElementById("myDropdown").classList.toggle("show");
+      $("#myDropdown").toggleClass("show")
     }
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+$(window).click(function() {if (!event.target.matches(".dropbtn")) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdowns = document.getElementsByClassName("dropdownContent");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
+      if (openDropdown.classList.contains("show")) {
+        openDropdown.classList.remove("show");
       }
     }
-  }
-}
+  }});
+
 $( document ).ready(function() {
 
-function renderURL(button){
-  var url = $(button).attr("data-page");
-    var title = $(this).text();
-    if(!document.getElementById('Compare').checked){
-       $("#views").empty();
-       $("body").append('<div id="views"></div>');
-      $("#views").append('<h1>' + title + '</h1>');
-      $("#views").append('<iframe src="' + url + '"></iframe>');
-      $("#views").append('<iframe class="mobile" src="' + url + '"></iframe>');
-    }
-    else{
-      $("#views").append('<hr>')
-      $("#views").append('<h1>' + title + '</h1>');
-      $("#views").append('<iframe src="' + url + '"></iframe>');
-      $("#views").append('<iframe class="mobile" src="' + url + '"></iframe><hr>');
+ $('a').click( function(e) {
+  e.preventDefault();
+  renderURL(this);
+});
+  
 
-    }
-}
-  $('.button').click(function(){
-    renderURL(this);
-
-  });
-
- $('.dropbtn').click(function(){
+ $(".dropbtn").click(function(){
       dropdown();
     });
 
+function renderURL(button){
+  var url = $(button).attr("href");
+    var title = $(this).text();
+    var $views = $("#views");
+    if(!$("#Compare").is(":checked")){
+       $views.empty();
+       $("body").append('<div id="views"></div>');
+      $views.append('<h1>' + title + '</h1>');
+      $views.append('<iframe src="' + url + '"></iframe>');
+      $views.append('<iframe class="mobile" src="' + url + '"></iframe>');
+    }
+    else{
+      $views.append('<hr>')
+      $views.append('<h1>' + title + '</h1>');
+      $views.append('<iframe src="' + url + '"></iframe>');
+      $views.append('<iframe class="mobile" src="' + url + '"></iframe><hr>');
+
+    }
+}
+ 
 
 });
 
@@ -170,19 +174,19 @@ function renderURL(button){
     <div class="dropdown">
 
     <button class="dropbtn">Project tophats ⮟ </button>
-      <div id="myDropdown"  class="dropdown-content">
-        <a class="button" data-page="./example.niceorg.html" href="#">Nice org</a>
-        <a class="button" data-page='./example.guidance.html' href="#">Guidence</a>
-        <a class="button" data-page='./example.standards.html' href="#">Standards and guidence</a>
-        <a class="button" data-page='./example.evidence.html' href="#">Evidence</a>
-        <a class="button" data-page='./example.evidence-search.html' href="#">Eviedence Search</a>
-        <a class="button" data-page='./example.bnf.html' href="#">BNF</a>
-        <a class="button" data-page='./example.bnfc.html' href="#">BNFc</a>
-        <a class="button" data-page='./example.cks.html' href="#">CKS</a>
-        <a class="button" data-page='./example.appraisals.html' href="#">Appraisals</a>
-        <a class="button" data-page='./example.roi.html' href="#">ROI</a>
-        <a class="button" data-page='./example.indev.html' href="#">In Dev</a>
-        <a class="button" data-page='./example.pathways.html' href="#">Pathways</a>
+      <div id="myDropdown"  class="dropdownContent">
+        <a class="button" href="./example.niceorg.html">Nice org</a>
+        <a class="button" href="./example.guidance.html">Guidence</a>
+        <a class="button" href="./example.standards.html">Standards and guidence</a>
+        <a class="button" href="./example.evidence.html" >Evidence</a>
+        <a class="button" href="./example.evidence-search.html" >Eviedence Search</a>
+        <a class="button" href="./example.bnf.html" >BNF</a>
+        <a class="button" href="./example.bnfc.html">BNFc</a>
+        <a class="button" href="./example.cks.html" >CKS</a>
+        <a class="button" href="./example.appraisals.html" >Appraisals</a>
+        <a class="button" href="./example.roi.html">ROI</a>
+        <a class="button" href="./example.indev.html">In Dev</a>
+        <a class="button" href="./example.pathways.html">Pathways</a>
         <a href="#contact">Contact</a>
       </div>
 
