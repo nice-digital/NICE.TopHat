@@ -130,28 +130,30 @@ window.onclick = function(event) {
 }
 $( document ).ready(function() {
 
-
-  $('.button').click(function(){
-    var mobile = $(this).attr("data-page");
+function renderURL(button){
+  var url = $(button).attr("data-page");
     var title = $(this).text();
     if(!document.getElementById('Compare').checked){
-      var $newBody = $('<body>');
-      $newBody.append( $('body').contents() );
-      $('body').replaceWith( $newBody );
-      $("body").append('<h1>' + title + '</h1>');
-      $("body").append('<iframe src="' + mobile + '"></iframe>');
-      $("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
+       $("#views").empty();
+       $("body").append('<div id="views"></div>');
+      $("#views").append('<h1>' + title + '</h1>');
+      $("#views").append('<iframe src="' + url + '"></iframe>');
+      $("#views").append('<iframe class="mobile" src="' + url + '"></iframe>');
     }
     else{
-      $("body").append('<hr>')
-      $("body").append('<h1>' + title + '</h1>');
-      $("body").append('<iframe src="' + mobile + '"></iframe>');
-      $("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
+      $("#views").append('<hr>')
+      $("#views").append('<h1>' + title + '</h1>');
+      $("#views").append('<iframe src="' + url + '"></iframe>');
+      $("#views").append('<iframe class="mobile" src="' + url + '"></iframe><hr>');
 
     }
+}
+  $('.button').click(function(){
+    renderURL(this);
 
   });
- $('.dropbtn, #myDropdown').hover(function(){
+
+ $('.dropbtn').click(function(){
       dropdown();
     });
 
@@ -189,5 +191,6 @@ $( document ).ready(function() {
       </form>
     </div>
   </section>
+  <div id="views"></div>
 </body>
 </html>
