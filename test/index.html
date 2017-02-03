@@ -93,7 +93,7 @@
     .show {display:block;}
     .hidden{display: none;}
     #myDropdown{
-      height:  250px;
+      height:  300px;
       overflow: scroll;
       overflow-x: hidden;
     }
@@ -108,8 +108,7 @@
   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
   crossorigin="anonymous"></script>
   <script>
-
-/* When the user clicks on the button, 
+    /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function dropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
@@ -129,19 +128,32 @@ window.onclick = function(event) {
     }
   }
 }
-function remove(classname){
-  if(!document.getElementById('Compare').checked){ 
-      var items = document.getElementsByClassName('pages');
-  for(var i = 0; i < items.length; i++)
-  {
-      if(!items[i].classList.contains('hidden')){
-        items[i].classList.add("hidden");
-      }
-  }
-  }
-  document.getElementsByClassName(classname)[0].classList.toggle("hidden");
+$( document ).ready(function() {
 
-}
+
+$('.button').click(function(){
+  var mobile = $(this).attr("data-page");
+    var title = $(this).text();
+  if(!document.getElementById('Compare').checked){
+    var $newBody = $('<body>');
+$newBody.append( $('body').contents() );
+    $('body').replaceWith( $newBody );
+$("body").append('<h1>' + title + '</h1>');
+$("body").append('<iframe src="' + mobile + '"></iframe>');
+$("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
+  }
+  else{
+    $("body").append('<hr>')
+    $("body").append('<h1>' + title + '</h1>');
+    $("body").append('<iframe src="' + mobile + '"></iframe>');
+$("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
+
+  }
+ 
+});
+
+
+});
 
 </script>
 </head>
@@ -154,18 +166,18 @@ function remove(classname){
 
       <button onclick="dropdown()" on class="dropbtn">Project tophats ⮟ </button>
       <div id="myDropdown"  class="dropdown-content">
-        <a id="niceorg" onclick="remove('niceorg')" href="#">Nice org</a>
-        <a id="guidance" onclick="remove('guidance')" href="#">Guidence</a>
-        <a id="sandi" onclick="remove('sandi')" href="#">Standards and guidence</a>
-        <a id="evidence" onclick="remove('evidence')" href="#">Evidence</a>
-        <a id="eSearch" onclick="remove('eSearch')" href="#">Eviedence Search</a>
-        <a id="BNF" onclick="remove('bnf')" href="#">BNF</a>
-        <a id="BNFc" onclick="remove('bnfc')" href="#">BNFc</a>
-        <a id="CKS" onclick="remove('guidance')" href="#">CKS</a>
-        <a id="appraisals" onclick="remove('appraisals')" href="#">Appraisals</a>
-        <a id="ROI" onclick="remove('ROI)" href="#">ROI</a>
-        <a id="InDev" onclick="remove('InDev')" href="#">In Dev</a>
-        <a id="Pathways" onclick="remove('Pathways')" href="#">Pathways</a>
+        <a class="button" data-page="./example.niceorg.html" href="#">Nice org</a>
+        <a class="button" data-page='./example.guidance.html' href="#">Guidence</a>
+        <a class="button" data-page='./example.standards.html' href="#">Standards and guidence</a>
+        <a class="button" data-page='./example.evidence.html' href="#">Evidence</a>
+        <a class="button" data-page='./example.evidence-search.html' href="#">Eviedence Search</a>
+        <a class="button" data-page='./example.bnf.html' href="#">BNF</a>
+        <a class="button" data-page='./example.bnfc.html' href="#">BNFc</a>
+        <a class="button" data-page='./example.cks.html' href="#">CKS</a>
+        <a class="button" data-page='./example.appraisals.html' href="#">Appraisals</a>
+        <a class="button" data-page='./example.roi.html' href="#">ROI</a>
+        <a class="button" data-page='./example.indev.html' href="#">In Dev</a>
+        <a class="button" data-page='./example.pathways.html' href="#">Pathways</a>
         <a href="#contact">Contact</a>
       </div>
     
@@ -174,88 +186,5 @@ function remove(classname){
     </form>
     </div>
   </section>
-
-  <div class="niceorg hidden pages">
-   <h2>Nice org</h2>
-   <iframe src="./example.niceorg.html"></iframe>
-   <iframe src="./example.niceorg.html"></iframe>
- </div>
- 
-
- <div class="guidance hidden pages">
-  <h2>Guidance</h2>
-  <iframe src="./example.guidance.html"></iframe>
-  <iframe src="./example.guidance.html"></iframe>
-</div>
-
-<div class="sandi hidden pages">
-  <h2>Standards and Indicators</h2>
-  <iframe src="./example.standards.html"></iframe>
-  <iframe src="./example.standards.html"></iframe>
-</div>
-
-
-<div class="evidence hidden pages">
-  <h2>Evidence</h2>
-  <iframe src="./example.evidence.html"></iframe>
-  <iframe src="./example.evidence.html"></iframe>
-</div>
-
-
-<div class="eSearch hidden pages">
-  <h2>Evidence search</h2>
-  <iframe src="./example.evidence-search.html"></iframe>
-  <iframe src="./example.evidence-search.html"></iframe>
-</div>
-
-
-<div class="BNF hidden pages">
-  <h2>BNF</h2>
-  <iframe src="./example.bnf.html" class="microsite"></iframe>
-  <iframe src="./example.bnf.html"></iframe>
-</div>
-
-
-<div class="BNFc hidden pages">
-  <h2>BNFC microsite</h2>
-  <iframe src="./example.bnfc.html" class="microsite"></iframe>
-  <iframe src="./example.bnfc.html"></iframe>
-</div>
-
-
-
-<div class="CKS hidden pages">
-  <h2>CKS microsite</h2>
-  <iframe src="./example.cks.html" class="microsite"></iframe>
-  <iframe src="./example.cks.html"></iframe>
-</div>
-
-<div class="appraisals hidden pages">
-  <h2>Appraisals tool</h2>
-  <iframe src="./example.appraisals.html"></iframe>
-  <iframe src="./example.appraisals.html"></iframe>
-</div>
-
-
-<div class="ROI hidden pages">
-  <h2>ROI tools</h2>
-  <iframe src="./example.roi.html" class="microsite"></iframe>
-  <iframe src="./example.roi.html"></iframe>
-</div>
-
-
-<div class="InDev hidden pages">
-  <h2>InDev tool</h2>
-  <iframe src="./example.indev.html"></iframe>
-  <iframe src="./example.indev.html"></iframe>
-</div>
-
-
-<div class="Pathways hidden pages">
-  <h2>Pathways</h2>
-  <iframe src="./example.pathways.html"></iframe>
-  <iframe src="./example.pathways.html"></iframe>
-</div>
-
 </body>
 </html>
