@@ -111,7 +111,7 @@
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function myFunction() {
+function dropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
@@ -152,7 +152,7 @@ function remove(classname){
 
     <div class="dropdown">
 
-      <button onclick="myFunction()" on class="dropbtn">Project tophats ⮟ </button>
+      <button onclick="dropdown()" on class="dropbtn">Project tophats ⮟ </button>
       <div id="myDropdown"  class="dropdown-content">
         <a id="niceorg" onclick="remove('niceorg')" href="#">Nice org</a>
         <a id="guidance" onclick="remove('guidance')" href="#">Guidence</a>
