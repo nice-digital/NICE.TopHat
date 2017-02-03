@@ -109,10 +109,10 @@
   crossorigin="anonymous"></script>
   <script>
     /* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function dropdown() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
+    toggle between hiding and showing the dropdown content */
+    function dropdown() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
@@ -131,26 +131,26 @@ window.onclick = function(event) {
 $( document ).ready(function() {
 
 
-$('.button').click(function(){
-  var mobile = $(this).attr("data-page");
+  $('.button').click(function(){
+    var mobile = $(this).attr("data-page");
     var title = $(this).text();
-  if(!document.getElementById('Compare').checked){
-    var $newBody = $('<body>');
-$newBody.append( $('body').contents() );
-    $('body').replaceWith( $newBody );
-$("body").append('<h1>' + title + '</h1>');
-$("body").append('<iframe src="' + mobile + '"></iframe>');
-$("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
-  }
-  else{
-    $("body").append('<hr>')
-    $("body").append('<h1>' + title + '</h1>');
-    $("body").append('<iframe src="' + mobile + '"></iframe>');
-$("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
+    if(!document.getElementById('Compare').checked){
+      var $newBody = $('<body>');
+      $newBody.append( $('body').contents() );
+      $('body').replaceWith( $newBody );
+      $("body").append('<h1>' + title + '</h1>');
+      $("body").append('<iframe src="' + mobile + '"></iframe>');
+      $("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
+    }
+    else{
+      $("body").append('<hr>')
+      $("body").append('<h1>' + title + '</h1>');
+      $("body").append('<iframe src="' + mobile + '"></iframe>');
+      $("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
 
-  }
- 
-});
+    }
+    
+  });
 
 
 });
@@ -180,10 +180,10 @@ $("body").append('<iframe class="mobile" src="' + mobile + '"></iframe>');
         <a class="button" data-page='./example.pathways.html' href="#">Pathways</a>
         <a href="#contact">Contact</a>
       </div>
-    
-    <form>
-      <input type="checkbox" id="Compare"> Compare
-    </form>
+      
+      <form>
+        <input type="checkbox" id="Compare"> Compare
+      </form>
     </div>
   </section>
 </body>
