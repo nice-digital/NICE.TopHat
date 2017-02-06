@@ -92,7 +92,7 @@
 
     .show {display:block;}
     .hidden{display: none;}
-    #myDropdown{
+    #dropdownList{
       height:  300px;
       overflow: scroll;
       overflow-x: hidden;
@@ -113,52 +113,49 @@
     
 
     function triggerDropdown() {
-      $("#myDropdown").toggleClass("show")
+      $("#dropdownList").toggleClass("show");
     }
 
 // Close the dropdown if the user clicks outside of it
-$(window).click(function() {if (!event.target.matches(".dropbtn")) {
+$(window).click(function() {
+  if (!event.target.matches(".dropbtn")) {
 
-    $(".dropdownContent").each(function(){
-        var openDropdown = $(this);
-      if (openDropdown.hasClass("show")) {
-        openDropdown.removeClass("show");
-      }
-    });
-  }});
+  $(".dropdownContent").each(function() {
+    var openDropdown = $(this);
+    if (openDropdown.hasClass("show")) {
+      openDropdown.removeClass("show");
+    }
+  });
+}});
 
-$( document ).ready(function() {
+$(document).ready(function() {
 
- $('a').click( function(e) {
+ $('.dropdownContent a').click(function(e) {
   e.preventDefault();
-  renderURL(this);
+  var url = $(this).attr("href");
+  var title = $(this).text();
+  renderIframe(url, title);
 });
-  
 
- $(".dropbtn").click(function(){
-      triggerDropdown();
-    });
 
-function renderURL(button){
-  var url = $(button).attr("href");
-    var title = $(button).text();
-    var $views = $("#views");
-    if(!$("#Compare").is(":checked")){
-       $views.empty();
-       $("body").append('<div id="views"></div>');
-      $views.append('<h1>' + title + '</h1>');
-      $views.append('<iframe src="' + url + '"></iframe>');
-      $views.append('<iframe class="mobile" src="' + url + '"></iframe>');
-    }
-    else{
-      $views.append('<hr>')
-      $views.append('<h1>' + title + '</h1>');
-      $views.append('<iframe src="' + url + '"></iframe>');
-      $views.append('<iframe class="mobile" src="' + url + '"></iframe><hr>');
+ $(".dropbtn").click(function() {
+  triggerDropdown();
+});
 
-    }
+
+ function renderIframe(url, title) {
+  var $views = $("#views");
+  if($("#compareTopHats").is(":checked")) {
+  $views.append('<hr>');
+ }
+ else {
+   $views.empty();
+  }
+   $views.append('<h1>' + title + '</h1>');
+   $views.append('<iframe src="' + url + '"></iframe>');
+   $views.append('<iframe class="mobile" src="' + url + '"></iframe>');
 }
- 
+
 
 });
 
@@ -171,8 +168,8 @@ function renderURL(button){
 
     <div class="dropdown">
 
-    <button class="dropbtn">Project tophats ⮟ </button>
-      <div id="myDropdown"  class="dropdownContent">
+    <button type="menu" class="dropbtn">Project tophats ⮟ </button>
+      <div id="dropdownList"  class="dropdownContent">
         <a class="button" href="./example.niceorg.html">Nice org</a>
         <a class="button" href="./example.guidance.html">Guidence</a>
         <a class="button" href="./example.standards.html">Standards and guidence</a>
@@ -185,11 +182,10 @@ function renderURL(button){
         <a class="button" href="./example.roi.html">ROI</a>
         <a class="button" href="./example.indev.html">In Dev</a>
         <a class="button" href="./example.pathways.html">Pathways</a>
-        <a href="#contact">Contact</a>
       </div>
 
       <form>
-        <input type="checkbox" id="Compare"> Compare
+        <input type="checkbox" id="compareTopHats"> Compare
       </form>
     </div>
   </section>
