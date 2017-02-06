@@ -112,21 +112,19 @@
     toggle between hiding and showing the dropdown content */
     
 
-    function dropdown() {
+    function triggerDropdown() {
       $("#myDropdown").toggleClass("show")
     }
 
 // Close the dropdown if the user clicks outside of it
 $(window).click(function() {if (!event.target.matches(".dropbtn")) {
 
-    var dropdowns = document.getElementsByClassName("dropdownContent");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains("show")) {
-        openDropdown.classList.remove("show");
+    $(".dropdownContent").each(function(){
+        var openDropdown = $(this);
+      if (openDropdown.hasClass("show")) {
+        openDropdown.removeClass("show");
       }
-    }
+    });
   }});
 
 $( document ).ready(function() {
@@ -138,12 +136,12 @@ $( document ).ready(function() {
   
 
  $(".dropbtn").click(function(){
-      dropdown();
+      triggerDropdown();
     });
 
 function renderURL(button){
   var url = $(button).attr("href");
-    var title = $(this).text();
+    var title = $(button).text();
     var $views = $("#views");
     if(!$("#Compare").is(":checked")){
        $views.empty();
