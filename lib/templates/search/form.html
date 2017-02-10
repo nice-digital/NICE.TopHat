@@ -1,7 +1,8 @@
 <form class="nice-search" method="{{method}}" action="{{action}}" data-track="search">
     <div class="controls">
-        <input name="q" value="{{q}}" autocomplete="off" spellcheck="false" placeholder="{{placeholder}}" maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}" />
-        <button type="submit">
+    <!--<label for="search" class="visually-hidden">Perform search</label>-->
+        <input name="q" value="{{q}}" autocomplete="off" spellcheck="false" placeholder="{{placeholder}}" maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}" id="search" />
+        <button type="submit" aria-label="perform-search">
             <i class="icon-search"></i>
             <span class="menu-label">Search</span>
         </button>
