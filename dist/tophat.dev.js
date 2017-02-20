@@ -862,7 +862,7 @@ module.exports = generateServiceElement;
 },{"../config/services":4,"../templates/services/links.html":21,"../templates/services/menu.html":22,"../utils/dom":25}],12:[function(require,module,exports){
 module.exports = '<li class="evidence-{{id}}" role="presentation"><a href="{{href}}" title="{{title}}" role="menuitem">{{label}}</a></li>';
 },{}],13:[function(require,module,exports){
-module.exports = '<div class="nice-evidence" id="nice-evidence"><div class="tophat-inner"><ul class="menu" role="menu" aria-labelledby="evidence-menu">{{menu}}</ul></div></div>';
+module.exports = '<div class="nice-evidence" id="nice-evidence"><div class="tophat-inner" role="navigation"><ul class="menu" role="menu" aria-labelledby="evidence-menu" aria-hidden="true">{{menu}}</ul></div></div>';
 },{}],14:[function(require,module,exports){
 module.exports = '<li class="menu-evidence" role="presentation"><a href="#nice-evidence" aria-haspopup="true" id="evidence-menu" role="menuitem">Evidence services</a></li>';
 },{}],15:[function(require,module,exports){
@@ -870,11 +870,11 @@ module.exports = '<div class="nice-global" id="nice-global"><div class="tophat-i
 },{}],16:[function(require,module,exports){
 module.exports = '<a href="{{root}}/signin" class="menu-anonymous">Sign in</a>';
 },{}],17:[function(require,module,exports){
-module.exports = '<li><a href="{{href}}">{{label}}</a></li>';
+module.exports = '<li><a href="{{href}}" role="menuitem">{{label}}</a></li>';
 },{}],18:[function(require,module,exports){
-module.exports = '<div class="nice-profile" id="nice-profile"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
+module.exports = '<div class="nice-profile" id="nice-profile"><div class="tophat-inner" role="navigation"><ul class="menu" role="menu" aria-haspopup="true">{{menu}}</ul></div></div>';
 },{}],19:[function(require,module,exports){
-module.exports = '<a href="#nice-profile" class="menu-profile"><span class="profile-avatar"></span></a>';
+module.exports = '<a href="#nice-profile" class="menu-profile"><span class="profile-avatar" aria-lable="Profile avatar"></span></a>';
 },{}],20:[function(require,module,exports){
 module.exports = '<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search" role="search"><div class="controls"><input name="q" value="{{q}}" autocomplete="off" spellcheck="false" placeholder="{{placeholder}}" maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}" id="search" aria-label="Search query"> <button type="submit" aria-label="Perform search"><i aria-hidden="true" class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
 },{}],21:[function(require,module,exports){
