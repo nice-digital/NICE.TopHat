@@ -49,7 +49,7 @@
     .microsite {
       height: 300px;
     }
-    .dropbtn {
+    #dropBtn {
       background-color: #126470;
       color: white;
       padding: 16px;
@@ -58,7 +58,7 @@
       cursor: pointer;
     }
 
-    .dropbtn:hover, .dropbtn:focus {
+    #dropBtn:hover, #dropBtn:focus {
       background-color: #004650;
     }
 
@@ -79,6 +79,10 @@
       overflow: auto;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;
+      height:  300px;
+      overflow: scroll;
+      overflow-x: hidden;
+
     }
 
     .dropdownContent a {
@@ -90,13 +94,8 @@
 
     .dropdown a:hover {background-color: #f1f1f1}
 
-    .show {display:block;}
-    .hidden{display: none;}
-    #dropdownList{
-      height:  300px;
-      overflow: scroll;
-      overflow-x: hidden;
-    }
+    .show-dropdown {display:block;}
+    
     form{
       display: inline;
     }
@@ -113,32 +112,28 @@
     
 
     function triggerDropdown() {
-      $("#dropdownList").toggleClass("show");
+      $("#dropdownList").toggleClass("show-dropdown");
     }
 
 // Close the dropdown if the user clicks outside of it
-$(window).click(function() {
-  if (!event.target.matches(".dropbtn")) {
-
-  $(".dropdownContent").each(function() {
-    var openDropdown = $(this);
-    if (openDropdown.hasClass("show")) {
-      openDropdown.removeClass("show");
-    }
-  });
-}});
+$(window).click(function(event) {
+  if (!event.target.matches("#dropBtn")) {
+    if($("#dropdownList").hasClass("show-dropdown"))
+      $("#dropdownList").removeClass("show-dropdown");
+  }
+});
 
 $(document).ready(function() {
 
  $('.dropdownContent a').click(function(e) {
   e.preventDefault();
-  var url = $(this).attr("href");
-  var title = $(this).text();
-  renderIframe(url, title);
+  var $url = $(this).attr("href");
+  var $title = $(this).text();
+  renderIframe($url, $title);
 });
 
 
- $(".dropbtn").click(function() {
+ $("#dropBtn").click(function() {
   triggerDropdown();
 });
 
@@ -151,9 +146,9 @@ $(document).ready(function() {
  else {
    $views.empty();
   }
-   $views.append('<h1>' + title + '</h1>');
-   $views.append('<iframe src="' + url + '"></iframe>');
-   $views.append('<iframe class="mobile" src="' + url + '"></iframe>');
+   $views.append('<h1>' + title + '</h1>')
+   .append('<iframe src="' + url + '"></iframe>')
+   .append('<iframe class="mobile" src="' + url + '"></iframe>');
 }
 
 
@@ -168,27 +163,29 @@ $(document).ready(function() {
 
     <div class="dropdown">
 
-    <button type="menu" class="dropbtn">Project tophats ⮟ </button>
+    <button type="menu" id="dropBtn">Project tophats ⮟ </button>
       <div id="dropdownList"  class="dropdownContent">
-        <a class="button" href="./example.niceorg.html">Nice org</a>
-        <a class="button" href="./example.guidance.html">Guidence</a>
-        <a class="button" href="./example.standards.html">Standards and guidence</a>
-        <a class="button" href="./example.evidence.html" >Evidence</a>
-        <a class="button" href="./example.evidence-search.html" >Eviedence Search</a>
-        <a class="button" href="./example.bnf.html" >BNF</a>
-        <a class="button" href="./example.bnfc.html">BNFc</a>
-        <a class="button" href="./example.cks.html" >CKS</a>
-        <a class="button" href="./example.appraisals.html" >Appraisals</a>
-        <a class="button" href="./example.roi.html">ROI</a>
-        <a class="button" href="./example.indev.html">In Dev</a>
-        <a class="button" href="./example.pathways.html">Pathways</a>
+        <a href="./example.niceorg.html">Nice org</a>
+        <a href="./example.guidance.html">Guidence</a>
+        <a href="./example.standards.html">Standards and guidence</a>
+        <a href="./example.evidence.html" >Evidence</a>
+        <a href="./example.evidence-search.html" >Eviedence Search</a>
+        <a href="./example.bnf.html" >BNF</a>
+        <a href="./example.bnfc.html">BNFc</a>
+        <a href="./example.cks.html" >CKS</a>
+        <a href="./example.appraisals.html" >Appraisals</a>
+        <a href="./example.roi.html">ROI</a>
+        <a href="./example.indev.html">In Dev</a>
+        <a href="./example.pathways.html">Pathways</a>
       </div>
 
       <form>
-        <input type="checkbox" id="compareTopHats"> Compare
+        <input type="checkbox" id="compareTopHats"> <label for="compareTopHats">Compare</label>
       </form>
     </div>
   </section>
-  <div id="views"></div>
+  <div id="views">
+    <!-- The Iframes get rendered in here -->
+  </div>
 </body>
 </html>
