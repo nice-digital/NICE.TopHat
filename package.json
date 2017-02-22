@@ -4,7 +4,9 @@
   "description": "Distributable, branded tophat component for NICE Services and Web Applications",
   "private": true,
   "scripts": {
-    "test": "./node_modules/grunt-cli/bin/grunt test"
+    "test": "./node_modules/grunt-cli/bin/grunt test",
+    "start": "grunt parallel:assets"
+
   },
   "repository": {
     "type": "git",
