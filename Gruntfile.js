@@ -51,14 +51,14 @@ module.exports = function( grunt )
         , [ 'connect:dev' ]);
     grunt.registerTask(
           'test'
-        , 'runs jshint against the script and test files then runs the phantomcss html screenshot tests to check for cahnages to the designs'
+        , 'runs jshint against the script and test files then runs the phantomcss html screenshot tests to check for changes to the designs'
         , [ 'jshint:test', 'casperjs:desktop' ]);
 
     // build
     grunt.registerTask(
           'build'
         , 'builds the distributable scripts form the source files'
-        , [ 'jshint:src', 'htmlmin:templates', 'less:dist', 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
+        , [ 'jshint:src', 'htmlmin:templates', 'less:dist', 'postcss:dist', 'copy:temp', 'browserify:dist', 'uglify:dist', 'clean:temp' ]);
 
     // auto build
     grunt.registerTask('default'   , [ 'build', 'watch' ]);
