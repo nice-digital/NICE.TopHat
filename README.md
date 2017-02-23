@@ -43,6 +43,7 @@ npm i
 ## Development
 
 Typically in development you would run `grunt` and `grunt webserver` alongside each other in 2 separate command windows.
+To run both at once use "npm start".
 
 To test a local instance of TopHat in-context against other services, temporarily swap the TopHat reference for the local one, e.g. swap:
 
