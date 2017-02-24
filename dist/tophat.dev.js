@@ -516,9 +516,6 @@ function TophatStates( el ) {
     // Profile is loaded async so we need to look for profile button again later.
     this.profileBtn = document.getElementById("menu-profile");
 
-window.onresize = function() {
-    utils.setAriaStates();
-};
     el.state = this;
 }
 
@@ -999,6 +996,8 @@ function composeTophat( el, services, evidenceResources, globalMenu, config ) {
 utils.setAriaStates();
 
 },{"./config":2,"./events":5,"./evidence":7,"./global":8,"./profile":9,"./search":10,"./services":11,"./tophat.css":23,"./utils/dom":25}],25:[function(require,module,exports){
+var config = require('../config');
+
 var utils = {};
 
 utils.find = function( root, search ){
@@ -1071,7 +1070,7 @@ utils.appendElement = function( element, parent ) {
     parent.appendChild( element );
 };
 
-//Desktop is already configured
+
 utils.setAriaStates = function(){
     var mobile = document.body.clientWidth < 767;
     var mobileMenu = document.getElementById("menu-mobile");
@@ -1086,16 +1085,25 @@ utils.setAriaStates = function(){
         mobileDropdown.setAttribute("aria-hidden",bool);
         mobileEvidenceMenu.setAttribute("aria-expanded",bool);
     }
+
+    function setEvidenceServiceStates(){
+        var service = config().evidence;
+        if(service !== undefined)
+            mobileEvidenceMenu.setAttribute("aria-expanded","true");
+    }
     
     if(mobile)
          setMobileState(true); 
+
     else
         setMobileState(false);
+
+    setEvidenceServiceStates();
 
 };
 module.exports = utils;
 
-},{}],26:[function(require,module,exports){
+},{"../config":2}],26:[function(require,module,exports){
 var utils = require('./dom');
 var xhr = {};
 
