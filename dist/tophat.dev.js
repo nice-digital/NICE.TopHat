@@ -193,6 +193,10 @@ var StateControl = require('./states');
 var tophatClassname = 'nice-tophat';
 var add, prefix;
 
+window.onresize = function() {
+    utils.setAriaStates();
+};
+
 function tophatEvents( document, tophatElement, serviceElement, config ) {
     add = document.addEventListener ? 'addEventListener' : 'attachEvent';
     prefix = document.addEventListener ? '' : 'on';
@@ -493,12 +497,10 @@ function enhance( event ) {
     return event;
 }
 
-
-
-
 module.exports = tophatEvents;
 
 },{"../utils/dom":25,"./states":6}],6:[function(require,module,exports){
+var utils = require('../utils/dom');
 var evidenceStateClassname = 'menu-evidence-open';
 var profileStateClassname = 'menu-profile-open';
 var mobileStateClassname = 'menu-mobile-open';
@@ -514,6 +516,9 @@ function TophatStates( el ) {
     // Profile is loaded async so we need to look for profile button again later.
     this.profileBtn = document.getElementById("menu-profile");
 
+window.onresize = function() {
+    utils.setAriaStates();
+};
     el.state = this;
 }
 
@@ -531,6 +536,7 @@ function cleanClassname( classname ) {
         .replace( ' ' + profileStateClassname, '' )
         .replace( ' ' + mobileStateClassname, '' );
 }
+
 
 TophatStates.prototype = {
 
@@ -608,7 +614,7 @@ module.exports = {
     }
 };
 
-},{}],7:[function(require,module,exports){
+},{"../utils/dom":25}],7:[function(require,module,exports){
 var utils = require('../utils/dom');
 var evidenceLinks = require('../config/evidence');
 var tophatEvidence = require('../templates/evidence/menu.html');
@@ -946,10 +952,6 @@ var searchElement = require('./search')( globalElement, serviceElement, config )
 
 
 
-
-
-
-
 composeTophat( tophatElement, serviceElement, evidenceElement, globalElement, config );
 
 // attach all the events to the tophat
@@ -992,8 +994,9 @@ function composeTophat( el, services, evidenceResources, globalMenu, config ) {
     // attach the tophat to the top of the body
     utils.prependElement( tophatElement, body );
 }
+
 //Sets the correct state of aria attributes depending on device.
-utils.setInitialState();
+utils.setAriaStates();
 
 },{"./config":2,"./events":5,"./evidence":7,"./global":8,"./profile":9,"./search":10,"./services":11,"./tophat.css":23,"./utils/dom":25}],25:[function(require,module,exports){
 var utils = {};
@@ -1069,19 +1072,26 @@ utils.appendElement = function( element, parent ) {
 };
 
 //Desktop is already configured
-utils.setInitialState = function(){
+utils.setAriaStates = function(){
     var mobile = document.body.clientWidth < 767;
     var mobileMenu = document.getElementById("menu-mobile");
     var mobileEvidenceMenu = document.getElementById("menu-evidence");
     var mobileDropdown = document.getElementById("nice-evidence");
     var mainMenu = document.getElementById("main-menu");
 
-    if(mobile){
-        mobileMenu.setAttribute("aria-hidden","false");
-        mainMenu.setAttribute("aria-hidden","true");
-        mobileDropdown.setAttribute("aria-hidden","true");
-         document.getElementById("menu-evidence").setAttribute("aria-expanded","true"); //When not hidden in mobile this menu is always expanded
+    function setMobileState(bool){
+        var mobileState = bool;
+        mobileMenu.setAttribute("aria-hidden",!bool);
+        mainMenu.setAttribute("aria-hidden",bool);
+        mobileDropdown.setAttribute("aria-hidden",bool);
+        mobileEvidenceMenu.setAttribute("aria-expanded",bool);
     }
+    
+    if(mobile)
+         setMobileState(true); 
+    else
+        setMobileState(false);
+
 };
 module.exports = utils;
 
