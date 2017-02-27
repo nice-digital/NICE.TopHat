@@ -123,6 +123,9 @@ The attributes are as follows and are all optional:
 | `data-home` | URL | The URL used for the NICE Logo. Defaults to http://www.nice.org.uk if not set. |
 | `data-wtrealm` | String | Passed to NICE Accounts as a querystring for authentication |
 
+### Full width
+To make the tophat stretch to the size of the monitor such as on pathways and evidence search just add class="layout-fill" to the body element.
+
 ### Typeahead
 
 The search bar rendered by TopHat renders a `[data-provide="typeahead"]` attribute on the input. This gets picked up by [NICE.Typeahead.js L226](https://github.com/nhsevidence/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.Typeahead.js#L226). Which is why, for Typeahead to work either of the following is required:
