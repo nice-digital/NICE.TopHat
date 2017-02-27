@@ -119,7 +119,7 @@ The attributes are as follows and are all optional:
 | `data-search-placeholder` | String | Placeholder value for the search input field. Default: 'Search...' |
 | `data-typeaheadtype` | {remote,local} | The type of typehead request. *Remote* makes a GET request to `data-typeaheadsource`. *Local* uses a global variable. Requires a script reference to *//cdn.nice.org.uk/V3.1/Scripts/NICE.bootstrap.min.js*. |
 | `data-typeaheadsource` | {URL,string} | URL: The source URL used for typeahead requests e.g. `/autocomplete?%query` or `/typeahead?q=%term`. string: The name of the global variable to use as the source. |
-| `data-internal` | Boolean | If the current service is internal only. TODO: What does this affect? |
+| `data-internal` | Boolean | If the current service is internal only. Internal services and are displayed slightly differently so as to be less intrusive visually. A placeholder can be included so that the bottom tier of the tophat is displayed with local service navigation. The data-home attribute can also be used in conjunction with this so that the logo directs users to the root of the current service rather than the global service root.|
 | `data-home` | URL | The URL used for the NICE Logo. Defaults to http://www.nice.org.uk if not set. |
 | `data-wtrealm` | String | Passed to NICE Accounts as a querystring for authentication |
 
