@@ -18,24 +18,10 @@ module.exports = function( grunt )
         return object;
     }
 
-    // actual config
-    grunt.loadNpmTasks('grunt-parallel');
-
     var config = {
-
         pkg: grunt.file.readJSON('package.json'), 
         env: process.env,
-		  parallel: {
-		    assets: {
-		      options: {
-		        grunt: true,
-		        stream: true
-		      },
-		      tasks: ['default','webserver']
-		    }
-		  }
     };
-
 
     grunt.util._.extend(config, loadConfig( './tasks/options/', config ));
 
