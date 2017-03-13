@@ -4,7 +4,8 @@
   "description": "Distributable, branded tophat component for NICE Services and Web Applications",
   "private": true,
   "scripts": {
-    "test": "./node_modules/grunt-cli/bin/grunt test"
+    "test": "./node_modules/grunt-cli/bin/grunt test",
+    "start": "grunt parallel"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-parallel": "^0.5.1",
     "load-grunt-tasks": "^3.5.2",
     "minifyify": "^7.3.4",
     "node-lessify": "^0.1.4",

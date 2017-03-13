@@ -18,14 +18,9 @@ module.exports = function( grunt )
         return object;
     }
 
-    // actual config
-
     var config = {
-
-        pkg: grunt.file.readJSON('package.json')
-
-      , env: process.env
-
+        pkg: grunt.file.readJSON('package.json'), 
+        env: process.env,
     };
 
     grunt.util._.extend(config, loadConfig( './tasks/options/', config ));

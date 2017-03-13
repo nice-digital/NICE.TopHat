@@ -20,8 +20,8 @@ Distributable, branded tophat component for NICE Services and Web Applications
 - The [JavaScript](lib) is written in modular ES5
 - [browserify](http://browserify.org/) is used to bundle into a single file
 - It uses [LESS](lib/styles) as the CSS pre-processor
-- [cssify](https://www.npmjs.com/package/cssify) (a Browserify transform) is used to include the compiled CSS in the JS bundle
-- Grunt is used as the task runner
+- [cssify](https://www.npmjs.com/package/cssify) (a Browserify transform) is used to include the compiled CSS in the [JS bundle](dist)
+- Grunt is used as the task runner, loading config in from the [tasks/options](tasks/options) folder
 
 ## Installation
 
@@ -35,6 +35,7 @@ npm i
 
 | Task | Description |
 | ---- | ----------- |
+| `npm start` | Default task that builds assets, watches for changes to recompile and serves content on locahost:8000 |
 | `grunt` | Default grunt task that builds assets and watches for changes to recompile |
 | `grunt build` | Builds the distributable scripts form the source files |
 | `grunt webserver` | Starts a dev web server on the first available port starting from 8000 |
@@ -42,7 +43,7 @@ npm i
 
 ## Development
 
-Typically in development you would run `grunt` and `grunt webserver` alongside each other in 2 separate command windows.
+Typically in development you would run `npm start` which runs `grunt` and `grunt webserver` alongside each other.
 
 To test a local instance of TopHat in-context against other services, temporarily swap the TopHat reference for the local one, e.g. swap:
 
