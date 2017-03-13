@@ -11,6 +11,7 @@ Distributable, branded tophat component for NICE Services and Web Applications
 - [Usage](#usage)
   - [Markup](#markup)
   - [Configuration options](#configuration-options)
+  - [Full width](#full-width)
   - [Typeahead](#typeahead)
     - [Typeahead Tracking](#typeahead-tracking)
 - [Deployment](#deployment)
@@ -124,7 +125,7 @@ The attributes are as follows and are all optional:
 | `data-wtrealm` | String | Passed to NICE Accounts as a querystring for authentication |
 
 ### Full width
-To make the tophat stretch to the size of the monitor such as on pathways and evidence search just add class="layout-fill" to the body element.
+To make TopHat stretch to the width of the window such as on [Pathways](http://pathways.nice.org.uk/) and [Evidence Search](https://www.evidence.nhs.uk/) just add `class="layout-fill"` to the `body` element. (This effectively sets `max-width: 100%` on `.tophat-inner`).
 
 ### Typeahead
 
