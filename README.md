@@ -11,6 +11,7 @@ Distributable, branded tophat component for NICE Services and Web Applications
 - [Usage](#usage)
   - [Markup](#markup)
   - [Configuration options](#configuration-options)
+  - [Full width](#full-width)
   - [Typeahead](#typeahead)
     - [Typeahead Tracking](#typeahead-tracking)
 - [Deployment](#deployment)
@@ -123,6 +124,9 @@ The attributes are as follows and are all optional:
 | `data-internal` | Boolean | If the current service is internal only. Internal services and are displayed slightly differently so as to be less intrusive visually. A placeholder can be included so that the bottom tier of the tophat is displayed with local service navigation. The `data-home` attribute can also be used in conjunction with this so that the logo directs users to the root of the current service rather than the global service root. |
 | `data-home` | URL | The URL used for the NICE Logo. Defaults to http://www.nice.org.uk if not set. |
 | `data-wtrealm` | String | Passed to NICE Accounts as a querystring for authentication |
+
+### Full width
+To make TopHat stretch to the width of the window such as on [Pathways](http://pathways.nice.org.uk/) and [Evidence Search](https://www.evidence.nhs.uk/) just add `class="layout-fill"` to the `body` element. (This effectively sets `max-width: 100%` on `.tophat-inner`).
 
 ### Typeahead
 
