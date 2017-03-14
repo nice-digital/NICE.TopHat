@@ -11,6 +11,9 @@ Distributable, branded tophat component for NICE Services and Web Applications
 - [Usage](#usage)
   - [Markup](#markup)
   - [Configuration options](#configuration-options)
+  - [Full width](#full-width)
+  - [Typeahead](#typeahead)
+    - [Typeahead Tracking](#typeahead-tracking)
 - [Deployment](#deployment)
 
 ## Project structure
@@ -18,8 +21,8 @@ Distributable, branded tophat component for NICE Services and Web Applications
 - The [JavaScript](lib) is written in modular ES5
 - [browserify](http://browserify.org/) is used to bundle into a single file
 - It uses [LESS](lib/styles) as the CSS pre-processor
-- [cssify](https://www.npmjs.com/package/cssify) (a Browserify transform) is used to include the compiled CSS in the JS bundle
-- Grunt is used as the task runner
+- [cssify](https://www.npmjs.com/package/cssify) (a Browserify transform) is used to include the compiled CSS in the [JS bundle](dist)
+- Grunt is used as the task runner, loading config in from the [tasks/options](tasks/options) folder
 
 ## Installation
 
@@ -33,6 +36,7 @@ npm i
 
 | Task | Description |
 | ---- | ----------- |
+| `npm start` | Default task that builds assets, watches for changes to recompile and serves content on locahost:8000 |
 | `grunt` | Default grunt task that builds assets and watches for changes to recompile |
 | `grunt build` | Builds the distributable scripts form the source files |
 | `grunt webserver` | Starts a dev web server on the first available port starting from 8000 |
@@ -40,7 +44,7 @@ npm i
 
 ## Development
 
-Typically in development you would run `grunt` and `grunt webserver` alongside each other in 2 separate command windows.
+Typically in development you would run `npm start` which runs `grunt` and `grunt webserver` alongside each other.
 
 To test a local instance of TopHat in-context against other services, temporarily swap the TopHat reference for the local one, e.g. swap:
 
@@ -117,9 +121,32 @@ The attributes are as follows and are all optional:
 | `data-search-placeholder` | String | Placeholder value for the search input field. Default: 'Search...' |
 | `data-typeaheadtype` | {remote,local} | The type of typehead request. *Remote* makes a GET request to `data-typeaheadsource`. *Local* uses a global variable. Requires a script reference to *//cdn.nice.org.uk/V3.1/Scripts/NICE.bootstrap.min.js*. |
 | `data-typeaheadsource` | {URL,string} | URL: The source URL used for typeahead requests e.g. `/autocomplete?%query` or `/typeahead?q=%term`. string: The name of the global variable to use as the source. |
-| `data-internal` | Boolean | If the current service is internal only. TODO: What does this affect? |
+| `data-internal` | Boolean | If the current service is internal only. Internal services and are displayed slightly differently so as to be less intrusive visually. A placeholder can be included so that the bottom tier of the tophat is displayed with local service navigation. The `data-home` attribute can also be used in conjunction with this so that the logo directs users to the root of the current service rather than the global service root. |
 | `data-home` | URL | The URL used for the NICE Logo. Defaults to http://www.nice.org.uk if not set. |
 | `data-wtrealm` | String | Passed to NICE Accounts as a querystring for authentication |
+
+### Full width
+To make TopHat stretch to the width of the window such as on [Pathways](http://pathways.nice.org.uk/) and [Evidence Search](https://www.evidence.nhs.uk/) just add `class="layout-fill"` to the `body` element. (This effectively sets `max-width: 100%` on `.tophat-inner`).
+
+### Typeahead
+
+The search bar rendered by TopHat renders a `[data-provide="typeahead"]` attribute on the input. This gets picked up by [NICE.Typeahead.js L226](https://github.com/nhsevidence/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.Typeahead.js#L226). Which is why, for Typeahead to work either of the following is required:
+
+- Easiest solution: //cdn.nice.org.uk/V3.1/Scripts/NICE.bootstrap.min.js - this includes NICE.Typeahead.js bundled in.
+- //cdn.nice.org.uk/V3.1/Scripts/nice/NICE.Typeahead.js and //cdn.nice.org.uk/V3.1/Scripts/typeahead/typeahead.bundle.js
+
+#### Typeahead tracking
+
+Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20-L38](https://github.com/nhsevidence/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.Typeahead.js#L20-L38). This uses [NICE.EventTracking.js - $.fn.trackevent](https://github.com/nhsevidence/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.EventTracking.js) under the hood. So to enable Typehead tracking with TopHat, you must also include a script reference to //cdn.nice.org.uk/V3.1/Scripts/nice/NICE.EventTracking.js. This sends a data layer variable to GTM that looks like the following:
+
+```js
+{
+  event: 'GAevent',
+  eventCategory: 'Typeahead',
+  eventAction: 'TERM_TITLE',
+  eventLabel: 'TERM_URL'
+}
+```
 
 ## Deployment
 
