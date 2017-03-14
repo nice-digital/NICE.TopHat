@@ -1,191 +1,189 @@
 <!DOCTYPE html>
 <html lang="en-gb">
 <head>
-  <meta charset="utf-8">
-  <meta name="X-UA-Compatible" content="IE=Edge,chrome=1" />
+	<meta charset="utf-8">
+	<meta name="X-UA-Compatible" content="IE=Edge,chrome=1" />
 
-  <title>Tophat Scenario Viewer</title>
+	<title>Tophat Scenario Viewer</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400normal,400italic" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400normal,400italic" />
 
-  <style>
-    html {
-      box-sizing: border-box;
-    }
-    *, *:before, *:after {
-      box-sizing: inherit;
-    }
-    html, body { margin: 0; }
-    body {
-      font-family: Lato;
-      background: silver;
-      color: black;
-      padding: 12px;
-    }
+	<style>
+		html {
+			box-sizing: border-box;
+		}
+		*, *:before, *:after {
+			box-sizing: inherit;
+		}
+		html, body { margin: 0; }
+		body {
+			-webkit-font-smoothing: antialiased;
+			font-family: Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
+			background: silver;
+			color: black;
+			padding: 12px;
+		}
 
-    iframe {
-      float:left;
-      display: block;
-      box-sizing: border-box;
-      width: 1200px;
-      height: 200px;
-      border: 0;
-      background: white;
-    }
+		/* HEADER */
 
-    iframe+iframe {
-      width: 450px;
-      height: 600px;
-      margin-left: 24px;
-    }
+		header {
+			background: #fff;
+			padding: 12px;
+			position: relative;
+		}
 
-    hr {
-      margin: 24px;
-      clear:left;
-    }
+		h1 {
+			margin-top: 0;
+		}
 
-    .microsite {
-      height: 300px;
-    }
-    #dropBtn {
-      background-color: #126470;
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    }
+		select {
+			height: 32px;
+		}
 
-    #dropBtn:hover, #dropBtn:focus {
-      background-color: #004650;
-    }
+		label {
+			margin-right: 24px;
+		}
 
-    .dropdown {
-      position: relative;
-      display: inline-block;
-      background-color: #126470;
-      width: 100%;
-      height: 70px;
-      color: white
-    }
+		.sign-in {
+			border: 2px solid #0E0E0E;
+			color: #0E0E0E;
+			font-weight: bold;
+	    padding: 6px 12px;
+			position: absolute;
+			right: 12px;
+			text-decoration: none;
+			top: 12px;
+		}
 
-    .dropdownContent {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      overflow: auto;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-      height:  300px;
-      overflow: scroll;
-      overflow-x: hidden;
+		/* HEADER */
 
-    }
+		.tophat-container {
+			border-bottom: 1px solid #999;
+			clear: left;
+			overflow: hidden;
+			margin: 0 0 16px;
+			padding: 0 0 16x;
+		}
 
-    .dropdownContent a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
+		iframe {
+			background: white;
+			border: 1px solid #999;
+			box-sizing: border-box;
+			display: block;
+			float: left;
+			height: 250px;
+			margin: 0 0 8px;
+			width: 100%;
+		}
 
-    .dropdown a:hover {background-color: #f1f1f1}
+		iframe+iframe {
+			width: 450px;
+			height: 250px;
+		}
+	</style>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    .show-dropdown {display:block;}
-    
-    form{
-      display: inline;
-    }
+	<script>
+		$(document).ready(function() {
 
+			var $projectList = $(".project-list");
+			var $views = $("#views");
+			var $compareMode = $("#compareTopHats");
+			var $tophatFrameTemplate = $("#tophat-frame-template");
 
-  </style>
-  <script
-  src="https://code.jquery.com/jquery-3.1.1.js"
-  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-  crossorigin="anonymous"></script>
-  <script>
-    /* When the user clicks on the button, 
-    toggle between hiding and showing the dropdown content */
-    
+			$projectList.change(function() {
+				renderTopHatFrame(getSelectedProject());
+			});
 
-    function triggerDropdown() {
-      $("#dropdownList").toggleClass("show-dropdown");
-    }
+			renderTopHatFrame(getSelectedProject());
 
-// Close the dropdown if the user clicks outside of it
-$(window).click(function(event) {
-  if (!event.target.matches("#dropBtn")) {
-    if($("#dropdownList").hasClass("show-dropdown"))
-      $("#dropdownList").removeClass("show-dropdown");
-  }
-});
+			// Returns true if comparison mode is currently enabled
+			function isComparisonMode() {
+				return $compareMode.is(":checked");
+			}
 
-$(document).ready(function() {
+			// Gets the seleted project from the list
+			function getSelectedProject() {
+				return {
+					url: $projectList.val(),
+					title: $projectList.find(":selected").text()
+				};
+			}
 
- $('.dropdownContent a').click(function(e) {
-  e.preventDefault();
-  var $url = $(this).attr("href");
-  var $title = $(this).text();
-  renderIframe($url, $title);
-});
+			function renderTopHatFrame(project) {
+				var $project = generateTopHatElement(project);
+				if(isComparisonMode()) {
+					if($("[data-url='" + project.url + "']", $views).length === 0) {
+						$views.append($project);
+					}
+				} else {
+					$views.html($project);
+				}
+			}
 
+			// Renders an iframe template
+			function generateTopHatElement(project) {
+				var html = $tophatFrameTemplate
+					.html()
+					.replace(/{{title}}/g, project.title)
+					.replace(/{{url}}/g, project.url);
+				return $(html);
+			}
+	});
+	</script>
 
- $("#dropBtn").click(function() {
-  triggerDropdown();
-});
-
-
- function renderIframe(url, title) {
-  var $views = $("#views");
-  if($("#compareTopHats").is(":checked")) {
-  $views.append('<hr>');
- }
- else {
-   $views.empty();
-  }
-   $views.append('<h1>' + title + '</h1>')
-   .append('<iframe src="' + url + '"></iframe>')
-   .append('<iframe class="mobile" src="' + url + '"></iframe>');
-}
-
-
-});
-
-</script>
+	<!-- Simple template used to render an iframe template -->
+	<script id="tophat-frame-template" type="text/template">
+		<div class="tophat-container" data-url="{{url}}">
+			<h2>{{title}}</h2>
+			<iframe src="{{url}}"></iframe>
+			<iframe class="mobile" src="{{url}}"></iframe>
+	 	</div>
+	</script>
 </head>
 
 <body>
 
-  <section>
+	<header>
 
-    <div class="dropdown">
+		<h1>TopHat Scenario viewer</h1>
 
-    <button type="menu" id="dropBtn">Project tophats ⮟ </button>
-      <div id="dropdownList"  class="dropdownContent">
-        <a href="./example.niceorg.html">Nice org</a>
-        <a href="./example.guidance.html">Guidence</a>
-        <a href="./example.standards.html">Standards and guidence</a>
-        <a href="./example.evidence.html" >Evidence</a>
-        <a href="./example.evidence-search.html" >Eviedence Search</a>
-        <a href="./example.bnf.html" >BNF</a>
-        <a href="./example.bnfc.html">BNFc</a>
-        <a href="./example.cks.html" >CKS</a>
-        <a href="./example.appraisals.html" >Appraisals</a>
-        <a href="./example.roi.html">ROI</a>
-        <a href="./example.indev.html">In Dev</a>
-        <a href="./example.pathways.html">Pathways</a>
-      </div>
+		<label>
+			Service
+			<select id="project-list" class="project-list">
+				<option value="./example.niceorg.html">Nice org</option>
+				<option value="./example.pathways.html">Pathways</option>
+				<option value="./example.guidance.html">Guidance</option>
+				<option value="./example.standards.html">Standards and indicators</option>
+				<optgroup label="Evidence services">
+					<option value="./example.evidence.html">Evidence</option>
+					<option value="./example.evidence-search.html" >Evidence search</option>
+					<option value="./example.bnf.html">BNF</option>
+					<option value="./example.bnfc.html">BNFc</option>
+					<option value="./example.cks.html">CKS</option>
+				</optgroup>
+				<optgroup label="Other">
+					<option value="./example.roi.html">ROI</option>
+				</optgroup>
+				<optgroup label="Internal">
+					<option value="./example.appraisals.html">Appraisals</option>
+					<option value="./example.indev.html">In Dev</option>
+				</optgroup>
+			</select>
+		</label>
 
-      <form>
-        <input type="checkbox" id="compareTopHats"> <label for="compareTopHats">Compare</label>
-      </form>
-    </div>
-  </section>
-  <div id="views">
-    <!-- The Iframes get rendered in here -->
-  </div>
+		<label>
+			Compare
+			<input type="checkbox" id="compareTopHats">
+		</label>
+
+		<a class="sign-in" href="https://beta-accounts.nice.org.uk/signin">Sign in</a>
+	</header>
+
+	<div id="views">
+		<!-- The Iframes get rendered in here -->
+	</div>
 </body>
 </html>
