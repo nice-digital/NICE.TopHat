@@ -124,6 +124,9 @@ The attributes are as follows and are all optional:
 | `data-internal` | Boolean | If the current service is internal only. Internal services and are displayed slightly differently so as to be less intrusive visually. A placeholder can be included so that the bottom tier of the tophat is displayed with local service navigation. The `data-home` attribute can also be used in conjunction with this so that the logo directs users to the root of the current service rather than the global service root. |
 | `data-home` | URL | The URL used for the NICE Logo. Defaults to http://www.nice.org.uk if not set. |
 | `data-wtrealm` | String | Passed to NICE Accounts as a querystring for authentication |
+| `data-cookie` | Boolean | Default: `false`. Set to true to enable a cookie message. This sets a cookie of `seen_cookie_message=yes` on the domain *.nice.org.uk*, meaning a user will only see a cookie message once across the whole of NICE. |
+| `data-cookie-message` | String | Default: `NICE uses cookies to make the site better.`. The text to show in the cookie message. |
+| `data-cookie-url` | URL | Default: `https://www.nice.org.uk/cookies`. The URL for the 'learn more' link in the cookie message (if enabled). |
 
 ### Full width
 To make TopHat stretch to the width of the window such as on [Pathways](http://pathways.nice.org.uk/) and [Evidence Search](https://www.evidence.nhs.uk/) just add `class="layout-fill"` to the `body` element. (This effectively sets `max-width: 100%` on `.tophat-inner`).
