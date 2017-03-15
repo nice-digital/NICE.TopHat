@@ -17,6 +17,11 @@
         &:focus {
           background-color: @serviceHoverBackgroundColor;
         }
+
+        &[aria-disabled="true"] {
+          cursor: none;
+          pointer-events: none;
+        }
       }
 
       .menu-standards a {

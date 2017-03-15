@@ -10,7 +10,7 @@ module.exports = function( config ) {
 
       , test        : [ 'test/*.js' ]
 
-      , src         : [ 'lib/**/*.js' ]
+      , src         : [ 'lib/**/*.js', '!lib/vendor/**/*.js' ]
 
     };
 
