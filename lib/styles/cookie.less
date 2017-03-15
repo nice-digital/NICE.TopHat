@@ -1,9 +1,44 @@
 .nice-tophat {
-
 	.nice-cookie {
-		background: #ddeef4;
+		background: @niceGrey3;
+		border-bottom: 1px solid @niceGrey1;
 
-		// TODO: Style cookie message
+		&[aria-hidden='true'] {
+			display: none;
+		}
+
+		.tophat-inner {
+			position: relative;
+		}
+
+		&__message {
+			margin: 1em 2.5em 1em 0;
+
+			a {
+				text-decoration: underline;
+			}
+		}
+
+		&__close {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			-webkit-appearance: none;
+			appearance: none;
+			background: 0;
+			border: 0;
+			font-size: 1.5em;
+			margin: -1em 0 0 0;
+			padding: .5em;
+			position: absolute;
+			right: 0;
+			top: 50%;
+
+			&::-moz-focus-inner,
+			&::-moz-focus-inner {
+				border: 0;
+				padding: 0;
+			}
+		}
 	}
-
 }
