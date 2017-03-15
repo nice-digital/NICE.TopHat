@@ -20,7 +20,7 @@ module.exports = function( config ) {
             },
 
             files: {
-                "dist/tophat.js": "dist/tophat.dev.js"
+                "dist/tophat.min.js": "dist/tophat.dev.js"
             }
         }
     };

@@ -1,6 +1,6 @@
 /*!
 @name NICE.TopHat
-@version 0.1.1 | 2017-03-13
+@version 0.1.2 | 2017-03-15
 */
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -59,7 +59,179 @@ module.exports.byUrl = function (url) {
 }
 
 },{}],2:[function(require,module,exports){
-var attributes = [ 'service', 'evidence', 'environment', 'timestamp', 'search', 'search-placeholder', 'typeaheadtype', 'typeaheadsource', 'internal', 'home', 'wtrealm' ];
+/*!
+ * JavaScript Cookie v2.1.3
+ * https://github.com/js-cookie/js-cookie
+ *
+ * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+ * Released under the MIT license
+ */
+;(function (factory) {
+	var registeredInModuleLoader = false;
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+		registeredInModuleLoader = true;
+	}
+	if (typeof exports === 'object') {
+		module.exports = factory();
+		registeredInModuleLoader = true;
+	}
+	if (!registeredInModuleLoader) {
+		var OldCookies = window.Cookies;
+		var api = window.Cookies = factory();
+		api.noConflict = function () {
+			window.Cookies = OldCookies;
+			return api;
+		};
+	}
+}(function () {
+	function extend () {
+		var i = 0;
+		var result = {};
+		for (; i < arguments.length; i++) {
+			var attributes = arguments[ i ];
+			for (var key in attributes) {
+				result[key] = attributes[key];
+			}
+		}
+		return result;
+	}
+
+	function init (converter) {
+		function api (key, value, attributes) {
+			var result;
+			if (typeof document === 'undefined') {
+				return;
+			}
+
+			// Write
+
+			if (arguments.length > 1) {
+				attributes = extend({
+					path: '/'
+				}, api.defaults, attributes);
+
+				if (typeof attributes.expires === 'number') {
+					var expires = new Date();
+					expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
+					attributes.expires = expires;
+				}
+
+				try {
+					result = JSON.stringify(value);
+					if (/^[\{\[]/.test(result)) {
+						value = result;
+					}
+				} catch (e) {}
+
+				if (!converter.write) {
+					value = encodeURIComponent(String(value))
+						.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+				} else {
+					value = converter.write(value, key);
+				}
+
+				key = encodeURIComponent(String(key));
+				key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
+				key = key.replace(/[\(\)]/g, escape);
+
+				return (document.cookie = [
+					key, '=', value,
+					attributes.expires ? '; expires=' + attributes.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+					attributes.path ? '; path=' + attributes.path : '',
+					attributes.domain ? '; domain=' + attributes.domain : '',
+					attributes.secure ? '; secure' : ''
+				].join(''));
+			}
+
+			// Read
+
+			if (!key) {
+				result = {};
+			}
+
+			// To prevent the for loop in the first place assign an empty array
+			// in case there are no cookies at all. Also prevents odd result when
+			// calling "get()"
+			var cookies = document.cookie ? document.cookie.split('; ') : [];
+			var rdecode = /(%[0-9A-Z]{2})+/g;
+			var i = 0;
+
+			for (; i < cookies.length; i++) {
+				var parts = cookies[i].split('=');
+				var cookie = parts.slice(1).join('=');
+
+				if (cookie.charAt(0) === '"') {
+					cookie = cookie.slice(1, -1);
+				}
+
+				try {
+					var name = parts[0].replace(rdecode, decodeURIComponent);
+					cookie = converter.read ?
+						converter.read(cookie, name) : converter(cookie, name) ||
+						cookie.replace(rdecode, decodeURIComponent);
+
+					if (this.json) {
+						try {
+							cookie = JSON.parse(cookie);
+						} catch (e) {}
+					}
+
+					if (key === name) {
+						result = cookie;
+						break;
+					}
+
+					if (!key) {
+						result[name] = cookie;
+					}
+				} catch (e) {}
+			}
+
+			return result;
+		}
+
+		api.set = api;
+		api.get = function (key) {
+			return api.call(api, key);
+		};
+		api.getJSON = function () {
+			return api.apply({
+				json: true
+			}, [].slice.call(arguments));
+		};
+		api.defaults = {};
+
+		api.remove = function (key, attributes) {
+			api(key, '', extend(attributes, {
+				expires: -1
+			}));
+		};
+
+		api.withConverter = init;
+
+		return api;
+	}
+
+	return init(function () {});
+}));
+
+},{}],3:[function(require,module,exports){
+var attributes = [
+	'service',
+	'evidence',
+	'environment',
+	'timestamp',
+	'search',
+	'search-placeholder',
+	'typeaheadtype',
+	'typeaheadsource',
+	'internal',
+	'home',
+	'wtrealm',
+	'cookie',
+	'cookie-message',
+	'cookie-url' ];
 
 var accountsDomains = {
     "local": "http://nice.sts.local"
@@ -70,14 +242,14 @@ var accountsDomains = {
 function camelCaseAttribute(str) {
   // Lower cases the string
   return str.toLowerCase()
-    // Replaces any - or _ characters with a space 
+    // Replaces any - or _ characters with a space
     .replace( /[-_]+/g, ' ')
-    // Removes any non alphanumeric characters 
+    // Removes any non alphanumeric characters
     .replace( /[^\w\s]/g, '')
-    // Uppercases the first character in each group immediately following a space 
-    // (delimited by spaces) 
+    // Uppercases the first character in each group immediately following a space
+    // (delimited by spaces)
     .replace( / (.)/g, function($1) { return $1.toUpperCase(); })
-    // Removes spaces 
+    // Removes spaces
     .replace( / /g, '' );
 }
 
@@ -140,9 +312,11 @@ function isLegacy()
     return false;
 }
 
-module.exports = getTophatConfig;
+var generatedConfig = getTophatConfig();
 
-},{}],3:[function(require,module,exports){
+module.exports = generatedConfig;
+
+},{}],4:[function(require,module,exports){
 module.exports = {
     search: {
         href: "https://www.evidence.nhs.uk",
@@ -171,7 +345,7 @@ module.exports = {
     }
 };
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports = {
     pathways: {
         href: "https://pathways.nice.org.uk/",
@@ -187,16 +361,133 @@ module.exports = {
     }
 };
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
+// 3rd party dependencies
+var Cookies = require('js-cookie');
+
+// Module in this project
+var utils = require('../utils/dom');
+
+// Templates
+var cookieTemplate = require('../templates/cookie/message.html');
+
+// Constants
+var CookieKey = 'seen_cookie_message',
+	CookieValue = 'yes',
+	DefaultPolicyUrl = 'https://www.nice.org.uk/cookies',
+	DefaultMessage = 'NICE uses cookies to make the site better.';
+
+// Cached reference to the containing element for the cookie message
+var cookieElement;
+
+
+/**
+ * Generates the cookie element by rendering the template with
+ *
+ * @param      {HTMLElement}  tophatElement  The tophat element
+ * @param      {Object}  config         The config object
+ * @return     {HTMLElement}  { The cookie element }
+ */
+function generateCookieElement( tophatElement, config ) {
+	// Default is to not show cookies message.
+	// So must be turned 'on' via a config option
+    if (!config.cookie || config.cookie == 'false') return;
+
+    // if the cookie is already set then don't generate the message
+    if(Cookies.get(CookieKey) && Cookies.get(CookieKey) === CookieValue) return;
+
+    // Using 'implied content' so only show on first load
+    // Remove this to show the message until a user clicks 'close'
+    setCookie();
+
+    var viewModel = getViewModel(config);
+
+    var view = cookieTemplate
+    	.replace(/{{policyUrl}}/, viewModel.policyUrl)
+        .replace(/{{message}}/, viewModel.message);
+
+    cookieElement = utils.create( view );
+
+    utils.attachDomEvent( cookieElement, 'click', utils.proxy( tophatElement, closeHandler ) );
+
+    return cookieElement;
+}
+
+/**
+ * Gets the view model that will be rendered by the template for the cookie message.
+ *
+ * @param      {Object}  config      { The config object }
+ * @return     {Object}  The view model.
+ */
+function getViewModel(config) {
+	return {
+		policyUrl: config.cookieUrl || DefaultPolicyUrl,
+		message: utils.htmlEncode(config.cookieMessage || DefaultMessage)
+	};
+}
+
+/**
+ * Handle clicking on the close button to dismiss the cookie message.
+ * Hides the cookie message and stores a cookie so the user doesn't see
+ * the message again.
+ *
+ * @param      {Event}  ev      { Event argument }
+ */
+function closeHandler(ev) {
+	var target = ev.target || ev.srcElement;
+
+	while ( target && !~target.className.indexOf('js-close-cookie-message') ) {
+		if ( ~target.className.indexOf( 'nice-cookie' ) ) {
+			target = undefined;
+			break;
+		}
+		target = target.parentNode;
+	}
+
+	if(target && ~target.className.indexOf('js-close-cookie-message')) {
+		setCookie();
+		closeMessage();
+	}
+}
+
+/**
+ * Closes the cookie message.
+ */
+function closeMessage() {
+	cookieElement.setAttribute('aria-hidden', true);
+}
+
+/**
+ * Sets the cookie of `seen_cookie_message=yes` on the domain
+ * '.nice.org.uk' so it's available to all sub domains.
+ */
+function setCookie() {
+	Cookies.set(CookieKey, CookieValue, {
+		secure: false,
+		expires: 365 * 10, // In days
+		domain: getCookieDomain(window.location.hostname)
+	});
+}
+
+/**
+ * Gets the domain for the cookie. This is '.nice.org.uk' for any site
+ * under the NICE domain.
+ *
+ * @param      {string}  host    The host
+ * @return     {string}  The cookie domain.
+ */
+function getCookieDomain(host) {
+	return !!~host.indexOf("nice.org.uk") ? ".nice.org.uk" : host;
+}
+
+module.exports = generateCookieElement;
+
+},{"../templates/cookie/message.html":14,"../utils/dom":28,"js-cookie":2}],7:[function(require,module,exports){
 var utils = require('../utils/dom');
 var StateControl = require('./states');
 var tophatClassname = 'nice-tophat';
-var add, prefix;
 
 function tophatEvents( document, tophatElement, serviceElement, config ) {
-    add = document.addEventListener ? 'addEventListener' : 'attachEvent';
-    prefix = document.addEventListener ? '' : 'on';
-
     if (config.internal) {
         tophatClassname += ' nice-internal';
     }
@@ -207,16 +498,27 @@ function tophatEvents( document, tophatElement, serviceElement, config ) {
 }
 
 function attachTophatEvents( document, tophatElement ) {
-    attachDomEvent( tophatElement, 'click', proxy( tophatElement, clickhandler ) );
-    attachDomEvent( document, 'click', proxy( tophatElement, cancelhandler ) );
-    attachDomEvent( tophatElement, 'click', proxy( tophatElement, trackingHandler ) );
-    attachDomEvent( tophatElement, 'submit', proxy( tophatElement, searchHandler ) );
+    utils.attachDomEvent( tophatElement, 'click', utils.proxy( tophatElement, clickhandler ) );
+    utils.attachDomEvent( document, 'click', utils.proxy( tophatElement, cancelhandler ) );
+    utils.attachDomEvent( tophatElement, 'click', utils.proxy( tophatElement, trackingHandler ) );
+    utils.attachDomEvent( tophatElement, 'submit', utils.proxy( tophatElement, searchHandler ) );
+
+    // Throttle window resize event to 15fps
+    var fps = 15,
+        wait = Math.round(1000 / 15);
+    utils.attachDomEvent( window, 'resize', utils.throttle(utils.proxy( tophatElement, resizeHandler), wait) );
 }
 
 
 
 
 // handlers
+//
+
+// Hande the window resizing
+function resizeHandler(e) {
+    this.state.setAriaStates();
+}
 
 function trackingHandler( ev ) {
     var target = ev.target || ev.srcElement;
@@ -386,7 +688,7 @@ function sendTrackedEvent( category, action, label, cb ) {
         return sendUAEvent( category, action, label );
     }
 
-    logEventToConsole( category, action, label );
+    //logEventToConsole( category, action, label );
 }
 
 function sendDataLayerEvent( category, action, label ) {
@@ -433,10 +735,6 @@ function cleanClass( className ) {
     return className.replace(' active', '');
 }
 
-function attachDomEvent( el, ev, fn ) {
-    el[add]( prefix + ev, function( event ) { fn( enhance( event ) ); }, true );
-}
-
 function fireDomEvent( document, el, event, data ) {
     var evt;
 
@@ -460,48 +758,15 @@ function fireDomEvent( document, el, event, data ) {
     el.dispatchEvent( evt );
 }
 
-function proxy( context, fn ) {
-    return function( ev ) {
-        fn.call( context, ev );
-    };
-}
-
-function enhance( event ) {
-    var _stopPropagation = event.stopPropagation
-      , _preventDefault = event.preventDefault;
-
-    event.stopPropagation = function() {
-        if (_stopPropagation) {
-            _stopPropagation.call( event );
-        } else {
-            event.cancelBubble = true;
-        }
-
-        return event;
-    };
-
-    event.preventDefault = function() {
-        if (_preventDefault) {
-            _preventDefault.call( event );
-        } else {
-            event.returnValue = false;
-        }
-
-        return event;
-    };
-
-    return event;
-}
-
-
-
-
 module.exports = tophatEvents;
 
-},{"../utils/dom":25,"./states":6}],6:[function(require,module,exports){
-var evidenceStateClassname = 'menu-evidence-open';
-var profileStateClassname = 'menu-profile-open';
-var mobileStateClassname = 'menu-mobile-open';
+},{"../utils/dom":28,"./states":8}],8:[function(require,module,exports){
+var utils = require('../utils/dom'),
+    config = require('../config');
+
+var evidenceStateClassname = 'menu-evidence-open',
+    profileStateClassname = 'menu-profile-open',
+    mobileStateClassname = 'menu-mobile-open';
 
 function TophatStates( el ) {
     this.element = el;
@@ -509,14 +774,26 @@ function TophatStates( el ) {
 
     this.data = getStateFromClassname( el.className );
 
+    // Cache menu button references
+    this.evidenceBtn = document.getElementById("menu-evidence");
+    this.mobileMenuBtn = document.getElementById("menu-mobile");
+    // Profile is loaded async so we need to look for profile button again later.
+    this.profileBtn = document.getElementById("menu-profile");
+
+    // Cache menu references
+    this.evidenceMenu = document.getElementById("nice-evidence");
+    this.mainMenu = document.getElementById("main-menu");
+
     el.state = this;
+
+    this.setAriaStates();
 }
 
 function getStateFromClassname( classname ) {
     return {
-            evidence: ~classname.indexOf(evidenceStateClassname)
-          , profile: ~classname.indexOf(profileStateClassname)
-          , mobile: ~classname.indexOf(mobileStateClassname)
+            evidence: !!~classname.indexOf(evidenceStateClassname)
+          , profile: !!~classname.indexOf(profileStateClassname)
+          , mobile: !!~classname.indexOf(mobileStateClassname)
         };
 }
 
@@ -527,6 +804,7 @@ function cleanClassname( classname ) {
         .replace( ' ' + mobileStateClassname, '' );
 }
 
+
 TophatStates.prototype = {
 
     updateState: function() {
@@ -536,9 +814,30 @@ TophatStates.prototype = {
             ( this.data.mobile ? ' ' + mobileStateClassname : '' );
 
         this.element.className = classname;
+
+        // Profile request is asynch, so button may have been added later
+        this.profileBtn = document.getElementById("menu-profile");
+
+        this.toggleAriaAttributes(this.profileBtn, this.data.profile); 
+
+        this.setAriaStates();
     }
 
+  , toggleAriaAttributes: function(btn, isBtnActive){
+        // E.g. if you're logged out, there's no profile button
+        if(!btn || btn.getAttribute("aria-hidden") === "true") return;
+
+        btn.setAttribute("aria-expanded", isBtnActive);
+
+        var controls = btn.getAttribute("aria-controls").split(" ");
+        for (var i = 0; i < controls.length; i++) {
+            var subMenu = document.getElementById(controls[i]);
+            subMenu.setAttribute("aria-hidden", !isBtnActive);
+        }
+  }
+
   , toggleEvidence: function() {
+        if(config.evidence) return; // Don't toggle evidence when on an Evidence service
         this.data.evidence = !this.data.evidence;
         if (this.data.evidence) {
             this.data.profile = false;
@@ -572,6 +871,36 @@ TophatStates.prototype = {
         this.updateState();
     }
 
+    // Sets the correct state of aria attributes depending on device and mode (mobile/evidence).
+    , setAriaStates: function() {
+        // See matchMedia vendor polyfill. 47.9375em = 767px
+        var isMobileDevice = matchMedia('(max-width: 47.9375em)').matches;
+
+        // Main menu button
+        this.mobileMenuBtn.setAttribute("aria-hidden", !isMobileDevice);
+        this.mobileMenuBtn.setAttribute("aria-expanded", this.data.mobile);
+
+        // Main menu
+        this.mainMenu.setAttribute("aria-hidden", (isMobileDevice && !this.data.mobile));
+
+        // Evidence
+        if(isMobileDevice) {
+            // Evidence menu is expanded on mobile by default
+            this.evidenceBtn.setAttribute("aria-expanded", true);
+            this.evidenceBtn.setAttribute("aria-disabled", true);
+            this.evidenceMenu.setAttribute("aria-hidden", !this.data.mobile);
+        }
+        else if(config.evidence) {
+            // In an evidence service, evidence is always expanded
+            this.evidenceBtn.setAttribute("aria-expanded", true);
+            this.evidenceBtn.setAttribute("aria-disabled", true);
+            this.evidenceMenu.setAttribute("aria-hidden", false);
+        } else {
+            this.evidenceBtn.setAttribute("aria-expanded", this.data.evidence);
+            this.evidenceBtn.setAttribute("aria-disabled", false);
+            this.evidenceMenu.setAttribute("aria-hidden", !this.data.evidence);
+        }
+    }
 };
 
 module.exports = {
@@ -580,7 +909,7 @@ module.exports = {
     }
 };
 
-},{}],7:[function(require,module,exports){
+},{"../config":3,"../utils/dom":28}],9:[function(require,module,exports){
 var utils = require('../utils/dom');
 var evidenceLinks = require('../config/evidence');
 var tophatEvidence = require('../templates/evidence/menu.html');
@@ -627,7 +956,7 @@ function generateLink( id, link, isBeta ) {
 
 module.exports = generateEvidenceElement;
 
-},{"../config/evidence":3,"../templates/evidence/links.html":12,"../templates/evidence/menu.html":13,"../templates/evidence/service.html":14,"../utils/dom":25}],8:[function(require,module,exports){
+},{"../config/evidence":4,"../templates/evidence/links.html":15,"../templates/evidence/menu.html":16,"../templates/evidence/service.html":17,"../utils/dom":28}],10:[function(require,module,exports){
 var utils = require('../utils/dom');
 var tophatGlobal = require('../templates/global/menu.html');
 
@@ -643,7 +972,7 @@ function generateGlobalElement( tophatElement ) {
 
 module.exports = generateGlobalElement;
 
-},{"../templates/global/menu.html":15,"../utils/dom":25}],9:[function(require,module,exports){
+},{"../templates/global/menu.html":18,"../utils/dom":28}],11:[function(require,module,exports){
 var utils = require('../utils/dom');
 var xhr = require('../utils/xhr');
 var tophatProfile = require('../templates/profile/menu.html');
@@ -677,6 +1006,7 @@ function generateProfile( el, profile ) {
   var profileLink = utils.create( tophatProfileService );
 
   profileLink.setAttribute( 'title', profile.display_name );
+  profileLink.setAttribute( 'aria-label', "Show user menu for " + profile.display_name );
   if (profile.thumbnail && profile.thumbnail.length) {
     profileLink.innerHTML = '<img src="'+ profile.thumbnail +'" class="profile-avatar" alt="Your profile image" />';
   }
@@ -723,7 +1053,7 @@ function generateLink( label, href ) {
 
 module.exports = generateProfileElement;
 
-},{"../templates/profile/anon.html":16,"../templates/profile/links.html":17,"../templates/profile/menu.html":18,"../templates/profile/service.html":19,"../utils/dom":25,"../utils/xhr":26}],10:[function(require,module,exports){
+},{"../templates/profile/anon.html":19,"../templates/profile/links.html":20,"../templates/profile/menu.html":21,"../templates/profile/service.html":22,"../utils/dom":28,"../utils/xhr":29}],12:[function(require,module,exports){
 var utils = require('../utils/dom');
 var tophatSearch = require('../templates/search/form.html');
 
@@ -797,7 +1127,7 @@ function parseQueryStringWithRegExp( query ) {
 
 module.exports = generateSearchElement;
 
-},{"../templates/search/form.html":20,"../utils/dom":25}],11:[function(require,module,exports){
+},{"../templates/search/form.html":23,"../utils/dom":28}],13:[function(require,module,exports){
 var utils = require('../utils/dom');
 var serviceLinks = require('../config/services');
 var tophatServices = require('../templates/services/menu.html');
@@ -859,46 +1189,53 @@ function cleanUp( tophatElement ) {
 
 module.exports = generateServiceElement;
 
-},{"../config/services":4,"../templates/services/links.html":21,"../templates/services/menu.html":22,"../utils/dom":25}],12:[function(require,module,exports){
-module.exports = '<li class="evidence-{{id}}"><a href="{{href}}" title="{{title}}">{{label}}</a></li>';
-},{}],13:[function(require,module,exports){
-module.exports = '<div class="nice-evidence" id="nice-evidence"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
-},{}],14:[function(require,module,exports){
-module.exports = '<li class="menu-evidence"><a href="#nice-evidence">Evidence services</a></li>';
+},{"../config/services":5,"../templates/services/links.html":24,"../templates/services/menu.html":25,"../utils/dom":28}],14:[function(require,module,exports){
+module.exports = '<div class="nice-cookie" id="nice-cookie" role="dialog"><div class="tophat-inner"><p class="nice-cookie__message">{{message}} <a href="{{policyUrl}}" target="_blank" aria-label="Learn more about cookies on the NICE website">Learn more about cookies</a></p><button type="button" class="nice-cookie__close js-close-cookie-message" aria-label="Dismiss cookie message" aria-controls="nice-cookie"><span aria-hidden="true">×</span></button></div></div>';
 },{}],15:[function(require,module,exports){
-module.exports = '<div class="nice-global" id="nice-global"><div class="tophat-inner"></div></div>';
+module.exports = '<li class="evidence-{{id}}" role="presentation"><a href="{{href}}" title="{{title}}" role="menuitem">{{label}}</a></li>';
 },{}],16:[function(require,module,exports){
-module.exports = '<a href="{{root}}/signin" class="menu-anonymous">Sign in</a>';
+module.exports = '<div class="nice-evidence" id="nice-evidence" aria-hidden="true"><div class="tophat-inner" role="navigation"><ul class="menu" role="menu" aria-labelledby="menu-evidence">{{menu}}</ul></div></div>';
 },{}],17:[function(require,module,exports){
-module.exports = '<li><a href="{{href}}">{{label}}</a></li>';
+module.exports = '<li class="menu-evidence" role="presentation"><a href="#nice-evidence" id="menu-evidence" role="menuitem" aria-haspopup="true" aria-controls="nice-evidence" aria-expanded="false">Evidence services</a></li>';
 },{}],18:[function(require,module,exports){
-module.exports = '<div class="nice-profile" id="nice-profile"><div class="tophat-inner"><ul class="menu">{{menu}}</ul></div></div>';
+module.exports = '<div class="nice-global" id="nice-global"><div class="tophat-inner"></div></div>';
 },{}],19:[function(require,module,exports){
-module.exports = '<a href="#nice-profile" class="menu-profile"><span class="profile-avatar"></span></a>';
+module.exports = '<a href="{{root}}/signin" class="menu-anonymous">Sign in</a>';
 },{}],20:[function(require,module,exports){
-module.exports = '<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search"><div class="controls"><input name="q" value="{{q}}" autocomplete="off" spellcheck="false" placeholder="{{placeholder}}" maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}"> <button type="submit"><i class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
+module.exports = '<li role="presentation"><a href="{{href}}" role="menuitem">{{label}}</a></li>';
 },{}],21:[function(require,module,exports){
-module.exports = '<li class="menu-{{id}}"><a href="{{href}}">{{label}}</a></li>';
+module.exports = '<div class="nice-profile" id="nice-profile" aria-hidden="true"><div class="tophat-inner" role="navigation"><ul class="menu" role="menu" aria-labelledby="menu-profile">{{menu}}</ul></div></div>';
 },{}],22:[function(require,module,exports){
-module.exports = '<div class="nice-services"><div class="tophat-inner"><a href="#" class="menu-mobile">Menu</a> <a href="{{homelink}}" class="logo">NICE <small>National Institute for<br>Health and Care Excellence</small></a><ul class="menu">{{menu}}</ul></div></div>';
+module.exports = '<a href="#nice-profile" class="menu-profile" id="menu-profile" aria-controls="nice-profile" aria-haspopup="true" aria-expanded="false"><span class="profile-avatar"></span></a>';
 },{}],23:[function(require,module,exports){
+module.exports = '<form class="nice-search" method="{{method}}" action="{{action}}" data-track="search" role="search"><div class="controls"><input name="q" value="{{q}}" autocomplete="off" spellcheck="false" placeholder="{{placeholder}}" maxlength="250" data-provide="typeahead" data-source-type="{{typeaheadtype}}" data-source="{{typeaheadsource}}" id="search" aria-label="Search query"> <button type="submit" aria-label="Perform search"><i aria-hidden="true" class="icon-search"></i> <span class="menu-label">Search</span></button></div></form>';
+},{}],24:[function(require,module,exports){
+module.exports = '<li class="menu-{{id}}" role="presentation"><a href="{{href}}" role="menuitem">{{label}}</a></li>';
+},{}],25:[function(require,module,exports){
+module.exports = '<div class="nice-services" role="navigation"><div class="tophat-inner"><a href="#" class="menu-mobile" id="menu-mobile" aria-expanded="false" aria-controls="main-menu nice-evidence" aria-hidden="true" aria-label="Site navigation">Menu </a><a href="{{homelink}}" class="logo">NICE <small>National Institute for<br>Health and Care Excellence</small></a><ul class="menu" role="menubar" id="main-menu" aria-labelledby="menu-mobile" aria-hidden="false">{{menu}}</ul></div></div>';
+},{}],26:[function(require,module,exports){
 var inject = require('./../node_modules/cssify');
-var css = "@font-face{font-family:\"NICE.Glyphs\";src:url('//cdn.nice.org.uk/V3.1/Content/nice-glyphs/NICE.Glyphs.eot?#iefix&v=1.3') format('embedded-opentype'),url('//cdn.nice.org.uk/V3.1/Content/nice-glyphs/NICE.Glyphs.woff?v=1.3') format('woff'),url('//cdn.nice.org.uk/V3.1/Content/nice-glyphs/NICE.Glyphs.ttf?v=1.3') format('truetype'),url('//cdn.nice.org.uk/V3.1/Content/nice-glyphs/NICE.Glyphs.svg#niceglyphregular?v=1.3') format('svg');font-weight:normal;font-style:normal}.nice-tophat{min-height:60px;margin-bottom:24px;*position:relative;*z-index:2001;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:16px;font-weight:400;line-height:24px}.nice-tophat *{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}.nice-tophat .tophat-inner{width:95.74468085%;max-width:1170px;margin:0 auto;*zoom:1}.nice-tophat .tophat-inner:before,.nice-tophat .tophat-inner:after{display:table;content:\"\";line-height:0}.nice-tophat .tophat-inner:after{clear:both}.layout-fill .nice-tophat .tophat-inner{width:auto;max-width:100%;margin:0 24px}@media (max-width:979px){.nice-tophat .tophat-inner,.layout-fill .nice-tophat .tophat-inner{width:auto;max-width:100%;margin:0 12px}}.nice-tophat a{text-decoration:none;font-weight:normal}.nice-tophat a:focus,.nice-tophat a:hover,.nice-tophat a:active{text-decoration:none}.nice-tophat .menu-mobile{display:none;top:0;left:0;position:absolute;margin:8px 12px;padding:3px 6px}.nice-tophat .menu-mobile,.nice-tophat .menu-mobile:hover,.nice-tophat .menu-mobile:focus{color:#0E0E0E;font-weight:600}.nice-tophat .menu{position:relative;left:0;display:block;float:right;margin:0;padding:0;list-style:none}.nice-tophat .menu li{list-style:none;float:left;margin:0}.nice-tophat .menu a{display:block;padding:12px;color:#0E0E0E}.nice-tophat .menu a:focus,.nice-tophat .menu a:hover,.nice-tophat .menu a:active{color:#0E0E0E}@media (max-width:767px){.nice-tophat .menu{margin:0 -12px;clear:left}.nice-tophat .menu,.nice-tophat .menu li{position:relative;display:block;float:none}.nice-tophat .menu a{padding:0 12px;line-height:24px}}.nice-tophat .logo,.nice-tophat .icon-offcanvas{color:#0E0E0E;font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased}.nice-tophat .logo{float:left;display:block;padding:12px 24px;margin-left:-24px;font-size:0;line-height:0;border:0}.nice-tophat .logo small{display:none}.nice-tophat .logo:before{content:\"\\e01a\\e01b\";font-size:48px;line-height:48px;letter-spacing:-0.6em}.nice-tophat .icon-offcanvas:before{content:\"\\e03d\"}.tophat-legacy .logo{*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe01a;&#xe01b;');font-size:48px;line-height:48px;letter-spacing:-0.6em}.tophat-legacy .icon-offcanvas:before{*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe03d;')}@media (max-width:1059px){.nice-tophat .logo:before{content:\"\\e01a\"}}@media (max-width:829px){.nice-tophat{min-height:48px;background-color:rgba(0,0,0,0.075);padding-bottom:2px;margin-bottom:-2px}.nice-tophat .logo{padding:0 0 0 24px}.nice-tophat .logo:before{font-size:38px}.nice-tophat .logo small{display:none}}@media (max-width:767px){.nice-tophat .logo{text-align:center;width:auto;margin:0 84px;padding:0 24px;float:none}}.nice-tophat .nice-services{background-color:#fff;border-bottom:1px solid #adadad}.nice-tophat .nice-services .menu{border-right:1px solid #adadad}.nice-tophat .nice-services .menu a{width:84px;padding:12px 4.5px 20px 12px;border-left:1px solid #adadad;line-height:20px;font-size:16px}.nice-tophat .nice-services .menu a:hover,.nice-tophat .nice-services .menu a:focus{background-color:#e9e9e9}.nice-tophat .nice-services .menu .menu-standards a{width:120px}.nice-tophat .nice-services .menu .menu-evidence{position:relative}.nice-tophat .nice-services .menu .menu-evidence a:before{border:6px solid transparent;content:'';position:absolute;bottom:0;left:50%;border-top-color:#0e0e0e;margin-left:-7px}.nice-tophat .nice-services .menu .active a,.nice-tophat .nice-services .menu .active a:hover,.nice-tophat .nice-services .menu .active a:focus{background-color:#004650;color:#fff}.nice-tophat .nice-services .menu .active a:after{background-color:#004650;content:'';height:1px;left:0;position:absolute;top:100%;width:100%}.menu-evidence-open .nice-services .menu .menu-evidence a,.menu-evidence-active .nice-services .menu .menu-evidence a{border-bottom:0;padding-bottom:20px;position:relative}.menu-evidence-open .nice-services .menu .menu-evidence a,.menu-evidence-active .nice-services .menu .menu-evidence a,.menu-evidence-open .nice-services .menu .menu-evidence a:hover,.menu-evidence-active .nice-services .menu .menu-evidence a:hover,.menu-evidence-open .nice-services .menu .menu-evidence a:focus,.menu-evidence-active .nice-services .menu .menu-evidence a:focus{background-color:#e9e9e9;color:#0E0E0E}.menu-evidence-open .nice-services .menu .menu-evidence a:before,.menu-evidence-active .nice-services .menu .menu-evidence a:before{display:none}.menu-evidence-open .nice-services .menu .menu-evidence a:after,.menu-evidence-active .nice-services .menu .menu-evidence a:after{background-color:#e9e9e9;content:'';height:1px;left:0;position:absolute;top:100%;width:100%}@media (max-width:979px){.nice-tophat .nice-services .menu a{padding-top:12px;padding-bottom:20px}.menu-evidence-open .nice-services .menu .menu-evidence a,.menu-evidence-active .nice-services .menu .menu-evidence a{padding-bottom:20px}}@media (max-width:767px){.nice-tophat .nice-services{border-bottom:none}.nice-tophat .nice-services .menu{display:none;border-right:none}.nice-tophat .nice-services .menu a{padding-bottom:12px}.nice-tophat .nice-services .menu li a,.nice-tophat .nice-services .menu .menu-standards a{border-left:0;line-height:24px;width:auto}.nice-tophat .nice-services .menu .menu-evidence a,.nice-tophat .nice-services .menu .menu-evidence a:hover,.nice-tophat .nice-services .menu .menu-evidence a:focus{padding-bottom:3px;background-color:#e9e9e9;border:0}.nice-tophat .nice-services .menu .menu-evidence a:before{display:none}.nice-tophat .menu-mobile{display:block}.menu-mobile-open .nice-services .menu{display:block}}@media (max-width:480px){.nice-tophat .nice-services .menu li a{padding:6px 12px}}.nice-tophat .nice-evidence{background-color:#e9e9e9;display:none}.nice-tophat .nice-evidence .menu{border-right:1px solid #d6d6d6}.nice-tophat .nice-evidence .menu a{padding-left:12px;padding-right:12px;border-left:1px solid #d6d6d6;font-size:16px}.nice-tophat .nice-evidence .menu a:hover,.nice-tophat .nice-evidence .menu a:focus{background-color:#d6d6d6}.nice-tophat .nice-evidence .menu .active a:hover,.nice-tophat .nice-evidence .menu .active a:focus,.nice-tophat .nice-evidence .menu .active a{color:#fff;background-color:#004650}.menu-evidence-open .nice-evidence,.menu-evidence-active .nice-evidence{display:block}@media (max-width:767px){.nice-tophat .nice-evidence{display:none}.nice-tophat .nice-evidence .menu{border:0}.nice-tophat .nice-evidence .menu li a{padding:12px 12px 12px 36px;border:0;border-top:1px solid #d6d6d6;line-height:24px}.nice-tophat .nice-evidence .menu li:first-child a{border-top:0}.menu-mobile-open .nice-evidence{display:block}}@media (max-width:480px){.nice-tophat .nice-evidence .menu li a{padding:6px 6px 6px 24px}}.nice-tophat .nice-global{background-color:#004650;color:#fff}.nice-tophat .nice-global .menu a{color:#fff;padding:19px 12px 20px;line-height:24px}.nice-tophat .nice-global .menu a:hover,.nice-tophat .nice-global .menu a:focus{color:#fff;background-color:#18646e}.nice-tophat .nice-global .menu .active a,.nice-tophat .nice-global .menu .active a:hover,.nice-tophat .nice-global .menu .active a:focus{color:#000;background-color:#fff}.nice-tophat .nice-global .tool-brand{display:block;font-size:36px;line-height:36px;margin:0 0 -24px;padding:12px 0 0}.nice-tophat .nice-global .tool-brand small{font-size:24px;color:#777}.nice-tophat .nice-global .publication-date{float:right;font-size:16px;margin-top:-4px;margin-right:12px;color:#666}@media (max-width:979px){.nice-tophat .nice-global{position:relative}.nice-tophat .nice-global .tool-brand{margin-bottom:0;padding:6px 0}.nice-tophat .nice-global .menu{display:none;visibility:hidden;speak:none}}@media (max-width:768px){.nice-tophat .nice-global{background-image:none !important}.nice-tophat .nice-global .tool-brand{margin:0;width:100%;text-align:center}}.nice-search{color:#0E0E0E;float:left;position:relative;width:40%;margin:12px 0}.nice-search .controls{margin-right:40px}.nice-search input{display:block;width:100%;height:36px;padding:0 12px;margin:0;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:36px;color:#0E0E0E;border:1px solid #ccc;border-radius:0;vertical-align:middle;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:none}.nice-search input:focus{outline:none}.nice-search button{display:inline-block;color:#0E0E0E;background-color:#d6d6d6;overflow:hidden;position:absolute;height:36px;width:36px;margin:0;padding:0;top:0;right:0;border:1px solid #d6d6d6;font-size:0;line-height:normal}.nice-search button:hover{background-color:#adadad;border-colour:#adadad}.nice-search .icon-search{font-size:24px;font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased}.nice-search .icon-search:before{content:\"\\e004\"}.nice-search .twitter-typeahead{width:100%}.nice-search .tt-dropdown-menu{width:100%}.tophat-legacy .icon-search{*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe004;')}@media (max-width:979px){.nice-search{float:none;width:100%}.nice-partner .nice-search .controls{margin-left:110px}}.nice-tophat .nice-partner .partner-logo{float:left;display:block;margin:22px 24px 0 0}.nice-tophat .nice-partner .partner-logo:hover,.nice-tophat .nice-partner .partner-logo:focus,.nice-tophat .nice-partner .partner-logo:active{background-color:transparent;padding-bottom:0;border-bottom:none}.nice-tophat .nice-partner .partner-logo img{height:72px}.nice-tophat .nice-partner .partner-brand{display:block;font-size:24px;line-height:36px;margin:0 0 -6px;padding:12px 0 0;color:#fff}.nice-tophat .nice-partner .partner-brand small{float:right;margin:-10px 10px 0 0}@media (max-width:979px){.nice-tophat .nice-partner .partner-brand{display:none;visibility:hidden;speak:none}.nice-tophat .nice-partner .partner-logo{position:absolute;top:12px;left:12px;padding:0;margin:0;z-index:2002}.nice-tophat .nice-partner .partner-logo img{height:38px}}.nice-internal{min-height:50px;width:100%}.nice-internal .logo{font-size:0;line-height:36px;*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe019;')}.nice-internal .logo,.nice-internal .logo:hover,.nice-internal .logo:focus,.nice-internal .logo:active{color:#263238}.nice-internal .logo small{font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;display:inline;font-size:32px;line-height:46px}.nice-internal .logo:before{float:none;margin-right:.5em;font-size:32px;content:\"\\e01a\";vertical-align:top}.nice-internal .nice-services{background-color:#fff}.nice-internal .nice-services .menu a{color:#263238;border-left:none;padding-top:5px;padding-bottom:5px}.nice-internal .nice-services .menu a:hover,.nice-internal .nice-services .menu a:focus,.nice-internal .nice-services .menu a:active{color:#263238;background-color:transparent}.active .nice-internal .nice-services .menu a,.active .nice-internal .nice-services .menu a:hover,.active .nice-internal .nice-services .menu a:focus,.active .nice-internal .nice-services .menu a:active{color:#263238;background-color:transparent}.nice-internal .nice-services .menu-mobile{display:none}.nice-internal .nice-global a{padding-top:9px;padding-bottom:10px}.nice-internal .nice-global a:hover,.nice-internal .nice-global a:focus{padding-bottom:8px;border-bottom-width:2px}.menu .nice-internal .nice-global a{padding-top:19px;padding-bottom:20px;line-height:24px}.menu .nice-internal .nice-global a:hover,.menu .nice-internal .nice-global a:focus{padding-bottom:16px;border-bottom-width:4px}.active .nice-internal .nice-global a,.active .nice-internal .nice-global a:hover,.active .nice-internal .nice-global a:focus{padding-bottom:8px;border-bottom-width:2px}.menu .active .nice-internal .nice-global a,.menu .active .nice-internal .nice-global a:hover,.menu .active .nice-internal .nice-global a:focus{padding-bottom:16px;border-bottom-width:4px}@media (max-width:767px){.nice-internal .logo{margin:0;padding:0}}.nice-tophat .menu-anonymous,.nice-tophat .menu-profile{float:right}.nice-tophat .menu-anonymous,.nice-tophat .menu-profile,.nice-tophat .menu-anonymous:hover,.nice-tophat .menu-profile:hover,.nice-tophat .menu-anonymous:focus,.nice-tophat .menu-profile:focus{color:#0E0E0E;font-weight:600}.nice-tophat .menu-anonymous{margin:15px 0 0 12px;padding:6px 12px;border:2px solid #0E0E0E}.nice-tophat .menu-profile{position:relative;width:36px;height:36px;padding:9px;line-height:36px}.nice-tophat .menu-profile,.nice-tophat .menu-profile:hover,.nice-tophat .menu-profile:focus{background-color:transparent}.nice-tophat .menu-profile:hover{color:#999}.nice-tophat .profile-avatar{position:absolute;width:100%;height:100%;vertical-align:-35%;text-align:center;font-size:20px;font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased;line-height:inherit;*line-height:40px}.nice-tophat .profile-avatar:before{content:\"\\e01f\"}.nice-tophat .nice-profile{position:absolute;z-index:2003;width:250px;left:50%;margin-left:340px;top:50px;background-color:#e9e9e9;display:none;border:1px solid #adadad}.nice-tophat .nice-profile:before{border:6px solid transparent;content:'';position:absolute;bottom:100%;right:18px;border-bottom-color:#0E0E0E}.nice-tophat .nice-profile .tophat-inner{margin-left:0;width:100%}.nice-tophat .nice-profile .menu{border-right:1px solid #d6d6d6}.nice-tophat .nice-profile .menu,.nice-tophat .nice-profile .menu li{float:none;display:block;margin-left:0;border-right:0}.nice-tophat .nice-profile .menu a{padding-left:12px;padding-right:12px;border-top:1px solid #d6d6d6}.nice-tophat .nice-profile .menu a:hover,.nice-tophat .nice-profile .menu a:focus{background-color:#d6d6d6}.active .nice-tophat .nice-profile .menu a,.active .nice-tophat .nice-profile .menu a:hover,.active .nice-tophat .nice-profile .menu a:focus{color:#fff;background-color:#004650}li:first-child .nice-tophat .nice-profile .menu a{border-top:0}.nice-tophat .nice-profile .menu li:first-child a{border-top:0}.tophat-legacy .profile-avatar{*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe01f;')}.menu-profile-open .nice-profile{display:block}.layout-fill .nice-tophat .nice-profile{left:auto;right:16px;margin-left:0}.layout-fill .nice-tophat .nice-profile .tophat-inner{margin-left:0}@media (max-width:1220px){.nice-tophat .nice-profile{left:auto;right:1.5%}}@media (max-width:979px){.nice-tophat .menu-anonymous{margin-top:12px}.nice-tophat .nice-profile{right:5px}.layout-fill .nice-tophat .nice-profile{right:5px}}@media (max-width:767px){.nice-tophat .menu-anonymous,.nice-tophat .menu-profile{top:0;right:0;position:absolute}.nice-tophat .menu-anonymous{margin:8px 12px;padding:3px 6px;border:0}.nice-tophat .nice-profile{position:relative;left:0;top:0;width:auto;margin:0;padding:0}.nice-tophat .nice-profile:before{right:21px}.nice-tophat .nice-profile .menu{border:0;margin:0}.nice-tophat .nice-profile .menu li a{padding:12px;border:0;border-top:1px solid #d6d6d6;line-height:24px}.nice-tophat .nice-profile .menu li:first-child a{border-top:0}.nice-tophat .profile-avatar{font-size:16px;line-height:32px;height:32px;width:32px}.nice-tophat .profile-avatar:before{height:32px;width:32px}.layout-fill .nice-tophat .nice-profile{right:auto}}@media (max-width:480px){.nice-tophat .nice-profile .menu li a{padding:6px 12px}}";
-inject(css, undefined, '_k4yy2g');
+var css = "@font-face{font-family:\"NICE.Glyphs\";src:url('//cdn.nice.org.uk/V3.1/Content/nice-glyphs/NICE.Glyphs.eot?#iefix&v=1.3') format('embedded-opentype'),url('//cdn.nice.org.uk/V3.1/Content/nice-glyphs/NICE.Glyphs.woff?v=1.3') format('woff'),url('//cdn.nice.org.uk/V3.1/Content/nice-glyphs/NICE.Glyphs.ttf?v=1.3') format('truetype'),url('//cdn.nice.org.uk/V3.1/Content/nice-glyphs/NICE.Glyphs.svg#niceglyphregular?v=1.3') format('svg');font-weight:normal;font-style:normal}.nice-tophat{min-height:60px;margin-bottom:24px;*position:relative;*z-index:2001;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:16px;font-weight:400;line-height:24px}.nice-tophat *{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}.nice-tophat .tophat-inner{width:95.74468085%;max-width:1170px;margin:0 auto;*zoom:1}.nice-tophat .tophat-inner:before,.nice-tophat .tophat-inner:after{display:table;content:\"\";line-height:0}.nice-tophat .tophat-inner:after{clear:both}.layout-fill .nice-tophat .tophat-inner{width:auto;max-width:100%;margin:0 24px}@media (max-width:979px){.nice-tophat .tophat-inner,.layout-fill .nice-tophat .tophat-inner{width:auto;max-width:100%;margin:0 12px}}.nice-tophat a{text-decoration:none;font-weight:normal}.nice-tophat a:focus,.nice-tophat a:hover,.nice-tophat a:active{text-decoration:none}.nice-tophat .menu-mobile{display:none;top:0;left:0;position:absolute;margin:8px 12px;padding:3px 6px}.nice-tophat .menu-mobile,.nice-tophat .menu-mobile:hover,.nice-tophat .menu-mobile:focus{color:#0E0E0E;font-weight:600}.nice-tophat .menu{position:relative;left:0;display:block;float:right;margin:0;padding:0;list-style:none}.nice-tophat .menu li{list-style:none;float:left;margin:0}.nice-tophat .menu a{display:block;padding:12px;color:#0E0E0E}.nice-tophat .menu a:focus,.nice-tophat .menu a:hover,.nice-tophat .menu a:active{color:#0E0E0E}@media (max-width:767px){.nice-tophat .menu{margin:0 -12px;clear:left}.nice-tophat .menu,.nice-tophat .menu li{position:relative;display:block;float:none}.nice-tophat .menu a{padding:0 12px;line-height:24px}}.nice-tophat .logo,.nice-tophat .icon-offcanvas{color:#0E0E0E;font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased}.nice-tophat .logo{float:left;display:block;padding:12px 24px;margin-left:-24px;font-size:0;line-height:0;border:0}.nice-tophat .logo small{display:none}.nice-tophat .logo:before{content:\"\\e01a\\e01b\";font-size:48px;line-height:48px;letter-spacing:-0.6em}.nice-tophat .icon-offcanvas:before{content:\"\\e03d\"}.tophat-legacy .logo{*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe01a;&#xe01b;');font-size:48px;line-height:48px;letter-spacing:-0.6em}.tophat-legacy .icon-offcanvas:before{*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe03d;')}@media (max-width:1059px){.nice-tophat .logo:before{content:\"\\e01a\"}}@media (max-width:829px){.nice-tophat{min-height:48px;background-color:rgba(0,0,0,0.075);padding-bottom:2px;margin-bottom:-2px}.nice-tophat .logo{padding:0 0 0 24px}.nice-tophat .logo:before{font-size:38px}.nice-tophat .logo small{display:none}}@media (max-width:767px){.nice-tophat .logo{text-align:center;width:auto;margin:0 84px;padding:0 24px;float:none}}.nice-tophat .nice-services{background-color:#fff;border-bottom:1px solid #adadad}.nice-tophat .nice-services .menu{border-right:1px solid #adadad}.nice-tophat .nice-services .menu a{width:84px;padding:12px 4.5px 20px 12px;border-left:1px solid #adadad;line-height:20px;font-size:16px}.nice-tophat .nice-services .menu a:hover,.nice-tophat .nice-services .menu a:focus{background-color:#e9e9e9}.nice-tophat .nice-services .menu a[aria-disabled=\"true\"]{cursor:none;pointer-events:none}.nice-tophat .nice-services .menu .menu-standards a{width:120px}.nice-tophat .nice-services .menu .menu-evidence{position:relative}.nice-tophat .nice-services .menu .menu-evidence a:before{border:6px solid transparent;content:'';position:absolute;bottom:0;left:50%;border-top-color:#0e0e0e;margin-left:-7px}.nice-tophat .nice-services .menu .active a,.nice-tophat .nice-services .menu .active a:hover,.nice-tophat .nice-services .menu .active a:focus{background-color:#004650;color:#fff}.nice-tophat .nice-services .menu .active a:after{background-color:#004650;content:'';height:1px;left:0;position:absolute;top:100%;width:100%}.menu-evidence-open .nice-services .menu .menu-evidence a,.menu-evidence-active .nice-services .menu .menu-evidence a{border-bottom:0;padding-bottom:20px;position:relative}.menu-evidence-open .nice-services .menu .menu-evidence a,.menu-evidence-active .nice-services .menu .menu-evidence a,.menu-evidence-open .nice-services .menu .menu-evidence a:hover,.menu-evidence-active .nice-services .menu .menu-evidence a:hover,.menu-evidence-open .nice-services .menu .menu-evidence a:focus,.menu-evidence-active .nice-services .menu .menu-evidence a:focus{background-color:#e9e9e9;color:#0E0E0E}.menu-evidence-open .nice-services .menu .menu-evidence a:before,.menu-evidence-active .nice-services .menu .menu-evidence a:before{display:none}.menu-evidence-open .nice-services .menu .menu-evidence a:after,.menu-evidence-active .nice-services .menu .menu-evidence a:after{background-color:#e9e9e9;content:'';height:1px;left:0;position:absolute;top:100%;width:100%}@media (max-width:979px){.nice-tophat .nice-services .menu a{padding-top:12px;padding-bottom:20px}.menu-evidence-open .nice-services .menu .menu-evidence a,.menu-evidence-active .nice-services .menu .menu-evidence a{padding-bottom:20px}}@media (max-width:767px){.nice-tophat .nice-services{border-bottom:none;position:relative}.nice-tophat .nice-services .menu{display:none;border-right:none}.nice-tophat .nice-services .menu a{padding-bottom:12px}.nice-tophat .nice-services .menu li a,.nice-tophat .nice-services .menu .menu-standards a{border-left:0;line-height:24px;width:auto}.nice-tophat .nice-services .menu .menu-evidence a,.nice-tophat .nice-services .menu .menu-evidence a:hover,.nice-tophat .nice-services .menu .menu-evidence a:focus{padding-bottom:3px;background-color:#e9e9e9;border:0}.nice-tophat .nice-services .menu .menu-evidence a:before{display:none}.nice-tophat .menu-mobile{display:block}.menu-mobile-open .nice-services .menu{display:block}}@media (max-width:480px){.nice-tophat .nice-services .menu li a{padding:6px 12px}}.nice-tophat .nice-evidence{background-color:#e9e9e9;display:none}.nice-tophat .nice-evidence .menu{border-right:1px solid #d6d6d6}.nice-tophat .nice-evidence .menu a{padding-left:12px;padding-right:12px;border-left:1px solid #d6d6d6;font-size:16px}.nice-tophat .nice-evidence .menu a:hover,.nice-tophat .nice-evidence .menu a:focus{background-color:#d6d6d6}.nice-tophat .nice-evidence .menu .active a:hover,.nice-tophat .nice-evidence .menu .active a:focus,.nice-tophat .nice-evidence .menu .active a{color:#fff;background-color:#004650}.menu-evidence-open .nice-evidence,.menu-evidence-active .nice-evidence{display:block}@media (max-width:767px){.nice-tophat .nice-evidence{display:none}.nice-tophat .nice-evidence .menu{border:0}.nice-tophat .nice-evidence .menu li a{padding:12px 12px 12px 36px;border:0;border-top:1px solid #d6d6d6;line-height:24px}.nice-tophat .nice-evidence .menu li:first-child a{border-top:0}.menu-mobile-open .nice-evidence{display:block}}@media (max-width:480px){.nice-tophat .nice-evidence .menu li a{padding:6px 6px 6px 24px}}.nice-tophat .nice-global{background-color:#004650;color:#fff}.nice-tophat .nice-global .menu a{color:#fff;padding:19px 12px 20px;line-height:24px}.nice-tophat .nice-global .menu a:hover,.nice-tophat .nice-global .menu a:focus{color:#fff;background-color:#18646e}.nice-tophat .nice-global .menu .active a,.nice-tophat .nice-global .menu .active a:hover,.nice-tophat .nice-global .menu .active a:focus{color:#000;background-color:#fff}.nice-tophat .nice-global .tool-brand{display:block;font-size:36px;line-height:36px;margin:0 0 -24px;padding:12px 0 0}.nice-tophat .nice-global .tool-brand small{font-size:24px;color:#777}.nice-tophat .nice-global .publication-date{float:right;font-size:16px;margin-top:-4px;margin-right:12px;color:#666}@media (max-width:979px){.nice-tophat .nice-global{position:relative}.nice-tophat .nice-global .tool-brand{margin-bottom:0;padding:6px 0}.nice-tophat .nice-global .menu{display:none;visibility:hidden;speak:none}}@media (max-width:768px){.nice-tophat .nice-global{background-image:none !important}.nice-tophat .nice-global .tool-brand{margin:0;width:100%;text-align:center}}.nice-search{color:#0E0E0E;float:left;position:relative;width:40%;margin:12px 0}.nice-search .controls{margin-right:40px}.nice-search input{display:block;width:100%;height:36px;padding:0 12px;margin:0;font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:36px;color:#0E0E0E;border:1px solid #ccc;border-radius:0;vertical-align:middle;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:none}.nice-search input:focus{outline:none}.nice-search button{display:inline-block;color:#0E0E0E;background-color:#d6d6d6;overflow:hidden;position:absolute;height:36px;width:36px;margin:0;padding:0;top:0;right:0;border:1px solid #d6d6d6;font-size:0;line-height:normal}.nice-search button:hover{background-color:#adadad;border-colour:#adadad}.nice-search .icon-search{font-size:24px;font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased}.nice-search .icon-search:before{content:\"\\e004\"}.nice-search .twitter-typeahead{width:100%}.nice-search .tt-dropdown-menu{width:100%}.tophat-legacy .icon-search{*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe004;')}@media (max-width:979px){.nice-search{float:none;width:100%}.nice-partner .nice-search .controls{margin-left:110px}}.nice-tophat .nice-partner .partner-logo{float:left;display:block;margin:22px 24px 0 0}.nice-tophat .nice-partner .partner-logo:hover,.nice-tophat .nice-partner .partner-logo:focus,.nice-tophat .nice-partner .partner-logo:active{background-color:transparent;padding-bottom:0;border-bottom:none}.nice-tophat .nice-partner .partner-logo img{height:72px}.nice-tophat .nice-partner .partner-brand{display:block;font-size:24px;line-height:36px;margin:0 0 -6px;padding:12px 0 0;color:#fff}.nice-tophat .nice-partner .partner-brand small{float:right;margin:-10px 10px 0 0}@media (max-width:979px){.nice-tophat .nice-partner .partner-brand{display:none;visibility:hidden;speak:none}.nice-tophat .nice-partner .partner-logo{position:absolute;top:12px;left:12px;padding:0;margin:0;z-index:2002}.nice-tophat .nice-partner .partner-logo img{height:38px}}.nice-internal{min-height:50px;width:100%}.nice-internal .logo{font-size:0;line-height:36px;*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe019;')}.nice-internal .logo,.nice-internal .logo:hover,.nice-internal .logo:focus,.nice-internal .logo:active{color:#263238}.nice-internal .logo small{font-family:Lato,\"Helvetica Neue\",Helvetica,Arial,sans-serif;display:inline;font-size:32px;line-height:46px}.nice-internal .logo:before{float:none;margin-right:.5em;font-size:32px;content:\"\\e01a\";vertical-align:top}.nice-internal .nice-services{background-color:#fff}.nice-internal .nice-services .menu a{color:#263238;border-left:none;padding-top:5px;padding-bottom:5px}.nice-internal .nice-services .menu a:hover,.nice-internal .nice-services .menu a:focus,.nice-internal .nice-services .menu a:active{color:#263238;background-color:transparent}.active .nice-internal .nice-services .menu a,.active .nice-internal .nice-services .menu a:hover,.active .nice-internal .nice-services .menu a:focus,.active .nice-internal .nice-services .menu a:active{color:#263238;background-color:transparent}.nice-internal .nice-services .menu-mobile{display:none}.nice-internal .nice-global a{padding-top:9px;padding-bottom:10px}.nice-internal .nice-global a:hover,.nice-internal .nice-global a:focus{padding-bottom:8px;border-bottom-width:2px}.menu .nice-internal .nice-global a{padding-top:19px;padding-bottom:20px;line-height:24px}.menu .nice-internal .nice-global a:hover,.menu .nice-internal .nice-global a:focus{padding-bottom:16px;border-bottom-width:4px}.active .nice-internal .nice-global a,.active .nice-internal .nice-global a:hover,.active .nice-internal .nice-global a:focus{padding-bottom:8px;border-bottom-width:2px}.menu .active .nice-internal .nice-global a,.menu .active .nice-internal .nice-global a:hover,.menu .active .nice-internal .nice-global a:focus{padding-bottom:16px;border-bottom-width:4px}@media (max-width:767px){.nice-internal .logo{margin:0;padding:0}}.nice-tophat .menu-anonymous,.nice-tophat .menu-profile{float:right}.nice-tophat .menu-anonymous,.nice-tophat .menu-profile,.nice-tophat .menu-anonymous:hover,.nice-tophat .menu-profile:hover,.nice-tophat .menu-anonymous:focus,.nice-tophat .menu-profile:focus{color:#0E0E0E;font-weight:600}.nice-tophat .menu-anonymous{margin:15px 0 0 12px;padding:6px 12px;border:2px solid #0E0E0E}.nice-tophat .menu-profile{position:relative;width:36px;height:36px;padding:9px;line-height:36px}.nice-tophat .menu-profile,.nice-tophat .menu-profile:hover,.nice-tophat .menu-profile:focus{background-color:transparent}.nice-tophat .menu-profile:hover{color:#999}.nice-tophat .profile-avatar{position:absolute;width:100%;height:100%;vertical-align:-35%;text-align:center;font-size:20px;font-style:normal;font-family:\"NICE.Glyphs\";speak:none;font-variant:normal;text-transform:none;-webkit-font-smoothing:antialiased;line-height:inherit;*line-height:40px}.nice-tophat .profile-avatar:before{content:\"\\e01f\"}.nice-tophat .nice-profile{position:absolute;z-index:2003;width:250px;left:50%;margin-left:340px;top:50px;background-color:#e9e9e9;display:none;border:1px solid #adadad}.nice-tophat .nice-profile:before{border:6px solid transparent;content:'';position:absolute;bottom:100%;right:18px;border-bottom-color:#0E0E0E}.nice-tophat .nice-profile .tophat-inner{margin-left:0;width:100%}.nice-tophat .nice-profile .menu{border-right:1px solid #d6d6d6}.nice-tophat .nice-profile .menu,.nice-tophat .nice-profile .menu li{float:none;display:block;margin-left:0;border-right:0}.nice-tophat .nice-profile .menu a{padding-left:12px;padding-right:12px;border-top:1px solid #d6d6d6}.nice-tophat .nice-profile .menu a:hover,.nice-tophat .nice-profile .menu a:focus{background-color:#d6d6d6}.active .nice-tophat .nice-profile .menu a,.active .nice-tophat .nice-profile .menu a:hover,.active .nice-tophat .nice-profile .menu a:focus{color:#fff;background-color:#004650}li:first-child .nice-tophat .nice-profile .menu a{border-top:0}.nice-tophat .nice-profile .menu li:first-child a{border-top:0}.tophat-legacy .profile-avatar{*zoom:expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe01f;')}.menu-profile-open .nice-profile{display:block}.layout-fill .nice-tophat .nice-profile{left:auto;right:16px;margin-left:0}.layout-fill .nice-tophat .nice-profile .tophat-inner{margin-left:0}@media (max-width:1220px){.nice-tophat .nice-profile{left:auto;right:1.5%}}@media (max-width:979px){.nice-tophat .menu-anonymous{margin-top:12px}.nice-tophat .nice-profile{right:5px}.layout-fill .nice-tophat .nice-profile{right:5px}}@media (max-width:767px){.nice-tophat .menu-anonymous,.nice-tophat .menu-profile{top:0;right:0;position:absolute}.nice-tophat .menu-anonymous{margin:8px 12px;padding:3px 6px;border:0}.nice-tophat .nice-profile{position:relative;left:0;top:0;width:auto;margin:0;padding:0}.nice-tophat .nice-profile:before{right:21px}.nice-tophat .nice-profile .menu{border:0;margin:0}.nice-tophat .nice-profile .menu li a{padding:12px;border:0;border-top:1px solid #d6d6d6;line-height:24px}.nice-tophat .nice-profile .menu li:first-child a{border-top:0}.nice-tophat .profile-avatar{font-size:16px;line-height:32px;height:32px;width:32px}.nice-tophat .profile-avatar:before{height:32px;width:32px}.layout-fill .nice-tophat .nice-profile{right:auto}}@media (max-width:480px){.nice-tophat .nice-profile .menu li a{padding:6px 12px}}.nice-tophat .nice-cookie{background:#d6d6d6;border-bottom:1px solid #adadad}.nice-tophat .nice-cookie[aria-hidden='true']{display:none}.nice-tophat .nice-cookie .tophat-inner{position:relative}.nice-tophat .nice-cookie__message{margin:1em 2.5em 1em 0}.nice-tophat .nice-cookie__message a{text-decoration:underline}.nice-tophat .nice-cookie__close{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-webkit-appearance:none;appearance:none;background:0;border:0;font-size:1.5em;margin:-1em 0 0 0;padding:.5em;position:absolute;right:0;top:50%}.nice-tophat .nice-cookie__close::-moz-focus-inner,.nice-tophat .nice-cookie__close::-moz-focus-inner{border:0;padding:0}";
+inject(css, undefined, '_mc6cil');
 module.exports = css;
 
-},{"./../node_modules/cssify":1}],24:[function(require,module,exports){
+},{"./../node_modules/cssify":1}],27:[function(require,module,exports){
 // stylesheet to be auto inserted
 require('./tophat.css');
+
+require('./vendor/matchMedia');
 
 // import scripts
 var utils = require('./utils/dom');
 var body = document.body;
 
-var config = require('./config')();
+var config = require('./config');
 
 // find or create the tophat element
 var tophatElement = getTophatElement( 'nice-tophat', config );
+
+// create the cookie message element
+var cookieElement = require('./cookie')( tophatElement, config );
 
 // create the service elements
 var serviceElement = require('./services')( tophatElement, config );
@@ -915,13 +1252,7 @@ var globalElement = require('./global')( tophatElement );
 // create the search form and prepend it to the global element
 var searchElement = require('./search')( globalElement, serviceElement, config );
 
-
-
-
-
-
-
-composeTophat( tophatElement, serviceElement, evidenceElement, globalElement, config );
+composeTophat( tophatElement, cookieElement, serviceElement, evidenceElement, globalElement, config );
 
 // attach all the events to the tophat
 require('./events')( document, tophatElement, serviceElement, config );
@@ -933,14 +1264,12 @@ if (document.onTophatReady) {
 
 
 
-
-
 // helper functions
 
 function getTophatElement( classname, config ) {
   var el = utils.find( body, classname )[0];
   if (!el) {
-      el = utils.create('<div class="'+ classname +'"/>');
+      el = utils.create('<div role="banner" class="'+ classname +'"></div>');
   }
 
   el.className = classname +
@@ -950,7 +1279,8 @@ function getTophatElement( classname, config ) {
   return el;
 }
 
-function composeTophat( el, services, evidenceResources, globalMenu, config ) {
+function composeTophat( el, cookieElement, services, evidenceResources, globalMenu, config ) {
+    if (cookieElement) utils.appendElement( cookieElement, el );
     utils.appendElement( services, el );
     if (evidenceResources) utils.appendElement( evidenceResources, el );
     if (globalMenu) utils.appendElement( globalMenu, el );
@@ -966,8 +1296,112 @@ function composeTophat( el, services, evidenceResources, globalMenu, config ) {
     utils.prependElement( tophatElement, body );
 }
 
-},{"./config":2,"./events":5,"./evidence":7,"./global":8,"./profile":9,"./search":10,"./services":11,"./tophat.css":23,"./utils/dom":25}],25:[function(require,module,exports){
+},{"./config":3,"./cookie":6,"./events":7,"./evidence":9,"./global":10,"./profile":11,"./search":12,"./services":13,"./tophat.css":26,"./utils/dom":28,"./vendor/matchMedia":30}],28:[function(require,module,exports){
+var config = require('../config');
+
 var utils = {};
+
+// Returns a function, that, when invoked, will only be triggered at most once
+// during a given window of time. Normally, the throttled function will run
+// as much as it can, without ever going more than once per `wait` duration;
+// but if you'd like to disable the execution on the leading edge, pass
+// `{leading: false}`. To disable execution on the trailing edge, ditto.
+// See http://stackoverflow.com/a/27078401/486434
+utils.throttle = function(func, wait, options) {
+  var context, args, result;
+  var timeout = null;
+  var previous = 0;
+  if (!options) options = {};
+  var later = function() {
+    previous = options.leading === false ? 0 : new Date().getTime();
+    timeout = null;
+    result = func.apply(context, args);
+    if (!timeout) context = args = null;
+  };
+  return function() {
+    var now = new Date().getTime();
+    if (!previous && options.leading === false) previous = now;
+    var remaining = wait - (now - previous);
+    context = this;
+    args = arguments;
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      previous = now;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    } else if (!timeout && options.trailing !== false) {
+      timeout = setTimeout(later, remaining);
+    }
+    return result;
+  };
+};
+
+/**
+ * Makes sure that the given function is always called
+ * with `this` as `context`.
+ *
+ * @param      {Object}    context  The context to use as 'this'
+ * @param      {Function}  fn       The function
+ * @return     {Function}    { The function with the conext set }
+ */
+utils.proxy = function( context, fn ) {
+    return function( ev ) {
+        fn.call( context, ev );
+    };
+};
+
+
+/**
+ * Enhances an event object by adding a cross-browser implementation
+ * of `stopPropagation` and `preventDefault`
+ *
+ * @param      {Event}  event   The event
+ * @return     {Event}  { The enhanced event }
+ */
+utils.enhanceEvent = function(event) {
+    var _stopPropagation = event.stopPropagation
+      , _preventDefault = event.preventDefault;
+
+    event.stopPropagation = function() {
+        if (_stopPropagation) {
+            _stopPropagation.call( event );
+        } else {
+            event.cancelBubble = true;
+        }
+
+        return event;
+    };
+
+    event.preventDefault = function() {
+        if (_preventDefault) {
+            _preventDefault.call( event );
+        } else {
+            event.returnValue = false;
+        }
+
+        return event;
+    };
+
+    return event;
+};
+
+/**
+ * Attach a dom event to the given element.
+ * E.g.:
+ * utils.attachDomEvent(element, "click", function(e) {});
+ *
+ * @param      {<type>}    element     The element
+ * @param      {<type>}    eventName   The event name
+ * @param      {Function}  callbackFn  The callback function
+ */
+utils.attachDomEvent = function( element, eventName, callbackFn ) {
+    var add = document.addEventListener ? 'addEventListener' : 'attachEvent',
+        prefix = document.addEventListener ? '' : 'on';
+    element[add]( prefix + eventName, function( event ) { callbackFn( utils.enhanceEvent( event ) ); }, true );
+};
 
 utils.find = function( root, search ){
     var find = document.getElementsByClassName ? nativeGetElementsByClassName : polyfilGetElementsByClassName;
@@ -1039,9 +1473,16 @@ utils.appendElement = function( element, parent ) {
     parent.appendChild( element );
 };
 
+
+// See http://stackoverflow.com/a/15348311
+utils.htmlEncode = function htmlEncode( html ) {
+    return document.createElement( 'a' ).appendChild(
+        document.createTextNode( html ) ).parentNode.innerHTML;
+};
+
 module.exports = utils;
 
-},{}],26:[function(require,module,exports){
+},{"../config":3}],29:[function(require,module,exports){
 var utils = require('./dom');
 var xhr = {};
 
@@ -1072,4 +1513,56 @@ xhr.get = function( url, resolve ) {
 
 module.exports = xhr;
 
-},{"./dom":25}]},{},[24]);
+},{"./dom":28}],30:[function(require,module,exports){
+/*! matchMedia() polyfill - Test a CSS media type/query in JS. Authors & copyright (c) 2012: Scott Jehl, Paul Irish, Nicholas Zakas, David Knight. Dual MIT/BSD license */
+
+window.matchMedia || (window.matchMedia = function() {
+    "use strict";
+
+    // For browsers that support matchMedium api such as IE 9 and webkit
+    var styleMedia = (window.styleMedia || window.media);
+
+    // For those that don't support matchMedium
+    if (!styleMedia) {
+        var style       = document.createElement('style'),
+            script      = document.getElementsByTagName('script')[0],
+            info        = null;
+
+        style.type  = 'text/css';
+        style.id    = 'matchmediajs-test';
+
+        if (!script) {
+          document.head.appendChild(style);
+        } else {
+          script.parentNode.insertBefore(style, script);
+        }
+
+        // 'style.currentStyle' is used by IE <= 8 and 'window.getComputedStyle' for all other browsers
+        info = ('getComputedStyle' in window) && window.getComputedStyle(style, null) || style.currentStyle;
+
+        styleMedia = {
+            matchMedium: function(media) {
+                var text = '@media ' + media + '{ #matchmediajs-test { width: 1px; } }';
+
+                // 'style.styleSheet' is used by IE <= 8 and 'style.textContent' for all other browsers
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = text;
+                } else {
+                    style.textContent = text;
+                }
+
+                // Test if media query is true or false
+                return info.width === '1px';
+            }
+        };
+    }
+
+    return function(media) {
+        return {
+            matches: styleMedia.matchMedium(media || 'all'),
+            media: media || 'all'
+        };
+    };
+}());
+
+},{}]},{},[27]);
