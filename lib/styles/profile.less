@@ -1,6 +1,21 @@
 .nice-tophat {
 
-  .menu-anonymous,
+  .menu-anonymous{
+  	float: right;
+
+    &:hover,
+    &:focus {
+    	background-color: @serviceHoverBackgroundColor;
+      color: @foregroundColor;
+      font-weight: 600;
+    }
+  }
+  .menu-anonymous{
+  	float: right;
+    color: @foregroundColor;
+    font-weight: 600;
+
+  }
   .menu-profile {
     float: right;
 
