@@ -1,6 +1,6 @@
 /*!
 @name NICE.TopHat
-@version 0.1.2 | 2017-03-17
+@version 0.1.2 | 2017-03-18
 */
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -548,6 +548,12 @@ function keyupHandler(e){
         break;
 
         case keysDict.enter :
+        keyboardNav.openMenu();
+        keyboardNav.resetPos();
+        break;
+
+        case keysDict.space :
+        keyboardNav.openMenu();
         keyboardNav.resetPos();
         break;
 
@@ -814,7 +820,9 @@ function fireDomEvent( document, el, event, data ) {
 module.exports = tophatEvents;
 
 },{"../utils/dom":29,"./navigation":8,"./states":9}],8:[function(require,module,exports){
-var homeIcon, tophat, evidenceMenu, userProfileLink, anonProfileLink, menuLinks, currentFocus;
+var homeIcon, tophat, evidenceMenu,
+ evidenceMenuButton, userProfileLink, anonProfileLink,
+ mobileMenuButton, menuLinks, currentFocus;
 
 var keyboardNavigation ={};
 
@@ -834,14 +842,33 @@ keyboardNavigation.closeMenu = function(){
 
 keyboardNavigation.moveVertically = function(direction, evt){
 	UpdateVariables();
-	if( tophat.classList.contains("menu-profile-open")){
+	if( WhichMenuOpen() === "profile"){
 		evt.preventDefault();
 		FocusOnNext(direction);
 	}
 };
 
+keyboardNavigation.openMenu = function(){
+	UpdateVariables();
+
+	if(evidenceMenuButton === GetNavIndex()[currentFocus]){
+		if(WhichMenuOpen() === "evidence")
+			this.closeMenu();
+		else
+			tophat.classList = "nice-tophat menu-evidence-open";
+
+	}
+
+	if(mobileMenuButton === GetNavIndex()[currentFocus]){
+		if(WhichMenuOpen() === "profile")
+			this.closeMenu();
+		else
+			tophat.classList = "nice-tophat menu-profile-open";
+	}
+};
+
 function FocusOnNext(toFocus){
-	var index = GenerateIndex();
+	var index = GetNavIndex();
 
 	if(currentFocus === undefined){
 		currentFocus = 0;
@@ -869,22 +896,36 @@ function UpdateVariables(){
 	tophat = document.getElementById("tophat-container");
 	userProfileLink = document.getElementById("menu-profile");
 	anonProfileLink = document.getElementById("anon-profile");
+	evidenceMenuButton = document.getElementById("menu-evidence");
 	menuLinks = document.getElementById("main-menu").getElementsByTagName('a');
 	evidenceMenu = document.getElementById("nice-evidence").getElementsByTagName('a');
-	if(document.getElementById("nice-profile") !== null)
+
+	if(document.getElementById("nice-profile") !== null){
 		mobileMenu = document.getElementById("nice-profile").getElementsByTagName('a');
+		mobileMenuButton = document.getElementById("menu-profile");
+	}
 
 
 }
 
-function GenerateIndex(){
+function WhichMenuOpen(){
+	if(tophat.classList.contains("menu-evidence-open"))
+		return "evidence";
+	else if(tophat.classList.contains("menu-profile-open"))
+		return "profile";
+	else
+		return "none";
+}
+
+function GetNavIndex(){
 
   var listOfIndexes = [];
   UpdateVariables();
 
 
 
-  if( tophat.classList.contains("menu-evidence-open")){
+  if( WhichMenuOpen() === "evidence"){
+  	listOfIndexes[0] = evidenceMenuButton;
   	for(var x = 0; x < evidenceMenu.length; x++){
   		listOfIndexes.push(evidenceMenu[x]);
 
@@ -893,7 +934,8 @@ function GenerateIndex(){
   }
 
   //Mobile menu needs implienting
-  else if( tophat.classList.contains("menu-profile-open")){
+  else if( WhichMenuOpen() === "profile"){
+  	listOfIndexes[0] = mobileMenuButton;
   	for(var c = 0; c < mobileMenu.length; c++){
   		listOfIndexes.push(mobileMenu[c]);
   	}
@@ -904,6 +946,7 @@ function GenerateIndex(){
 	  for(var i = 0; i < menuLinks.length; i++){
 	  	listOfIndexes[i] = menuLinks[i];
 	  }
+	  listOfIndexes.push(mobileMenuButton);
  	}
   return listOfIndexes;
 }
