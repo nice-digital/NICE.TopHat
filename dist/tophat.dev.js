@@ -1,6 +1,6 @@
 /*!
 @name NICE.TopHat
-@version 0.1.2 | 2017-03-18
+@version 0.1.2 | 2017-04-03
 */
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -553,8 +553,15 @@ function keyupHandler(e){
         break;
 
         case keysDict.space :
-        keyboardNav.openMenu();
-        keyboardNav.resetPos();
+        e.preventDefault();
+        if(keyboardNav.WhichMenuOpen() === "none")
+        	keyboardNav.openMenu(e);
+
+    	else
+    		keyboardNav.closeMenu();
+
+	    keyboardNav.resetPos();
+
         break;
 
         case keysDict.escape :
@@ -840,6 +847,10 @@ keyboardNavigation.closeMenu = function(){
 	tophat.classList = "nice-tophat";
 };
 
+keyboardNavigation.WhichMenuOpen = function(){
+	return WhichMenuOpen();
+};
+
 keyboardNavigation.moveVertically = function(direction, evt){
 	UpdateVariables();
 	if( WhichMenuOpen() === "profile"){
@@ -848,14 +859,15 @@ keyboardNavigation.moveVertically = function(direction, evt){
 	}
 };
 
-keyboardNavigation.openMenu = function(){
+keyboardNavigation.openMenu = function(e){
 	UpdateVariables();
 
 	if(evidenceMenuButton === GetNavIndex()[currentFocus]){
 		if(WhichMenuOpen() === "evidence")
 			this.closeMenu();
-		else
+		else{
 			tophat.classList = "nice-tophat menu-evidence-open";
+		}
 
 	}
 
@@ -922,10 +934,7 @@ function GetNavIndex(){
   var listOfIndexes = [];
   UpdateVariables();
 
-
-
   if( WhichMenuOpen() === "evidence"){
-  	listOfIndexes[0] = evidenceMenuButton;
   	for(var x = 0; x < evidenceMenu.length; x++){
   		listOfIndexes.push(evidenceMenu[x]);
 
@@ -946,19 +955,17 @@ function GetNavIndex(){
 	  for(var i = 0; i < menuLinks.length; i++){
 	  	listOfIndexes[i] = menuLinks[i];
 	  }
-	  listOfIndexes.push(mobileMenuButton);
+	  var loggedIn = userProfileLink;
+	  if(loggedIn === null)
+	  	listOfIndexes.push(anonProfileLink);
+	  else
+	  	listOfIndexes.push(userProfileLink);
+
+
+
  	}
   return listOfIndexes;
 }
-
-/*function KeyPress(){
-	switch(event.keyCode){
-        case 39:
-        FocusOnNext(1, currentFocus);
-        alert("abc");
-        break;
-	}
-}*/
 
 
 module.exports = keyboardNavigation;
