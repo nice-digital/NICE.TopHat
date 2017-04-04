@@ -1,6 +1,6 @@
 /*!
 @name NICE.TopHat
-@version 0.1.2 | 2017-04-03
+@version 0.1.2 | 2017-04-04
 */
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -505,7 +505,7 @@ function attachTophatEvents( document, tophatElement ) {
     utils.attachDomEvent( document, 'click', utils.proxy( tophatElement, cancelhandler ) );
     utils.attachDomEvent( tophatElement, 'click', utils.proxy( tophatElement, trackingHandler ) );
     utils.attachDomEvent( tophatElement, 'submit', utils.proxy( tophatElement, searchHandler ) );
-    utils.attachDomEvent( document, 'keyup', utils.proxy( tophatElement, keyupHandler ) );
+    utils.attachDomEvent( window, 'keyup', utils.proxy( tophatElement, keyupHandler ) );
 
     // Throttle window resize event to 15fps
     var fps = 15,
@@ -525,7 +525,23 @@ function resizeHandler(e) {
 }
 
 function keyupHandler(e){
+	function updateAria(tophat){
+		switch ( keyboardNav.whichMenuOpen()  ) {
+        		case 'evidence':
+            		tophat.state.toggleEvidence();
+            		break;
+				case 'profile':
+		            tophat.state.toggleProfile();
+		            break;
 
+		        case 'mobile':
+		            tophat.state.toggleMobileMenu();
+		            break;
+		        case 'none':
+		        	tophat.state.unfocus();
+		        	break;
+    			}
+	}
 	var keysDict = {
 		left:37,
 		right:39,
@@ -540,50 +556,53 @@ function keyupHandler(e){
 	var p = 39;
 	switch(e.keyCode){
         case keysDict.right :
-        keyboardNav.move(1);
-        break;
+	        keyboardNav.move(1);
+	        break;
 
         case keysDict.left :
-        keyboardNav.move(-1);
-        break;
+	        keyboardNav.move(-1);
+	        break;
 
         case keysDict.enter :
-        keyboardNav.openMenu();
-        keyboardNav.resetPos();
-        break;
+	        keyboardNav.openMenu();
+	        keyboardNav.resetPos();
+	        updateAria(this);
+	        break;
 
         case keysDict.space :
-        e.preventDefault();
-        if(keyboardNav.WhichMenuOpen() === "none")
-        	keyboardNav.openMenu(e);
-
-    	else{
-    		keyboardNav.closeMenu();
-    		keyboardNav.resetPos();
-    	}
-        break;
+	        e.preventDefault();
+	        if(keyboardNav.whichMenuOpen() === "none")
+	        	keyboardNav.openMenu(e);
+	    	else
+	    		keyboardNav.closeMenu();
+	    	keyboardNav.resetPos();
+	    	updateAria(this);
+	        break;
 
         case keysDict.escape :
-        keyboardNav.closeMenu();
-        break;
+	        keyboardNav.closeMenu();
+	        updateAria(this);
+	        break;
 
         case keysDict.up :
-        keyboardNav.moveVertically(-1,e);
-        break;
+	        keyboardNav.moveVertically(-1,e);
+	        break;
 
         case keysDict.down :
-        keyboardNav.moveVertically(1,e);
-        break;
+	        keyboardNav.moveVertically(1,e);
+	        break;
 
         case keysDict.home :
-        keyboardNav.move(110); //110 could be any number as long as its more than the length of the array that index() uses.
-        break;
+	        keyboardNav.move(110); //could be any number biger than array.
+	        break;
 
         case keysDict.end :
-        keyboardNav.move(-110); //110 could be any number as long as its less than the length of the array that index() uses.
-        break;
+	        keyboardNav.move(-110); //could be any number less than array
+	        break;
 
 	}
+
+
 }
 function trackingHandler( ev ) {
     var target = ev.target || ev.srcElement;
@@ -826,7 +845,15 @@ function fireDomEvent( document, el, event, data ) {
 module.exports = tophatEvents;
 
 },{"../utils/dom":29,"./navigation":8,"./states":9}],8:[function(require,module,exports){
+var states = require('./states');
+
 var keyboardNavigation ={};
+
+var tophat, evidenceMenu,
+ evidenceMenuButton, userProfileLink, anonProfileLink,
+  menuLinks, currentFocus, mobileMenuLink;
+
+var isMobileDevice = matchMedia('(max-width: 47.9375em)').matches;
 
 keyboardNavigation.move = function(direction){
 	FocusOnNext(direction);
@@ -842,13 +869,13 @@ keyboardNavigation.closeMenu = function(){
 	tophat.classList = "nice-tophat";
 };
 
-keyboardNavigation.WhichMenuOpen = function(){
-	return WhichMenuOpen();
+keyboardNavigation.whichMenuOpen = function(){
+	return whichMenuOpen();
 };
 
 keyboardNavigation.moveVertically = function(direction, evt){
 	UpdateVariables();
-	if( WhichMenuOpen() === "profile"){
+	if( whichMenuOpen() === "profile" || whichMenuOpen() === "mobile" ){
 		evt.preventDefault();
 		FocusOnNext(direction);
 	}
@@ -858,7 +885,7 @@ keyboardNavigation.openMenu = function(e){
 	UpdateVariables();
 
 	if(evidenceMenuButton === GetNavIndex()[currentFocus]){
-		if(WhichMenuOpen() === "evidence")
+		if(whichMenuOpen() === "evidence")
 			this.closeMenu();
 		else{
 			tophat.classList = "nice-tophat menu-evidence-open";
@@ -867,18 +894,19 @@ keyboardNavigation.openMenu = function(e){
 	}
 
 	if(userProfileLink === GetNavIndex()[currentFocus]){
-		if(WhichMenuOpen() === "profile")
+		if(whichMenuOpen() === "profile")
 			this.closeMenu();
 		else
 			tophat.classList = "nice-tophat menu-profile-open";
 	}
+
+	if(mobileMenuLink === GetNavIndex()[currentFocus]){
+		if(whichMenuOpen() === "mobile")
+			this.closeMenu();
+		else
+			tophat.classList = "nice-tophat menu-mobile-open";
+	}
 };
-
-var tophat, evidenceMenu,
- evidenceMenuButton, userProfileLink, anonProfileLink,
-  menuLinks, currentFocus;
-
-var isMobileDevice = matchMedia('(max-width: 47.9375em)').matches;
 
 function UpdateVariables(){
 
@@ -903,18 +931,19 @@ function UpdateVariables(){
 function FocusOnNext(toFocus){
 	var index = GetNavIndex();
 
-	if(currentFocus === undefined){
+	if(currentFocus === undefined)
 		currentFocus = 0;
-	}
-
-	else{
+	else
 		currentFocus += toFocus;
-	}
 
 	MoveToEnd(index.length);
+
+	if(index[currentFocus].getAttribute("aria-disabled") === "true"){
+		currentFocus += toFocus;
+		MoveToEnd(index.length);
+	}
+
 	index[currentFocus].focus();
-
-
 }
 
 function MoveToEnd(numItems){
@@ -922,10 +951,9 @@ function MoveToEnd(numItems){
           currentFocus = 0;
         if(currentFocus < 0)
           currentFocus = numItems-1;
+	}
 
-}
-
-function WhichMenuOpen(){
+function whichMenuOpen(){
 	if(tophat.classList.contains("menu-evidence-open"))
 		return "evidence";
 	else if(tophat.classList.contains("menu-profile-open"))
@@ -942,14 +970,14 @@ function GetNavIndex(){
 
 
 	function Profile(){
-	var loggedIn = userProfileLink;
-	if(loggedIn === null)
-	  	listOfIndexes.push(anonProfileLink);
-	else
-	  	listOfIndexes.push(userProfileLink);
+		var loggedIn = userProfileLink;
+		if(loggedIn === null)
+		  	listOfIndexes.push(anonProfileLink);
+		else
+		  	listOfIndexes.push(userProfileLink);
 	}
 
-	switch(WhichMenuOpen()){
+	switch(whichMenuOpen()){
 		case "evidence":
 			for(var x = 0; x < evidenceMenu.length; x++){
 				listOfIndexes.push(evidenceMenu[x]);
@@ -992,7 +1020,7 @@ function GetNavIndex(){
 module.exports = keyboardNavigation;
 
 
-},{}],9:[function(require,module,exports){
+},{"./states":9}],9:[function(require,module,exports){
 var utils = require('../utils/dom'),
     config = require('../config');
 
@@ -1050,7 +1078,7 @@ TophatStates.prototype = {
         // Profile request is asynch, so button may have been added later
         this.profileBtn = document.getElementById("menu-profile");
 
-        this.toggleAriaAttributes(this.profileBtn, this.data.profile); 
+        this.toggleAriaAttributes(this.profileBtn, this.data.profile);
 
         this.setAriaStates();
     }
