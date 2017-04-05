@@ -1,6 +1,6 @@
 {
   "name": "NICE.TopHat",
-  "version": "0.1.2",
+  "version": "0.1.2-rc2",
   "description": "Distributable, branded tophat component for NICE Services and Web Applications",
   "private": true,
   "scripts": {
