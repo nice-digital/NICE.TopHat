@@ -18,6 +18,42 @@ const products = [
   {
     name: 'pathways',
     url: '/example.pathways.html'
+  },
+  {
+    name: 'standards',
+    url: '/example.standards.html'
+  },
+  {
+    name: 'evidence',
+    url: '/example.evidence.html'
+  },
+  {
+    name: 'evidence-search',
+    url: '/example.evidence-search.html'
+  },
+  {
+    name: 'BNF',
+    url: '/example.bnf.html'
+  },
+  {
+    name: 'BNFc',
+    url: '/example.bnfc.html'
+  },
+  {
+    name: 'cks',
+    url: '/example.cks.html'
+  },
+  {
+    name: 'ROI',
+    url: '/example.roi.html'
+  },
+  {
+    name: 'Appraisals',
+    url: '/example.appraisals.html'
+  },
+  {
+    name: 'InDev',
+    url: '/example.indev.html'
   }
 ]
 
