@@ -29,7 +29,7 @@ products.map(product => {
       await browser.pause(2000);
 
       var report = await browser.checkDocument({
-        widths: widths
+        widths: widths 
       });
       assertDiff(report);
     })
