@@ -15,6 +15,7 @@ Distributable, branded tophat component for NICE Services and Web Applications
   - [Typeahead](#typeahead)
     - [Typeahead Tracking](#typeahead-tracking)
 - [Deployment](#deployment)
+- [Visual Regression Testing](#testing)
 
 ## Project structure
 
@@ -157,3 +158,19 @@ Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20
 1. Create a tag for that version
 
 Deployment to the CDN is currently done manually, so speak to ops. Once the tophat dist files have been created, these should then be copied into https://github.com/nhsevidence/NICE.Bootstrap/tree/master/src/scripts/nice. 
+
+
+## Testing
+Visual regression testing is done via webdriverio and a visualregression service that is offered as part of it.  See http://webdriver.io/guide/services/visual-regression.html#configuration for more details.
+
+Additionally the regression tests are run inside a docker container.  To run them you need docker installed and running on your machine then simply execute:
+```
+./run.sh
+```
+
+If you are on a windows machine and the above command doesn't work from a shell please look at the shell script and execute the commands individually.
+
+The test loops through all the various types of TopHat, loads them into a browser and takes a screenshot of each of them.  It then compares them and fails the test accordingly.
+
+#### Note:
+The tests cannot be run on a local machine as the reference images are the ones from inside the docker container.  The screenshot taken differs from your local machine to the ones taken inside the docker container.
