@@ -163,6 +163,7 @@ Deployment to the CDN is currently done manually, so speak to ops. Once the toph
 ## Testing
 Visual regression testing is done via webdriverio and a visualregression service that is offered as part of it.  See http://webdriver.io/guide/services/visual-regression.html#configuration for more details.
 
+#### Up and running
 Additionally the regression tests are run inside a docker container.  To run them you need docker installed and running on your machine then simply execute:
 ```
 ./run.sh
@@ -170,6 +171,7 @@ Additionally the regression tests are run inside a docker container.  To run the
 
 If you are on a windows machine and the above command doesn't work from a shell please look at the shell script and execute the commands individually.
 
+#### What the tests do
 The test loops through all the various types of TopHat, loads them into a browser and takes a screenshot of each of them.  It then compares them and fails the test accordingly.
 
 #### Note:
