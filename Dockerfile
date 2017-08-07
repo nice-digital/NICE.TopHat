@@ -4,7 +4,3 @@ ADD . /tests
 WORKDIR /tests
 
 RUN npm i
-# RUN npm start
-
-# EXPOSE 8000
-# RUN npm start
