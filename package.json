@@ -4,7 +4,7 @@
   "description": "Distributable, branded tophat component for NICE Services and Web Applications",
   "private": true,
   "scripts": {
-    "test": "./node_modules/grunt-cli/bin/grunt test",
+    "test": "node ./node_modules/mocha/bin/mocha",
     "start": "grunt parallel"
   },
   "repository": {
@@ -40,6 +40,7 @@
     "minifyify": "^7.3.4",
     "mocha": "^3.5.0",
     "node-lessify": "^0.1.4",
-    "partialify": "^3.1.6"
+    "partialify": "^3.1.6",
+    "sinon": "^3.1.0"
   }
 }
