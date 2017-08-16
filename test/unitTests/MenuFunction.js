@@ -1,8 +1,8 @@
 var chai = require("chai");
-
+var assert = chai.assert;
 
 describe('get menu ids', function() {
-	it('shuold give me ids', function() {
-		assert(true).equals(true);
+	it('should give me ids', function() {
+		assert.equal(true, true);
 	});
 });

@@ -29,12 +29,10 @@ module.exports = function( grunt )
 
     // load grunt tasks
     require('load-grunt-tasks')(grunt);
+    grunt.loadNpmTasks('grunt-mocha-test');
 
     // local tasks
     grunt.loadTasks('tasks');
-
-
-
 
     // clean
     // grunt.registerTask('clean'     , [ 'clean' ]);
@@ -47,7 +45,7 @@ module.exports = function( grunt )
     grunt.registerTask(
           'test'
         , 'runs jshint against the script and test files then runs the phantomcss html screenshot tests to check for cahnages to the designs'
-        , [ 'jshint:test', 'casperjs:desktop' ]);
+        , [ 'jshint:test', 'mochaTest' ]);
 
     // build
     grunt.registerTask(
