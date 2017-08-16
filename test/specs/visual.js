@@ -31,18 +31,19 @@ const products = [
     name: 'evidence-search',
     url: '/example.evidence-search.html'
   },
-  {
-    name: 'BNF',
-    url: '/example.bnf.html'
-  },
-  {
-    name: 'BNFc',
-    url: '/example.bnfc.html'
-  },
-  {
-    name: 'cks',
-    url: '/example.cks.html'
-  },
+  // BNF, BNFc and cks are geo restricted therefore the images and css files can't be accessed from the AWS build machine
+  // {
+  //   name: 'BNF',
+  //   url: '/example.bnf.html'
+  // },
+  // {
+  //   name: 'BNFc',
+  //   url: '/example.bnfc.html'
+  // },
+  // {
+  //   name: 'cks',
+  //   url: '/example.cks.html'
+  // },
   {
     name: 'ROI',
     url: '/example.roi.html'
