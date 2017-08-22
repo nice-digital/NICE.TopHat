@@ -6,7 +6,8 @@
   "scripts": {
     "visualRegression": "./node_modules/webdriverio/bin/wdio wdio.conf.js",
     "test": "./node_modules/grunt-cli/bin/grunt test",
-    "start": "grunt parallel"
+    "start": "grunt parallel",
+    "build": "grunt build"
   },
   "repository": {
     "type": "git",
