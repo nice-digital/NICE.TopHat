@@ -48,15 +48,14 @@ describe.only('Given I am on the NICE org site on a mobile', function(){
         width: 500,
         height: 500
     });
-    var username = "martingmeta9@gmail.com";
-    var password = "Password1"
 
     browser.click("#signin");
 
     browser.waitForExist("#Email");
 
-    browser.setValue("#Email", username);
-    browser.setValue("#Password", password);
+    browser.setValue("#Email", process.env.user);
+    browser.setValue("#Password", process.env.password);
+
     browser.submitForm('form');
 
     browser.url('/example.niceorg.html'); // for base url see wdio.conf.js

@@ -4,8 +4,9 @@
   "description": "Distributable, branded tophat component for NICE Services and Web Applications",
   "private": true,
   "scripts": {
-    "visualRegression": "./node_modules/webdriverio/bin/wdio wdio.conf.js",
-    "test": "./node_modules/grunt-cli/bin/grunt test",
+    "visualRegressionTests": "./node_modules/webdriverio/bin/wdio --spec ./test/specs/visual.js",
+    "functionalTests": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional.js",
+    "unitTests": "node ./node_modules/grunt-cli/bin/grunt test",
     "start": "grunt parallel",
     "build": "grunt build"
   },
