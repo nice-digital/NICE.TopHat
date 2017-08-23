@@ -1,6 +1,6 @@
 /*!
 @name NICE.TopHat
-@version 0.1.4 | 2017-08-09
+@version 0.1.4 | 2017-08-23
 */
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -544,14 +544,15 @@ function keyHandler(e) {
 
 	//Gets menuIds controlled by the element controlling the parentmenu
 	var menuIdsWithinScope;
+
 	var parentMenuEl = domUtils.closestWithClass(target, "menu");
 	if(parentMenuEl){
-			var elControllingParentMenu = domUtils.getControllingElementId(parentMenuEl);
-			if(elControllingParentMenu)
-				menuIdsWithinScope = domUtils.getIdsOfControlledContainers(elControllingParentMenu);
-			else
-				menuIdsWithinScope =  [parentMenuEl.id];
-		}
+		var elControllingParentMenu = domUtils.getControllingElementId(parentMenuEl);
+		if(elControllingParentMenu)
+			menuIdsWithinScope = domUtils.getIdsOfControlledContainers(elControllingParentMenu);
+		else
+			menuIdsWithinScope =  [parentMenuEl.id];
+	}
 
 
 	if(keyCode === KeysDict.escape) {
@@ -1298,7 +1299,7 @@ module.exports = '<li class="menu-evidence" role="presentation"><a href="#nice-e
 },{}],18:[function(require,module,exports){
 module.exports = '<div class="nice-global" id="nice-global"><div class="tophat-inner"></div></div>';
 },{}],19:[function(require,module,exports){
-module.exports = '<a href="{{root}}/signin" class="menu-anonymous">Sign in</a>';
+module.exports = '<a href="{{root}}/signin" class="menu-anonymous" id="signin">Sign in</a>';
 },{}],20:[function(require,module,exports){
 module.exports = '<li role="presentation"><a href="{{href}}" role="menuitem">{{label}}</a></li>';
 },{}],21:[function(require,module,exports){
@@ -1400,10 +1401,9 @@ var config = require('../config');
 var utils = {};
 
 /**
- * Gets the previous link before `currentLink` within the `container`.
- * If `currentLink` is the first, then the last link will be returned.
+ * Gets the previous link after `currentLink` within the containers array.
  *
- * @param      {HTMLElement}  container    The containing element
+ * @param      {HTMLElement}  containers    The containers array
  * @param      {HTMLAnchorElement}  currentLink  The current link
  * @returns    {HTMLAnchorElement} { Previous link }
  */
@@ -1421,15 +1421,13 @@ utils.getPreviousLink = function(containersArray, currentLink) {
 };
 
 /**
- * Gets the next link after `currentLink` within the `container`.
- * If `currentLink` is the last, then the first link will be returned.
+ * Gets the next link after `currentLink` within the containers array.
  *
- * @param      {HTMLElement}  container    The containing element
+ * @param      {HTMLElement}  containers    The containers array
  * @param      {HTMLAnchorElement}  currentLink  The current link
  * @returns    {HTMLAnchorElement} { Next link }
  */
 utils.getNextLink = function(containersArray, currentLink) {
-	//need to beable to pass in two containers
 	if(!containersArray) return;
 
 	var links = utils.getLinks(containersArray),
@@ -1444,10 +1442,10 @@ utils.getNextLink = function(containersArray, currentLink) {
 
 /**
  * Gets the elements(Ids) which are controlled by elId.
- * If 'elControlls' is null then there is nothing controlling the elId item and so it is returned.
+ * If 'elControlls' is null then there is nothing controlling the element passed in and so it is returned.
  *
  * @param      {HTMLElementId} elId Id of the element which controls other elements.
- * @returns    {Js Array} { array of Ids }
+ * @returns    {Array} { array of Ids }
  */
 
 utils.getIdsOfControlledContainers = function(elId){
@@ -1458,9 +1456,8 @@ utils.getIdsOfControlledContainers = function(elId){
 };
 
 /**
- * Getst the element controlling the element passed in. If the controlling element is not accessible find the controlling element.
- * If 'elControlls' is null then there is nothing controlling the elId item and so it is returned.
- *
+ * Getst the element controlling the element passed in. If the controlling element is
+ *not accessible find the controlling element.
  * @param      {HTMLElement} element you are trying to find the .
  * @returns    {HTMLElementId} { Id }
  */
@@ -1482,6 +1479,11 @@ utils.getControllingElementId = function(element){
 	return labelledBy;
 };
 
+/**
+* If the element passed in is accessible then true is retruned.
+ * @param      {HTMLElement} element
+ * @returns    {boolean} { boolean }
+ */
 function isNavigable(element){
 	if(element.hasAttribute("aria-disabled")){
 		if(element.getAttribute("aria-disabled") === "true")
@@ -1493,7 +1495,13 @@ function isNavigable(element){
 	}
 	return true;
 }
-
+/**
+* If `index` is the first item within links, then the last items index within links will be returned.
+* If `index` is the last item within links, then the first items index within links will be returned.
+ * @param      {int} current index
+ * @param      {links} list of elements
+ * @returns    {int} { index }
+ */
 function wrapToEnd(index, links){
 		if(index > links.length - 1)
 			index = 0;
@@ -1502,6 +1510,14 @@ function wrapToEnd(index, links){
 		return index;
 }
 
+/**
+*gets the index of the next accessible element within a list of elements in relation to direction
+ * @param      {int}int  current index of element
+ * @param      {Array} list of elements
+ * @param      {int} direction which the index is trying to move -1 being the previous index
+ * 1 being the nect index
+ * @returns    {int} { index }
+ */
 function skipDisabledLinks(index,links, skipDirectionInt){
 	while(!isNavigable(links[index])){
 		index += skipDirectionInt;
