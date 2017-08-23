@@ -34,9 +34,8 @@ describe.only('Given I am on the NICE org site on a mobile use the keyboard to n
         height: 500
     });
     browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
-    browser.debug();
-    browser.pressKeycode(9);
-    browser.pressKeycode(32);
+    browser.keys("Tab");
+    browser.keys(" ");
 
     browser.isVisible('#main-menu').should.be.true;
   })
