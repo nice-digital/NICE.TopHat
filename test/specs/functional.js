@@ -53,7 +53,7 @@ describe.only('Given I am on the NICE org site on a mobile', function(){
 
     browser.waitForExist("#Email");
 
-    browser.setValue("#Email", process.env.user);
+    browser.setValue("#Email", process.env.username);
     browser.setValue("#Password", process.env.password);
 
     browser.submitForm('form');
