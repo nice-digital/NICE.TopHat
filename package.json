@@ -6,7 +6,7 @@
   "scripts": {
     "visualRegressionTests": "./node_modules/webdriverio/bin/wdio --spec ./test/specs/visual.js",
     "functionalTests": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional.js",
-    "unitTests": "node ./node_modules/grunt-cli/bin/grunt test",
+    "test": "node ./node_modules/mocha/bin/mocha --reporter mocha-teamcity-reporter test/unitTests/**/*.js",
     "start": "grunt parallel",
     "build": "grunt build"
   },
@@ -49,14 +49,15 @@
     "load-grunt-tasks": "^3.5.2",
     "minifyify": "^7.3.4",
     "mocha": "^3.5.0",
+    "mocha-teamcity-reporter": "^1.1.1",
     "node-lessify": "^0.1.4",
     "partialify": "^3.1.6",
+    "sinon": "^3.1.0",
     "wdio-mocha-framework": "^0.5.10",
     "wdio-screenshot": "^0.2.0",
     "wdio-spec-reporter": "^0.1.0",
     "wdio-teamcity-reporter": "^1.1.1",
     "wdio-visual-regression-service": "^0.3.0",
-    "webdriverio": "^4.8.0",
-    "sinon": "^3.1.0"
+    "webdriverio": "^4.8.0"
   }
 }

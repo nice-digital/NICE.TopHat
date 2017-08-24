@@ -21,6 +21,13 @@ module.exports = function( grunt )
     var config = {
         pkg: grunt.file.readJSON('package.json'), 
         env: process.env,
+        mochaTest: {
+          test: {
+            options: {
+              spec: "dot"
+            }
+          }
+        }
     };
 
     grunt.util._.extend(config, loadConfig( './tasks/options/', config ));
