@@ -15,7 +15,7 @@ Distributable, branded tophat component for NICE Services and Web Applications
   - [Typeahead](#typeahead)
     - [Typeahead Tracking](#typeahead-tracking)
 - [Deployment](#deployment)
-- [Visual Regression Testing](#testing)
+- [Testing](#testing)
 
 ## Project structure
 
@@ -161,18 +161,34 @@ Deployment to the CDN is currently done manually, so speak to ops. Once the toph
 
 
 ## Testing
-Visual regression testing is done via webdriverio and a visualregression service that is offered as part of it.  See http://webdriver.io/guide/services/visual-regression.html#configuration for more details.
 
-#### Up and running
-Additionally the regression tests are run inside a docker container.  To run them you need docker installed and running on your machine then simply execute:
+### Unit tests 
+
+Unit tests can be found in the tests/unitTests folder.  To run them:
+
+```
+npm test
+```
+
+### Visual regression and functional tests 
+The visual regression tests are run inside a docker container.  To run them you need docker installed and running on your machine then simply execute:
 ```
 ./run.sh
 ```
+If you are on a windows machine run the above command from a git bash shell. 
 
-If you are on a windows machine and the above command doesn't work from a shell please look at the shell script and execute the commands individually.
+The test loops through all the various sites using TopHat, loads them into a browser and takes a screenshot of each of them.  It then compares them and fails the test accordingly.
+As part of the run script it will run the functional tests as well.
 
-#### What the tests do
-The test loops through all the various types of TopHat, loads them into a browser and takes a screenshot of each of them.  It then compares them and fails the test accordingly.
+#### Visual tests:
+The tests cannot be run on a local machine as the reference images are the ones from inside the docker container.  The screenshots taken differs from your local machine to the ones taken inside the docker container.  If the reference screenshots get screwed up then the whole process can be started again by doing this:
 
-#### Note:
-The tests cannot be run on a local machine as the reference images are the ones from inside the docker container.  The screenshot taken differs from your local machine to the ones taken inside the docker container.
+1. Delete the screenshots/reference folder
+2. Run ```./run.sh```
+3. Then copy the new reference screenshots taken from the screenshots_copy folder to the screenshots folder
+4. Run ```./run.sh``` again
+5. Finally commit the new images to git.
+ 
+####  Functional tests 
+These tests differ from the visual tests in the way that they don't take screenshots but still run browser driven tests.
+
