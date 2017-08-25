@@ -7,14 +7,11 @@ module.exports = function( grunt )
     //load tasks
     require("load-grunt-config")(grunt, {
       configPath: path.join(process.cwd(), "tasks"),
-      pkg: grunt.file.readJSON("package.json")
+      data : {
+        pkg: grunt.file.readJSON("package.json")
+      }
     });
 
-    // package tasks
-    grunt.loadNpmTasks('grunt-mocha-test');
-
-    // local tasks
-    grunt.loadTasks('tasks');
 
     // test
     grunt.registerTask(
