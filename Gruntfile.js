@@ -12,8 +12,12 @@ module.exports = function( grunt )
       }
     });
 
+    grunt.registerTask(
+          'webserver'
+        , 'Starts a dev web server on the first available port starting from 8000 with the test and dist folders as the root.'
+        , [ 'connect:dev' ]);
 
-    // test
+    // tests
     grunt.registerTask(
           'test'
         , 'runs jshint against the script and test files then runs the phantomcss html screenshot tests to check for changes to the designs'

@@ -25,7 +25,6 @@ describe.only('Given I am on the NICE org site on a mobile and I click on the Me
   })
 })
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
 describe.only('Given I am on the NICE org site on a mobile use the keyboard to navigate', function(){
   it('I can select the main menu using the space bar', async function() {
 
