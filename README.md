@@ -203,10 +203,18 @@ NOTE: Replace XXX with variables from octodeploy
 5. Finally commit the new images to git.
 
 To run locally without docker:
-1.Open a bash terminal in root of project
+
+1.Open a bash terminal in root of project.
+
 2.Ensure you have selenium-server-standalone-3.0.1.jar and chromedriver.exe in the repo, if not download them to the root of the project.
-3.java -jar -Dwebdriver.gecko.driver=./chromedriver selenium-server-standalone-3.0.1.jar
-4. ```
+
+3.Run:
+``` 
+java -jar -Dwebdriver.gecko.driver=./chromedriver selenium-server-standalone-3.0.1.jar 
+```
+
+4. In another terminal run: 
+```
 	export SITE=localhost
 	export username= XXX
 	export password= XXX
