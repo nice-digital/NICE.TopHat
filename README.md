@@ -202,6 +202,9 @@ NOTE: Replace XXX with variables from octodeploy
 4. Run ```./run.sh``` again
 5. Finally commit the new images to git.
 
+####  Functional tests 
+These tests differ from the visual tests in the way that they don't take screenshots but still run browser driven tests.
+
 To run locally without docker:
 
 1.Open a bash terminal in root of project.
@@ -220,6 +223,3 @@ java -jar -Dwebdriver.gecko.driver=./chromedriver selenium-server-standalone-3.0
 	export password= XXX
 	node_modules/webdriverio/bin/wdio
 ```
-####  Functional tests 
-These tests differ from the visual tests in the way that they don't take screenshots but still run browser driven tests.
-
