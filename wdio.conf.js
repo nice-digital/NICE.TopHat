@@ -51,7 +51,7 @@ exports.config = {
     reporters: ['spec','teamcity'],
     mochaOpts: {
       ui: 'bdd',
-      timeout: 60000,
+      timeout: 600000,
       compilers: [
         'js:babel-register'
       ]
