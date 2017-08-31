@@ -56,6 +56,7 @@
     "node-lessify": "^0.1.4",
     "partialify": "^3.1.6",
     "sinon": "^3.1.0",
+    "wdio-browserstack-service": "^0.1.12",
     "wdio-mocha-framework": "^0.5.10",
     "wdio-screenshot": "^0.2.0",
     "wdio-spec-reporter": "^0.1.0",

@@ -123,11 +123,10 @@ describe('Given I am on the NICE org site I can use the keyboard', function(){
       browser.keys("Tab");
       browser.keys("End");
 
-      var active = browser.elementActive();
-      var lastItemInMainMenu = browser.element("#main-menu li:last-child a");
-			var result = lastItemInMainMenu.value.ELEMENT === active.value.ELEMENT;
+      var active = browser.elementActive().value.ELEMENT;
+      var lastItemInMainMenu = browser.element("#main-menu li:last-child a").value.ELEMENT;
+			lastItemInMainMenu.should.be.equal(active);
 
-      result.should.be.equal(true);
     })
   })
 
