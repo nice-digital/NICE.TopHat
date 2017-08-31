@@ -173,8 +173,13 @@ npm test
 ### Visual regression and functional tests 
 The visual regression tests are run inside a docker container.  To run them you need docker installed and running on your machine then simply execute:
 ```
+export SITE=website
+export username= XXX
+export password= XXX
 ./run.sh
 ```
+NOTE: Replace XXX with variables from octodeploy
+
 If you are on a windows machine run the above command from a git bash shell. 
 
 The test loops through all the various sites using TopHat, loads them into a browser and takes a screenshot of each of them.  It then compares them and fails the test accordingly.
@@ -183,12 +188,38 @@ As part of the run script it will run the functional tests as well.
 #### Visual tests:
 The tests cannot be run on a local machine as the reference images are the ones from inside the docker container.  The screenshots taken differs from your local machine to the ones taken inside the docker container.  If the reference screenshots get screwed up then the whole process can be started again by doing this:
 
+NOTE: Replace XXX with variables from octodeploy
+
 1. Delete the screenshots/reference folder
-2. Run ```./run.sh```
+2. Run:
+```
+	export SITE=website
+	export username= XXX
+	export password= XXX
+	./run.sh
+```
 3. Then copy the new reference screenshots taken from the screenshots_copy folder to the screenshots folder
 4. Run ```./run.sh``` again
 5. Finally commit the new images to git.
- 
+
 ####  Functional tests 
 These tests differ from the visual tests in the way that they don't take screenshots but still run browser driven tests.
 
+To run locally without docker:
+
+1.Open a bash terminal in root of project.
+
+2.Ensure you have selenium-server-standalone-3.0.1.jar and chromedriver.exe in the repo, if not download them to the root of the project.
+
+3.Run:
+``` 
+java -jar -Dwebdriver.gecko.driver=./chromedriver selenium-server-standalone-3.0.1.jar 
+```
+
+4. In another terminal run: 
+```
+	export SITE=localhost
+	export username= XXX
+	export password= XXX
+	node_modules/webdriverio/bin/wdio
+```
