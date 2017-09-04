@@ -10,7 +10,7 @@ describe('Functionally browser driven tests', function() {
       browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
 
       browser.click('#menu-evidence');
-      browser.isVisible('.tophat-inner').every((x)=>x).should.be.true;
+      browser.isVisible('.tophat-inner').every((x)=>x).should.be.false;
     })
   })
 
