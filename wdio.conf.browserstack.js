@@ -14,8 +14,8 @@ function getScreenshotName(basePath) {
 
 exports.config = {
 
-	user: "dylanriley1",
-	key:"2DxaycLKbqF4vDDLEwyF",
+    user: process.env.browserStackUser,
+    key:process.env.browserStackKey,
     specs: [
         './test/specs/**/*.js'
     ],
