@@ -8,6 +8,7 @@
     "functionalTests": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional.js",
     "testTeamcity": "grunt mochaTest:teamcity",
     "test": "node ./node_modules/mocha/bin/mocha --reporter mocha-teamcity-reporter test/unitTests/**/*.js",
+    "testUsingBrowserStack": "node ./node_modules/mocha/bin/wdio wdio.browserstack.js",
     "start": "grunt parallel",
     "build": "grunt build"
   },
