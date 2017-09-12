@@ -17,7 +17,7 @@ exports.config = {
     user: process.env.browserStackUser,
     key:process.env.browserStackKey,
     specs: [
-        './test/specs/**/*.js'
+      './test/specs/functional/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
