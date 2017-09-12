@@ -35,7 +35,7 @@ exports.config = {
     bail: 0,
     screenshotPath: './errorShots/',
     //baseUrl: 'http://website:8000',
-    baseUrl: 'http://' + process.env.SITE + ':8000',
+    baseUrl: process.env.BASE_URL,
     waitforTimeout: 10000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
