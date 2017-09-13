@@ -15,7 +15,7 @@ function getScreenshotName(basePath) {
 exports.config = {
 
     user: process.env.browserStackUser,
-    key:process.env.browserStackKey,
+    key: process.env.browserStackKey,
     specs: [
       './test/specs/functional/**/*.js'
     ],
@@ -29,12 +29,12 @@ exports.config = {
         name:"Keyboard nav",
         build:"webdriver-tophat"
     },{
-      browserName' : 'IE',
+     'browserName' : 'IE',
      'browser_version' : '8.0',
      'os' : 'Windows',
      'os_version' : '7',
      'resolution' : '1024x768',
-      build:"webdriver-tophat"
+     'build':"webdriver-tophat"
     }],
     sync: true,
     logLevel: 'silent',
