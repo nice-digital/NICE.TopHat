@@ -29,13 +29,12 @@ exports.config = {
         name:"Keyboard nav",
         build:"webdriver-tophat"
     },{
-     'browserName' : 'IE',
-     'browser_version' : '8.0',
-     'os' : 'Windows',
-     'os_version' : '7',
-     'resolution' : '1024x768',
-     'build':"webdriver-tophat"
-    }],
+ 		'browserName' : 'IE',
+ 		'browser_version' : '11.0',
+ 		'os' : 'Windows',
+ 		'os_version' : '10',
+ 		'resolution' : '1024x768'
+		}],
     sync: true,
     logLevel: 'silent',
     coloredLogs: true,
