@@ -2,7 +2,7 @@ var chai = require("chai");
 var expect = chai.expect;
 var sinon = require("sinon");
 var domUtils = sinon.stub();
-var containerIds = require("../../lib/utils/dom/containerIds.js");
+var containerIds = require("../../lib/utils/dom/getContainerIds.js");
 
 describe('Unit Tests', function() {
   describe('Given I have controlling elements', function() {
