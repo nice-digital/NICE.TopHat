@@ -51,6 +51,8 @@ describe('Functionally browser driven tests', function() {
           height: 500
       });
 
+      browser.debug();
+
       browser.click("#signin");
 
       browser.waitForExist("#Email");
