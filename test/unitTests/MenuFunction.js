@@ -2,7 +2,7 @@ var chai = require("chai");
 var expect = chai.expect;
 var sinon = require("sinon");
 var domUtils = sinon.stub();
-var containerIds = require("../../lib/events/containerIds.js");
+var containerIds = require("../../lib/utils/dom/containerIds.js");
 
 describe('Unit Tests', function() {
   describe('Given I have controlling elements', function() {
@@ -71,4 +71,4 @@ describe('Unit Tests', function() {
       expect(result).to.deep.equal(["test"]);
     });
   });
-}); 
+});
