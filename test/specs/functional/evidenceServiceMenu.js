@@ -81,12 +81,14 @@ describe('Functionally browser driven tests', function() {
       browser.keys(" ");
       browser.keys("Tab");
       browser.keys("ArrowUp");
-      browser.keys("ArrowUp");
 
       var active = browser.elementActive().value.ELEMENT;
       var lastItemInEvidenceMenu = browser.element("#nice-evidence li:last-child a").value.ELEMENT;
 
       var result = lastItemInEvidenceMenu === active;
+      // console.log(lastItemInEvidenceMenu)
+      // console.log(active)
+
 
       result.should.be.equal(true);
     })
