@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>NICE.TopHat.CDN</id>
+        <version>1.0.0</version>
+        <title>NICE TopHat CDN</title>
+        <authors>Ian Routledge</authors>
+        <owners>nhsevidence</owners>
+        <projectUrl>https://github.com/nhsevidence/NICE.TopHat</projectUrl>
+        <iconUrl>http://nhsevidence.github.io/Content/nice/favicon-152.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>CDN Package for TopHat</description>
+        <tags>cdn tophat javascript css</tags>
+        <dependencies></dependencies>
+    </metadata>
+
+    <files>
+      <file src="dist\*.*" target=""/>
+    </files>
+</package>

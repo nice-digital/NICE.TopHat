@@ -20,6 +20,10 @@
   font-size: @baseFontSize;
   font-weight: 400;
   line-height: @baseLineHeight;
+
+  a:focus {
+  	outline: 3px solid @focusColor;
+  }
 }
 
 // widths
@@ -98,6 +102,11 @@
     margin: 0;
     padding: 0;
     list-style: none;
+
+    // Some uls have tabindex of -1 which makes them programatically focusable for keyboard navigation.
+    &:focus {
+      outline: none;
+    }
 
     li {
       list-style: none;

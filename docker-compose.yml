@@ -1,0 +1,27 @@
+version: '2'
+services:
+  website:
+    build: .
+    command: npm start
+    ports:
+      - "8000:8000"
+  tests:
+    build: .
+    links:
+      - selenium
+      - website
+    volumes:
+      - screenshots:/tests/screenshots
+    environment:
+      - SITE
+      - username
+      - password
+  selenium:
+    image: selenium/standalone-chrome
+    links:
+      - website
+    expose:
+      - "4444"
+volumes:
+  screenshots:
+    driver: local
