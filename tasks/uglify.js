@@ -3,7 +3,9 @@ module.exports = function( config ) {
     return {
         dist: {
             options: {
-                mangle: true,
+                mangle: {
+                	screw_ie8: false
+                },
                 preserveComments: /^!/,
                 sourceMap: true,
                 sourceMapName: 'dist/tophat.map',
@@ -15,7 +17,8 @@ module.exports = function( config ) {
                   unused: true,
                   if_return: true,
                   join_vars: true,
-                  drop_console: true
+                  drop_console: true,
+                  screw_ie8: false
                 }
             },
 
