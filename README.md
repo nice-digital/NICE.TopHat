@@ -40,7 +40,8 @@ npm i
 | `npm start` | Default task that builds assets, watches for changes to recompile and serves content on locahost:8000 |
 | `npm run build` | Builds the distributable scripts form the source files |
 | `npm run build -- --buildNumber=X.X.X` | Used for overriding the version set in the banner of the JS file (Useful in TeamCity as our TC build numbers aren't valid npm versions) |
-| `npm test` (or `grunt test`) | Runs jshint against the script and test files then runs the html screenshot tests (via Casper) to check for changes to the designs |
+| `npm test` (or `grunt test`) | Lints script and test files then runs the html screenshot tests (via Casper) to check for changes to the designs |
+| `npm run lint` | Runs eslint against JavaScript files |
 
 > Note: there are other lower level grunt commands (see Gruntfile.js) but we recommend using the npm scripts where possible.
 

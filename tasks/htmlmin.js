@@ -1,21 +1,19 @@
-module.exports = function( config ) {
+module.exports = function() {
+	return {
+		options: {
+			removeComments: true,
+			collapseWhitespace: true
+		},
 
-    return {
-        options: {
-            removeComments: true,
-            collapseWhitespace: true
-        },
-
-        templates: {
-            files: [
-                {
-                    expand: true,     // Enable dynamic expansion.
-                    cwd: 'lib/',      // Src matches are relative to this path.
-                    src: ['**/*.html'], // Actual pattern(s) to match.
-                    dest: 'temp/',   // Destination path prefix.
-                }
-            ]
-        }
-    };
-
+		templates: {
+			files: [
+				{
+					expand: true,     // Enable dynamic expansion.
+					cwd: "lib/",      // Src matches are relative to this path.
+					src: ["**/*.html"], // Actual pattern(s) to match.
+					dest: "temp/",   // Destination path prefix.
+				}
+			]
+		}
+	};
 };

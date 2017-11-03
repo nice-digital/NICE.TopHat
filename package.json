@@ -10,6 +10,7 @@
     "test": "node ./node_modules/mocha/bin/mocha --reporter mocha-teamcity-reporter test/unitTests/**/*.js",
     "testUsingBrowserStack": "node ./node_modules/webdriverio/bin/wdio wdio.conf.browserstack.js",
     "start": "grunt parallel",
+    "lint": "grunt eslint",
     "build": "grunt build"
   },
   "repository": {
@@ -23,6 +24,7 @@
   },
   "homepage": "http://github.com/nhsevidence/NICE.Tophat",
   "devDependencies": {
+    "@nice-digital/eslint-config": "^1.0.1",
     "babel-plugin-syntax-async-functions": "^6.8.0",
     "babel-plugin-transform-regenerator": "^6.9.0",
     "babel-plugin-transform-runtime": "^6.9.0",
@@ -42,10 +44,10 @@
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-htmlmin": "^2.2.0",
-    "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^20.1.0",
     "grunt-mocha-test": "^0.13.2",
     "grunt-parallel": "^0.5.1",
     "js-cookie": "^2.1.3",
