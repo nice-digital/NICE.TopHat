@@ -4,6 +4,10 @@ Distributable, branded tophat component for NICE Services and Web Applications
 
 ## Table of contents
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
 - [Project structure](#project-structure)
 - [Installation](#installation)
 - [Commands](#commands)
@@ -13,9 +17,16 @@ Distributable, branded tophat component for NICE Services and Web Applications
   - [Configuration options](#configuration-options)
   - [Full width](#full-width)
   - [Typeahead](#typeahead)
-    - [Typeahead Tracking](#typeahead-tracking)
+    - [Typeahead tracking](#typeahead-tracking)
 - [Deployment](#deployment)
 - [Testing](#testing)
+  - [Unit tests](#unit-tests)
+  - [Visual regression and functional tests](#visual-regression-and-functional-tests)
+    - [Visual tests:](#visual-tests)
+    - [Functional tests](#functional-tests)
+    - [BrowserStack](#browserstack)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Project structure
 
@@ -161,26 +172,42 @@ Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20
 
 Deployment to the CDN is currently done manually, so speak to ops. Once the tophat dist files have been created, these should then be copied into https://github.com/nhsevidence/NICE.Bootstrap/tree/master/src/scripts/nice. 
 
-
 ## Testing
+
+We have 3 types of automated tests within TopHat:
+
+- Unit - fast and low level code testing on a per-module basis
+- Visual regression - approved screenshot based visual testing
+- Funtional - WebDriver-based (Selenium) browser-driven 'acceptance' tests.
 
 ### Unit tests 
 
-Unit tests can be found in the tests/unitTests folder.  To run them:
+Unit tests can be found in the [tests/unitTests](tests/unitTests) folder. To run them:
 
 ```
 npm test
 ```
 
-### Visual regression and functional tests 
-The visual regression tests are run inside a docker container.  To run them you need docker installed and running on your machine then simply execute:
+They use the following tools under the hood:
+
+- [Mocha](https://mochajs.org/) as a test runner
+- [Chai](http://chaijs.com/) as an assertion library
+- [Sinon](http://sinonjs.org/) for spies, stubs and mocks
+
+### Visual regression and functional tests
+
+The visual regression tests are run inside a docker container. This is because this guarantees the images will be the same on each run (and avoids cross-platform rendering issues).
+
+To run them you need docker installed and running on your machine then simply execute:
+
 ```
 export SITE=website
-export username= XXX
-export password= XXX
+export username="XXX"
+export password="XXX"
 ./run.sh
 ```
-NOTE: Replace XXX with variables from octodeploy
+
+NOTE: Replace XXX with variables from TeamCity.
 
 If you are on a windows machine run the above command from a git bash shell. 
 
@@ -224,4 +251,32 @@ java -jar -Dwebdriver.gecko.driver=./chromedriver selenium-server-standalone-3.0
 	export username= XXX
 	export password= XXX
 	node_modules/webdriverio/bin/wdio
+```
+
+#### BrowserStack
+
+We run functional tests cross-browser via BrowserStack, see [wdio.conf.browserstack.js](wdio.conf.browserstack.js). Before you run the tests, you'll need to set environment variables for:
+
+- [BrowserStack Automate](https://www.browserstack.com/accounts/settings) username & access key
+- NICE Accounts (Beta) login & password:
+
+```sh
+export browserStackKey="browserstack-access-key-here"
+export browserStackUser="browserstack-username-here"
+export accountsUsername="nice-accounts-email-here"
+export accountsPassword="nice-accounts-password-here"
+```
+
+Run these tests with:
+
+```sh
+npm run testUsingBrowserStack
+```
+
+You can see logging information in the command window, or navigate to https://www.browserstack.com/automate to see the BrowserStack session logs.
+
+These run against [dev-tophat.nice.org.uk](http://dev-tophat.nice.org.uk/) by default. This means you'll need to check the right branch is deployed to dev in Octo before you run the tests. Override `BASE_URL` before running the tests to use a different URL:
+
+```sh
+export BASE_URL="http://test-tophat.nice.org.uk/"
 ```
