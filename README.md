@@ -20,11 +20,13 @@ Distributable, branded tophat component for NICE Services and Web Applications
     - [Typeahead tracking](#typeahead-tracking)
 - [Deployment](#deployment)
 - [Testing](#testing)
+  - [Linting](#linting)
   - [Unit tests](#unit-tests)
   - [Visual regression and functional tests](#visual-regression-and-functional-tests)
     - [Visual tests:](#visual-tests)
     - [Functional tests](#functional-tests)
     - [BrowserStack](#browserstack)
+- [Updating ToC](#updating-toc)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -174,11 +176,22 @@ Deployment to the CDN is currently done manually, so speak to ops. Once the toph
 
 ## Testing
 
-We have 3 types of automated tests within TopHat:
+We have 4 types of automated 'tests' within TopHat:
 
+- Linting
 - Unit - fast and low level code testing on a per-module basis
 - Visual regression - approved screenshot based visual testing
 - Funtional - WebDriver-based (Selenium) browser-driven 'acceptance' tests.
+
+### Linting
+
+We use eslint via a shared [eslint config](.eslintrc). This lints all JavaScript files (source, task configs and test files).
+
+Use the following command to run the linting:
+
+```
+npm run lint
+```
 
 ### Unit tests 
 
@@ -267,16 +280,26 @@ export accountsUsername="nice-accounts-email-here"
 export accountsPassword="nice-accounts-password-here"
 ```
 
+> Note: you can get these from the Octopus Deploy variables
+
 Run these tests with:
 
 ```sh
 npm run testUsingBrowserStack
 ```
 
-You can see logging information in the command window, or navigate to https://www.browserstack.com/automate to see the BrowserStack session logs.
+You can see logging information in the command window, or navigate to https://www.browserstack.com/automate to see the BrowserStack session logs. Raise an Ops Request to get access to Browserstack if you don't already.
 
 These run against [dev-tophat.nice.org.uk](http://dev-tophat.nice.org.uk/) by default. This means you'll need to check the right branch is deployed to dev in Octo before you run the tests. Override `BASE_URL` before running the tests to use a different URL:
 
 ```sh
 export BASE_URL="http://test-tophat.nice.org.uk/"
+```
+
+## Updating ToC
+
+Run the following command to update the table of contents (you'll need npm >= 5.2):
+
+```sh
+npx doctoc .
 ```
