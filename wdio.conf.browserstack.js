@@ -1,6 +1,3 @@
-var path = require("path");
-var VisualRegressionCompare = require("wdio-visual-regression-service/compare");
-
 var pkg = require("./package.json");
 
 exports.config = {
