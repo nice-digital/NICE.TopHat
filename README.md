@@ -215,8 +215,8 @@ To run them you need docker installed and running on your machine then simply ex
 
 ```
 export SITE=website
-export username="XXX"
-export password="XXX"
+export accountsUsername="XXX"
+export accountsPassword="XXX"
 ./run.sh
 ```
 
@@ -236,8 +236,8 @@ NOTE: Replace XXX with variables from octodeploy
 2. Run:
 ```
 	export SITE=website
-	export username= XXX
-	export password= XXX
+	export accountsUsername= XXX
+	export accountsPassword= XXX
 	./run.sh
 ```
 3. Then copy the new reference screenshots taken from the screenshots_copy folder to the screenshots folder
@@ -261,8 +261,8 @@ java -jar -Dwebdriver.gecko.driver=./chromedriver selenium-server-standalone-3.0
 4. In another terminal run: 
 ```
 	export SITE=localhost
-	export username= XXX
-	export password= XXX
+	export accountsUsername= XXX
+	export accountsPassword= XXX
 	node_modules/webdriverio/bin/wdio
 ```
 
