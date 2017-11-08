@@ -1,0 +1,6 @@
+{
+    "extends": "@nice-digital/eslint-config",
+    "parserOptions": {
+        "ecmaVersion": 2017
+    }
+}

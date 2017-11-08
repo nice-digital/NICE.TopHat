@@ -1,13 +1,10 @@
-module.exports = function( config ) {
-
-    return {
-        coverage: {
-            src: [ 'dist/', 'reports/', 'coverage/' ]
-        },
-
-        temp: {
-            src: [ 'temp/' ]
-        }
-    };
-
+module.exports = function() {
+	return {
+		coverage: {
+			src: [ "dist/", "reports/", "coverage/" ]
+		},
+		temp: {
+			src: [ "temp/" ]
+		}
+	};
 };
