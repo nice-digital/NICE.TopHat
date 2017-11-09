@@ -14,8 +14,8 @@ services:
       - screenshots:/tests/screenshots
     environment:
       - SITE
-      - username
-      - password
+      - accountsUsername
+      - accountsPassword
   selenium:
     image: selenium/standalone-chrome
     links:

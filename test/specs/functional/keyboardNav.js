@@ -1,225 +1,167 @@
+/* eslint-env mocha */
+/* global browser */
 var chai = require("chai");
 var cheerio = require("cheerio");
-var $ = cheerio.load(browser.getSource());
+cheerio.load(browser.getSource());
 chai.should();
 
-describe('Functionally browser driven tests', function() {
-  describe('Given I am on the NICE org site and I click on the Evidence servies button', function(){
-    it('should display the lower menu', async function() {
+// Consistent, cross-browser way to start with focus in the correct place
+// Note: using a number of tabs works differently across browsers.
+// (IE includes the URL bar as a Tab).
+function focusOnLogo() {
+	browser.execute("document.getElementsByClassName('logo')[0].focus()");
+}
 
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
+describe("Keyboard navigation functional browser driven tests", function() {
 
-      browser.click('#menu-evidence');
-      browser.isVisible('.tophat-inner').every((x)=>x).should.be.true;
-    })
-  })
+	describe("Desktop resolution", function () {
 
-  describe('Given I am on the NICE org site on a mobile and I click on the Menu button', function(){
-    it('should display the mobile menu', async function() {
+		function setDesktopSize() {
+			browser.setViewportSize({
+				width: 1024,
+				height: 768
+			});
+		}
 
-      browser.setViewportSize({
-          width: 500,
-          height: 500
-      });
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
+		beforeEach(function() {
+			setDesktopSize();
+		});
 
-      browser.click('#menu-mobile');
-      browser.isVisible('#main-menu').should.be.true;
-    })
-  })
+		describe("Given I am on the NICE org site and I click on the Evidence servies button", function(){
+			it("should display the lower menu", async function() {
 
-  describe('Given I am on the NICE org site on a mobile use the keyboard to navigate', function(){
-    it('I can select the main menu using the space bar', async function() {
+				browser.url("/example.niceorg.html");
 
-      browser.setViewportSize({
-          width: 500,
-          height: 500
-      });
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
-      browser.keys("Tab");
-      browser.keys(" ");
+				browser.click("#menu-evidence");
+				browser.isVisible(".tophat-inner").every((x)=>x).should.be.true;
+			});
+		});
 
-      browser.isVisible('#main-menu').should.be.true;
-    })
-  })
+		describe("Given I am on the NICE org site I can use the keyboard", function(){
+			it("end key to go to last item in focused menu", async function() {
 
-  describe('Given I am on the NICE org site on a mobile', function(){
-    it('I can view the profile menu', async function() {
+				browser.url("/example.niceorg.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
+				browser.keys("End");
 
-      browser.setViewportSize({
-          width: 500,
-          height: 500
-      });
+				var active = browser.elementActive().value.ELEMENT;
+				var lastItemInMainMenu = browser.element("#main-menu li:last-child a").value.ELEMENT;
+				lastItemInMainMenu.should.be.equal(active);
 
-      browser.click("#signin");
+			});
 
-      browser.waitForExist("#Email");
+			it("home key to go to first item in focused menu", async function() {
+				browser.url("/example.niceorg.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
+				browser.keys("Tab");
+				browser.keys("Home");
 
-      browser.setValue("#Email", process.env.username);
-      browser.setValue("#Password", process.env.password);
+				var active = browser.elementActive();
+				var firstItemInMainMenu = browser.element("#main-menu li:first-child a");
+				var result = firstItemInMainMenu.value.ELEMENT === active.value.ELEMENT;
 
-      browser.submitForm('form');
+				result.should.be.equal(true);
+			});
 
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
+			it("right/left key to navigate in focused menu", async function() {
+				browser.url("/example.niceorg.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
 
-      browser.click('#menu-profile');
-      browser.isVisible('#nice-profile').should.be.true;
-    })
-  })
+				var startPos = browser.elementActive().value.ELEMENT;
 
+				browser.keys("ArrowRight");
+				browser.keys("ArrowRight");
+				browser.keys("ArrowRight");
 
-  describe('Given I am on the NICE org site on a mobile use the keyboard to navigate', function(){
-    it('I can select items in the evidence menu by using up arrow key to navigate', async function() {
+				var moveSuccess = startPos !== browser.elementActive().value.ELEMENT;
 
-      browser.setViewportSize({
-          width: 500,
-          height: 500
-      });
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
+				browser.keys("ArrowLeft");
+				browser.keys("ArrowLeft");
+				browser.keys("ArrowLeft");
 
-      browser.keys("Tab");
-      browser.keys(" ");
-      browser.keys("Tab");
-      browser.keys("ArrowUp");
+				var active = browser.elementActive().value.ELEMENT;
+				var result = startPos === active;
 
-      var active = browser.elementActive().value.ELEMENT;
-      var lastItemInEvidenceMenu = browser.element("#nice-evidence li:last-child a").value.ELEMENT;
+				result.should.be.equal(true);
+				moveSuccess.should.be.equal(true);
+			});
 
-      var result = lastItemInEvidenceMenu === active;
-      // console.log(lastItemInEvidenceMenu)
-      // console.log(active)
+			it("up/down key to navigate in focused menu", async function() {
+				browser.url("/example.niceorg.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
 
+				var startPos = browser.elementActive().value.ELEMENT;
 
-      result.should.be.equal(true);
-    })
-  })
+				browser.keys("ArrowDown");
+				browser.keys("ArrowDown");
+				browser.keys("ArrowDown");
 
-   describe('Given I am on the NICE org site I can use the keyboard to navigate', function(){
-    it('I can exit a menu using escape key', async function() {
+				var moveSuccess = startPos !== browser.elementActive().value.ELEMENT;
 
-      browser.setViewportSize({
-          width: 500,
-          height: 500
-      });
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
-      browser.keys("Tab");
-      browser.keys(" ");
-      browser.keys("Escape");
+				browser.keys("ArrowUp");
+				browser.keys("ArrowUp");
+				browser.keys("ArrowUp");
 
+				var active = browser.elementActive().value.ELEMENT;
+				var result = startPos === active;
 
-      browser.isVisible('#main-menu').should.be.false;
-    })
-  })
+				result.should.be.equal(true);
+				moveSuccess.should.be.equal(true);
+			});
+		});
 
-describe('Given I am on the NICE org site I can use the keyboard', function(){
-    it('end key to go to last item in focused menu', async function() {
+		describe("Given I have logged in with NICE Accounts", function(){
+			it("I can view the profile menu", async function() {
+				browser.click("#signin");
 
-    	browser.setViewportSize({
-          width: 1000,
-          height: 500
-      });
+				browser.waitForExist("#Email");
 
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
-      browser.keys("Tab");
-      browser.keys("Tab");
-      browser.keys("Tab");
-      browser.keys("End");
+				browser.setValue("#Email", process.env.accountsUsername);
+				browser.setValue("#Password", process.env.accountsPassword);
 
-      var active = browser.elementActive().value.ELEMENT;
-      var lastItemInMainMenu = browser.element("#main-menu li:last-child a").value.ELEMENT;
-			lastItemInMainMenu.should.be.equal(active);
+				browser.submitForm("#Email");
 
-    })
-  })
+				browser.waitForExist(".nice-tophat");
 
-describe('Given I am on the NICE org site I can use the keyboard', function(){
-    it('home key to go to first item in focused menu', async function() {
+				browser.click("#menu-profile");
+				browser.isVisible("#nice-profile").should.be.true;
+			});
+		});
 
-    	browser.setViewportSize({
-          width: 1000,
-          height: 500
-      });
+	});
 
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
-      browser.keys("Tab");
-      browser.keys("Tab");
-      browser.keys("Tab");
-      browser.keys("Home");
+	describe("Mobile resolution", function () {
 
-      var active = browser.elementActive();
-      var firstItemInMainMenu = browser.element("#main-menu li:first-child a");
-			var result = firstItemInMainMenu.value.ELEMENT === active.value.ELEMENT;
+		function setMobileSize() {
+			browser.setViewportSize({
+				width: 480,
+				height: 480
+			});
+		}
 
-      result.should.be.equal(true);
-    })
-  })
+		beforeEach(function() {
+			setMobileSize();
+		});
 
-describe('Given I am on the NICE org site I can use the keyboard', function(){
-    it('right/left key to navigate in focused menu', async function() {
+		describe("Given I am on the NICE org site on a mobile and I click on the Menu button", function(){
+			it("should display the mobile menu", async function() {
 
-    	browser.setViewportSize({
-          width: 1000,
-          height: 500
-      });
+				browser.url("/example.niceorg.html");
 
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
-      browser.keys("Tab");
-      browser.keys("Tab");
-      browser.keys("Tab");
+				browser.click("#menu-mobile");
+				browser.isVisible("#main-menu").should.be.true;
+			});
+		});
 
-      var startPos = browser.elementActive().value.ELEMENT;
-
-      browser.keys("ArrowRight");
-      browser.keys("ArrowRight");
-      browser.keys("ArrowRight");
-
-      var moveSuccess = startPos !== browser.elementActive().value.ELEMENT;
-
-      browser.keys("ArrowLeft");
-      browser.keys("ArrowLeft");
-      browser.keys("ArrowLeft");
-
-      var active = browser.elementActive().value.ELEMENT;
-			var result = startPos === active;
-
-      result.should.be.equal(true);
-      moveSuccess.should.be.equal(true);
-    })
-  })
-
-describe('Given I am on the NICE org site I can use the keyboard', function(){
-    it('up/down key to navigate in focused menu', async function() {
-
-    	browser.setViewportSize({
-          width: 1000,
-          height: 500
-      });
-
-      browser.url('/example.niceorg.html'); // for base url see wdio.conf.js
-      browser.keys("Tab");
-      browser.keys("Tab");
-      browser.keys("Tab");
-
-      var startPos = browser.elementActive().value.ELEMENT;
-
-      browser.keys("ArrowDown");
-      browser.keys("ArrowDown");
-      browser.keys("ArrowDown");
-
-      var moveSuccess = startPos !== browser.elementActive().value.ELEMENT;
-
-      browser.keys("ArrowUp");
-      browser.keys("ArrowUp");
-      browser.keys("ArrowUp");
-
-      var active = browser.elementActive().value.ELEMENT;
-			var result = startPos === active;
-
-      result.should.be.equal(true);
-      moveSuccess.should.be.equal(true);
-    })
-  })
-
+	});
 
 });
 

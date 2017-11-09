@@ -4,6 +4,10 @@ Distributable, branded tophat component for NICE Services and Web Applications
 
 ## Table of contents
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
 - [Project structure](#project-structure)
 - [Installation](#installation)
 - [Commands](#commands)
@@ -13,9 +17,18 @@ Distributable, branded tophat component for NICE Services and Web Applications
   - [Configuration options](#configuration-options)
   - [Full width](#full-width)
   - [Typeahead](#typeahead)
-    - [Typeahead Tracking](#typeahead-tracking)
+    - [Typeahead tracking](#typeahead-tracking)
 - [Deployment](#deployment)
 - [Testing](#testing)
+  - [Linting](#linting)
+  - [Unit tests](#unit-tests)
+  - [Visual regression and functional tests](#visual-regression-and-functional-tests)
+    - [Visual tests:](#visual-tests)
+    - [Functional tests](#functional-tests)
+    - [BrowserStack](#browserstack)
+- [Updating ToC](#updating-toc)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Project structure
 
@@ -40,7 +53,8 @@ npm i
 | `npm start` | Default task that builds assets, watches for changes to recompile and serves content on locahost:8000 |
 | `npm run build` | Builds the distributable scripts form the source files |
 | `npm run build -- --buildNumber=X.X.X` | Used for overriding the version set in the banner of the JS file (Useful in TeamCity as our TC build numbers aren't valid npm versions) |
-| `npm test` (or `grunt test`) | Runs jshint against the script and test files then runs the html screenshot tests (via Casper) to check for changes to the designs |
+| `npm test` (or `grunt test`) | Lints script and test files then runs the html screenshot tests (via Casper) to check for changes to the designs |
+| `npm run lint` | Runs eslint against JavaScript files |
 
 > Note: there are other lower level grunt commands (see Gruntfile.js) but we recommend using the npm scripts where possible.
 
@@ -160,26 +174,53 @@ Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20
 
 Deployment to the CDN is currently done manually, so speak to ops. Once the tophat dist files have been created, these should then be copied into https://github.com/nhsevidence/NICE.Bootstrap/tree/master/src/scripts/nice. 
 
-
 ## Testing
+
+We have 4 types of automated 'tests' within TopHat:
+
+- Linting
+- Unit - fast and low level code testing on a per-module basis
+- Visual regression - approved screenshot based visual testing
+- Funtional - WebDriver-based (Selenium) browser-driven 'acceptance' tests.
+
+### Linting
+
+We use eslint via a shared [eslint config](.eslintrc). This lints all JavaScript files (source, task configs and test files).
+
+Use the following command to run the linting:
+
+```
+npm run lint
+```
 
 ### Unit tests 
 
-Unit tests can be found in the tests/unitTests folder.  To run them:
+Unit tests can be found in the [tests/unitTests](tests/unitTests) folder. To run them:
 
 ```
 npm test
 ```
 
-### Visual regression and functional tests 
-The visual regression tests are run inside a docker container.  To run them you need docker installed and running on your machine then simply execute:
+They use the following tools under the hood:
+
+- [Mocha](https://mochajs.org/) as a test runner
+- [Chai](http://chaijs.com/) as an assertion library
+- [Sinon](http://sinonjs.org/) for spies, stubs and mocks
+
+### Visual regression and functional tests
+
+The visual regression tests are run inside a docker container. This is because this guarantees the images will be the same on each run (and avoids cross-platform rendering issues).
+
+To run them you need docker installed and running on your machine then simply execute:
+
 ```
 export SITE=website
-export username= XXX
-export password= XXX
+export accountsUsername="XXX"
+export accountsPassword="XXX"
 ./run.sh
 ```
-NOTE: Replace XXX with variables from octodeploy
+
+NOTE: Replace XXX with variables from TeamCity.
 
 If you are on a windows machine run the above command from a git bash shell. 
 
@@ -195,8 +236,8 @@ NOTE: Replace XXX with variables from octodeploy
 2. Run:
 ```
 	export SITE=website
-	export username= XXX
-	export password= XXX
+	export accountsUsername= XXX
+	export accountsPassword= XXX
 	./run.sh
 ```
 3. Then copy the new reference screenshots taken from the screenshots_copy folder to the screenshots folder
@@ -220,7 +261,45 @@ java -jar -Dwebdriver.gecko.driver=./chromedriver selenium-server-standalone-3.0
 4. In another terminal run: 
 ```
 	export SITE=localhost
-	export username= XXX
-	export password= XXX
+	export accountsUsername= XXX
+	export accountsPassword= XXX
 	node_modules/webdriverio/bin/wdio
+```
+
+#### BrowserStack
+
+We run functional tests cross-browser via BrowserStack, see [wdio.conf.browserstack.js](wdio.conf.browserstack.js). Before you run the tests, you'll need to set environment variables for:
+
+- [BrowserStack Automate](https://www.browserstack.com/accounts/settings) username & access key
+- NICE Accounts (Beta) login & password:
+
+```sh
+export browserStackKey="browserstack-access-key-here"
+export browserStackUser="browserstack-username-here"
+export accountsUsername="nice-accounts-email-here"
+export accountsPassword="nice-accounts-password-here"
+```
+
+> Note: you can get these from the Octopus Deploy variables
+
+Run these tests with:
+
+```sh
+npm run testUsingBrowserStack
+```
+
+You can see logging information in the command window, or navigate to https://www.browserstack.com/automate to see the BrowserStack session logs. Raise an Ops Request to get access to Browserstack if you don't already.
+
+These run against [dev-tophat.nice.org.uk](http://dev-tophat.nice.org.uk/) by default. This means you'll need to check the right branch is deployed to dev in Octo before you run the tests. Override `BASE_URL` before running the tests to use a different URL:
+
+```sh
+export BASE_URL="http://test-tophat.nice.org.uk/"
+```
+
+## Updating ToC
+
+Run the following command to update the table of contents (you'll need npm >= 5.2):
+
+```sh
+npx doctoc .
 ```
