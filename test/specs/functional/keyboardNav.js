@@ -118,6 +118,102 @@ describe("Keyboard navigation functional browser driven tests", function() {
 			});
 		});
 
+		describe("Given I am on the CKS site I can use the keyboard", function(){
+			it("end key to go to last item in focused menu", async function() {
+
+				browser.url("/example.cks.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
+				browser.keys("End");
+
+				var active = browser.elementActive().value.ELEMENT;
+				var lastItemInMainMenu = browser.element("#main-menu li:last-child a").value.ELEMENT;
+				lastItemInMainMenu.should.be.equal(active);
+
+			});
+
+			it("home key to go to first item in focused menu", async function() {
+				browser.url("/example.cks.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
+				browser.keys("Tab");
+				browser.keys("Home");
+
+				var active = browser.elementActive();
+				var firstItemInMainMenu = browser.element("#main-menu li:first-child a");
+				var result = firstItemInMainMenu.value.ELEMENT === active.value.ELEMENT;
+
+				result.should.be.equal(true);
+			});
+
+			it("right/left key to navigate in focused menu", async function() {
+				browser.url("/example.cks.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
+
+				var startPos = browser.elementActive().value.ELEMENT;
+
+				browser.keys("ArrowRight");
+				browser.keys("ArrowRight");
+				browser.keys("ArrowRight");
+
+				var moveSuccess = startPos !== browser.elementActive().value.ELEMENT;
+
+				browser.keys("ArrowLeft");
+				browser.keys("ArrowLeft");
+				browser.keys("ArrowLeft");
+
+				var active = browser.elementActive().value.ELEMENT;
+				var result = startPos === active;
+
+				result.should.be.equal(true);
+				moveSuccess.should.be.equal(true);
+			});
+
+			it("up/down key to navigate in focused menu", async function() {
+				browser.url("/example.cks.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
+
+				var startPos = browser.elementActive().value.ELEMENT;
+
+				browser.keys("ArrowDown");
+				browser.keys("ArrowDown");
+				browser.keys("ArrowDown");
+
+				var moveSuccess = startPos !== browser.elementActive().value.ELEMENT;
+
+				browser.keys("ArrowUp");
+				browser.keys("ArrowUp");
+				browser.keys("ArrowUp");
+
+				var active = browser.elementActive().value.ELEMENT;
+				var result = startPos === active;
+
+				result.should.be.equal(true);
+				moveSuccess.should.be.equal(true);
+			});
+
+			it("right key can focus on evidence services in cks", async function() {
+				browser.url("/example.cks.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
+
+				browser.keys("ArrowRight");
+				browser.keys("ArrowRight");
+				browser.keys("ArrowRight");
+
+				var active = browser.elementActive().value.ELEMENT;
+				var lastItemInMainMenu = browser.element("#main-menu li:last-child a").value.ELEMENT;
+				lastItemInMainMenu.should.be.equal(active);
+			}
+		});
+
 		describe("Given I have logged in with NICE Accounts", function(){
 			it("I can view the profile menu", async function() {
 				browser.click("#signin");
