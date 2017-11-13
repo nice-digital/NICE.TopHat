@@ -1,4 +1,5 @@
 /* eslint-env mocha */
+/* eslint no-global-assign: 0 */
 var chai = require("chai");
 var expect = chai.expect;
 var sinon = require("sinon");
@@ -19,13 +20,13 @@ describe("Unit Tests", function() {
 			//act
 			tracking.sendTrackedEvent("a","b","c", function(){
 				1;
-			})
+			});
 
 			//assert
 			expect(dataLayer[0].event).to.equal("TopHat");
-			expect(dataLayer[0].category).to.equal("a");
-			expect(dataLayer[0].action).to.equal("b");
-			expect(dataLayer[0].label).to.equal("c");
+			expect(dataLayer[0].eventCategory).to.equal("a");
+			expect(dataLayer[0].eventAction).to.equal("b");
+			expect(dataLayer[0].eventLabel).to.equal("c");
 		});
 	});
 
