@@ -211,7 +211,7 @@ describe("Keyboard navigation functional browser driven tests", function() {
 				var active = browser.elementActive().value.ELEMENT;
 				var lastItemInMainMenu = browser.element("#main-menu li:last-child a").value.ELEMENT;
 				lastItemInMainMenu.should.be.equal(active);
-			}
+			});
 		});
 
 		describe("Given I have logged in with NICE Accounts", function(){
