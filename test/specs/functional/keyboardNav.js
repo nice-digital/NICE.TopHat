@@ -262,20 +262,53 @@ describe("Keyboard navigation functional browser driven tests", function() {
 				moveSuccess.should.be.equal(true);
 			});
 
-			/*it("right key can focus on evidence services in cks", async function() {
+			it("up/down key to navigate in focused evidence menu", async function() {
 				browser.url("/example.cks.html");
 				focusOnLogo();
 				browser.keys("Tab");
 				browser.keys("Tab");
+				browser.keys("End");
+				browser.keys("Tab");
+				/*The focus should now be at the Evidence search option in the nice-evidence menu*/
+
+				var startPos = browser.elementActive().value.ELEMENT;
+
+				browser.keys("ArrowDown");
+				browser.keys("ArrowDown");
+				browser.keys("ArrowDown");
+				browser.keys("ArrowDown");
+
+				var moveSuccess = startPos !== browser.elementActive().value.ELEMENT;
+
+				browser.keys("ArrowUp");
+				browser.keys("ArrowUp");
+				browser.keys("ArrowUp");
+				browser.keys("ArrowUp");
+
+				var active = browser.elementActive().value.ELEMENT;
+				var result = startPos === active;
+
+				result.should.be.equal(true);
+				moveSuccess.should.be.equal(true);
+			});
+
+			it("right key can focus on cks in evidence menu", async function() {
+				browser.url("/example.cks.html");
+				focusOnLogo();
+				browser.keys("Tab");
+				browser.keys("Tab");
+				browser.keys("End");
+				browser.keys("Tab");
+				/*The focus should now be at the Evidence search option in the nice-evidence menu*/
 
 				browser.keys("ArrowRight");
 				browser.keys("ArrowRight");
 				browser.keys("ArrowRight");
 
 				var active = browser.elementActive().value.ELEMENT;
-				var lastItemInMainMenu = browser.element("#main-menu li:last-child a").value.ELEMENT;
-				lastItemInMainMenu.should.be.equal(active);
-			});*/
+				var cksElement = browser.element("#nice-evidence li:nth-child(4) a").value.ELEMENT;
+				cksElement.should.be.equal(active);
+			});
 		});
 
 		describe("Given I have logged in with NICE Accounts", function(){
