@@ -5,11 +5,10 @@ var expect = chai.expect;
 var sinon = require("sinon");
 var tracking = require("../../lib/events/tracking.js");
 var domUtils = require("../../lib/utils/dom.js");
-var assert = require("assert");
 
 
 
-describe("Unit Tests", function() {
+describe("Tracking module unit tests", function() {
 	var sandbox;
 	beforeEach(function () {
 		sandbox = sinon.sandbox.create();
@@ -20,7 +19,7 @@ describe("Unit Tests", function() {
 	});
 
 	describe("trackingHandler", function() {
-		it("should prevent default brrowser action", function() {
+		it("should prevent default browser action", function() {
 
 			//arrange
 			var dataLayer = [];
@@ -57,22 +56,56 @@ describe("Unit Tests", function() {
 			var dataLayer = [];
 			window = sandbox.stub().returns("something");
 			window.dataLayer = dataLayer;
-			window.setTimeout = sandbox.stub().returns("something");
-			window.clearTimeout = sandbox.stub().returns("something");
 
 			//act
 			tracking.sendTrackedEvent("a","b","c");
 
+			var result = {
+				event:"TopHat",
+				eventCategory:"a",
+				eventAction:"b",
+				eventLabel:"c"
+			};
 			//assert
-			expect(dataLayer[0].event).to.equal("TopHat");
-			expect(dataLayer[0].eventCategory).to.equal("a");
-			expect(dataLayer[0].eventAction).to.equal("b");
-			expect(dataLayer[0].eventLabel).to.equal("c");
+			expect(dataLayer[0]).to.deep.equal(result);
+		});
+
+		it("will push to datalayer with callback", function() {
+
+			var dataLayer = [];
+			window = sandbox.stub().returns("something");
+			window.dataLayer = dataLayer;
+			window.setTimeout = sandbox.stub().returns("something");
+			window.clearTimeout = sandbox.stub().returns("something");
+			var cb = function(){
+				1;
+			};
+
+			//act
+			tracking.sendTrackedEvent("a","b","c",cb);
+
+			//assert
+			expect(dataLayer[0].eventCallback).to.be.a("function");
+		});
+
+		it("will use fallback timeout to fire callback if with callback hasnt already fired", function() {
+			var dataLayer = [];
+			window.dataLayer = dataLayer;
+			var callback = sinon.spy();
+
+			window = sandbox.stub().returns("something");
+			window.setTimeout = sandbox.stub().returns(callback());
+
+			//act
+			tracking.sendTrackedEvent("a","b","c",callback);
+
+			//assert
+			sandbox.assert.calledOnce(callback);
 		});
 	});
 
 	describe("getLabel", function() {
-		it("Does nothing and erturns param", function() {
+		it("Returns param text", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
@@ -86,7 +119,7 @@ describe("Unit Tests", function() {
 
 		});
 
-		it("profile should be expanded when class contains menu-profile", function() {
+		it("should return 'Profile expanded' when classlist contains menu-profile and aria-expanded is true", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
@@ -104,7 +137,7 @@ describe("Unit Tests", function() {
 
 		});
 
-		it("I can get the correct event label when profile collaped", function() {
+		it("should return 'Profile collapased' when classlist contains menu-profile and aria-expanded is false", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
@@ -124,8 +157,8 @@ describe("Unit Tests", function() {
 
 	});
 
-	describe("Given I have a getTrackingElement function", function() {
-		it("it can identify valid element", function() {
+	describe("getTrackingElement", function() {
+		it("it can identify a valid element", function() {
 			var element = {
 				nodeName: "A"
 			};
@@ -135,7 +168,7 @@ describe("Unit Tests", function() {
 			expect(result).to.be.equal(element);
 		});
 
-		it("it can identify invalid element", function() {
+		it("it can identify an invalid element", function() {
 
 			var parentElement = {
 				nodeName: "LI",
@@ -152,7 +185,7 @@ describe("Unit Tests", function() {
 			expect(result).to.be.equal(undefined);
 		});
 
-		it("I can get the valid parent element when child element is invalid", function() {
+		it("It can get the valid parent element when child element is invalid", function() {
 
 			var parentElement = {
 				nodeName: "A",
