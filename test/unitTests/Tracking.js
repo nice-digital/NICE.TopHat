@@ -6,12 +6,12 @@ var sinon = require("sinon");
 var tracking = require("../../lib/events/tracking.js");
 var domUtils = require("../../lib/utils/dom.js");
 
-
-
 describe("Tracking module unit tests", function() {
 	var sandbox;
+
 	beforeEach(function () {
 		sandbox = sinon.sandbox.create();
+		window = { dataLayer: [] };
 	});
 
 	afterEach(function () {
@@ -20,11 +20,8 @@ describe("Tracking module unit tests", function() {
 
 	describe("trackingHandler", function() {
 		it("should prevent default browser action for external links", function() {
-
 			//arrange
-			window = sandbox.stub().returns("something");
 			window.setTimeout = sandbox.stub().returns("something");
-			window.dataLayer = [];
 			window.clearTimeout = sandbox.stub().returns("something");
 			var ev = {
 				target: {
@@ -51,8 +48,6 @@ describe("Tracking module unit tests", function() {
 		it("shouldn't prevent default browser action for internal hashlinks", function() {
 
 			//arrange
-			window = sandbox.stub().returns("something");
-			window.dataLayer = [];
 			var ev = {
 				target: {
 					nodeName: "A",
@@ -79,10 +74,6 @@ describe("Tracking module unit tests", function() {
 	describe("sendTrackedEvent", function() {
 		it("will push to datalayer without callback", function() {
 
-			var dataLayer = [];
-			window = sandbox.stub().returns("something");
-			window.dataLayer = dataLayer;
-
 			//act
 			tracking.sendTrackedEvent("a","b","c");
 
@@ -93,14 +84,10 @@ describe("Tracking module unit tests", function() {
 				eventLabel:"c"
 			};
 			//assert
-			expect(dataLayer[0]).to.deep.equal(result);
+			expect(window.dataLayer[0]).to.deep.equal(result);
 		});
 
 		it("will push to datalayer with callback", function() {
-
-			var dataLayer = [];
-			window = sandbox.stub().returns("something");
-			window.dataLayer = dataLayer;
 			window.setTimeout = sandbox.stub().returns("something");
 			window.clearTimeout = sandbox.stub().returns("something");
 			var cb = function(){
@@ -111,22 +98,18 @@ describe("Tracking module unit tests", function() {
 			tracking.sendTrackedEvent("a","b","c",cb);
 
 			//assert
-			expect(dataLayer[0].eventCallback).to.be.a("function");
+			expect(window.dataLayer[0].eventCallback).to.be.a("function");
 		});
 
-		it("will use fallback timeout to fire callback if with callback hasnt already fired", function() {
-			var dataLayer = [];
-			window.dataLayer = dataLayer;
-			var callback = sinon.spy();
-
-			window = sandbox.stub().returns("something");
-			window.setTimeout = sandbox.stub().returns(callback());
+		it("will use fallback timeout for callback", function() {
+			var callback = function() {};
+			window.setTimeout = sandbox.stub().returns("timeout");
 
 			//act
 			tracking.sendTrackedEvent("a","b","c",callback);
 
 			//assert
-			sandbox.assert.calledOnce(callback);
+			sandbox.assert.calledOnce(window.setTimeout.withArgs(callback));
 		});
 	});
 
