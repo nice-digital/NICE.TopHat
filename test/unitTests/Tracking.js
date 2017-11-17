@@ -27,7 +27,7 @@ describe("Tracking module unit tests", function() {
 				target: {
 					nodeName: "A",
 					href: "www.google.com",
-					classList: "",
+					className: "",
 					getAttribute: function(){
 						return this.href;
 					}
@@ -52,7 +52,7 @@ describe("Tracking module unit tests", function() {
 				target: {
 					nodeName: "A",
 					href: "#dylan",
-					classList: "",
+					className: "",
 					getAttribute: function(){
 						return this.href;
 					}
@@ -118,7 +118,7 @@ describe("Tracking module unit tests", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
-				classList: "",
+				className: "",
 				textContent: "text"
 			};
 
@@ -128,12 +128,12 @@ describe("Tracking module unit tests", function() {
 
 		});
 
-		it("should return 'Profile expanded' when classlist contains menu-profile and aria-expanded is true", function() {
+		it("should return 'Profile expanded' when className contains menu-profile and aria-expanded is true", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
 				textContent: "text",
-				classList: "menu-profile",
+				className: "menu-profile",
 				"aria-expanded": "true",
 				getAttribute: function(st){
 					return this["aria-expanded"];
@@ -146,12 +146,12 @@ describe("Tracking module unit tests", function() {
 
 		});
 
-		it("should return 'Profile collapased' when classlist contains menu-profile and aria-expanded is false", function() {
+		it("should return 'Profile collapased' when className contains menu-profile and aria-expanded is false", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
 				textContent: "text",
-				classList: "menu-profile",
+				className: "menu-profile",
 				"aria-expanded": "false",
 				getAttribute: function(s){
 					return this["aria-expanded"];
