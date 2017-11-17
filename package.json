@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "start": "grunt parallel --color",
-    "test": "npm run lint && npm run test:unit && npm:functional",
+    "test": "npm run lint && npm run test:unit && npm run test:functional",
     "test:unit": "grunt mochaTest:unit --color",
     "test:teamcity": "grunt mochaTest:teamcity --color",
     "test:functional": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional/*.js",
+    "test:functional:keyboardNav": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional/keyboardNav.js",
     "test:visual": "./node_modules/webdriverio/bin/wdio --spec ./test/specs/visual.js",
     "test:browserstack": "node ./node_modules/webdriverio/bin/wdio wdio.conf.browserstack.js",
     "lint": "grunt eslint --color",
