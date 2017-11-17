@@ -19,13 +19,12 @@ describe("Tracking module unit tests", function() {
 	});
 
 	describe("trackingHandler", function() {
-		it("should prevent default browser action", function() {
+		it("should prevent default browser action for external links", function() {
 
 			//arrange
-			var dataLayer = [];
 			window = sandbox.stub().returns("something");
 			window.setTimeout = sandbox.stub().returns("something");
-			window.dataLayer = dataLayer;
+			window.dataLayer = [];
 			window.clearTimeout = sandbox.stub().returns("something");
 			var ev = {
 				target: {
@@ -35,18 +34,45 @@ describe("Tracking module unit tests", function() {
 					getAttribute: function(){
 						return this.href;
 					}
-				}
+				},
+				preventDefault: function() {}
 			};
 			domUtils.find = sandbox.stub().returns(ev.target);
 
-
-			var spy = sandbox.spy(domUtils.enhanceEvent(ev), "preventDefault");
+			var spy = sandbox.spy(ev, "preventDefault");
 
 			//act
 			tracking.handler(ev);
 
 			//assert
 			sandbox.assert.calledOnce(spy);
+		});
+
+		it("shouldn't prevent default browser action for internal hashlinks", function() {
+
+			//arrange
+			window = sandbox.stub().returns("something");
+			window.dataLayer = [];
+			var ev = {
+				target: {
+					nodeName: "A",
+					href: "#dylan",
+					classList: "",
+					getAttribute: function(){
+						return this.href;
+					}
+				},
+				preventDefault: function() {}
+			};
+			domUtils.find = sandbox.stub().returns(ev.target);
+
+			var spy = sandbox.spy(ev, "preventDefault");
+
+			//act
+			tracking.handler(ev);
+
+			//assert
+			sandbox.assert.notCalled(spy);
 		});
 	});
 
