@@ -119,7 +119,7 @@ describe("Tracking module unit tests", function() {
 				nodeName: "A",
 				href: "www.google.com",
 				className: "",
-				textContent: "text"
+				textContent: "TEXT CONTENT HERE"
 			};
 
 			var result = tracking.getLabel(element);
@@ -132,7 +132,7 @@ describe("Tracking module unit tests", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
-				textContent: "text",
+				textContent: "TEXT CONTENT HERE",
 				className: "menu-profile",
 				"aria-expanded": "true",
 				getAttribute: function(st){
@@ -150,7 +150,7 @@ describe("Tracking module unit tests", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
-				textContent: "text",
+				textContent: "TEXT CONTENT HERE",
 				className: "menu-profile",
 				"aria-expanded": "false",
 				getAttribute: function(s){
@@ -161,6 +161,24 @@ describe("Tracking module unit tests", function() {
 			var result = tracking.getLabel(element);
 
 			expect(result).to.be.equal("Profile collapased");
+
+		});
+
+		it("should return 'Edit profile' when the menu item is the users name", function() {
+			var element = {
+				nodeName: "A",
+				href: "www.google.com",
+				textContent: "USERNAME CONTENT HERE",
+				className: "user-name",
+				"aria-expanded": "false",
+				getAttribute: function(s){
+					return this["aria-expanded"];
+				}
+			};
+
+			var result = tracking.getLabel(element);
+
+			expect(result).to.be.equal("Edit profile");
 
 		});
 
