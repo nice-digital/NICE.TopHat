@@ -178,8 +178,7 @@
       display: none;
     }
 
-    &:before {
-      content: "\e01a\e01b";
+    &__icon {
       font-size: @baseLogoSize;
       line-height: @baseLogoSize;
       letter-spacing: -.6em;
@@ -207,8 +206,8 @@
 // responsive
 
 @media (max-width: 1059px) {
-  .nice-tophat .logo:before {
-    content: "\e01a";
+  .nice-tophat .logo__icon-full {
+    display: none;
   }
 }
 
@@ -222,7 +221,7 @@
     .logo {
       padding: 0 0 0 @fullSpacing;
 
-      &:before {
+      &__icon {
         font-size: 38px;
       }
       small {
