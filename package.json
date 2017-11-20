@@ -9,7 +9,7 @@
     "functionalTests:keyboardNav": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional/keyboardNav.js",
     "testTeamcity": "grunt mochaTest:teamcity",
     "test": "node ./node_modules/mocha/bin/mocha --reporter mocha-teamcity-reporter test/unitTests/**/*.js",
-    "testCoverage:teamcity": "nyc ./node_modules/mocha/bin/mocha  --reporter mocha-teamcity-reporter test/unitTests/**/*.js",
+    "testCoverage:teamcity": "nyc --reporter=teamcity ./node_modules/mocha/bin/mocha  --reporter mocha-teamcity-reporter test/unitTests/**/*.js",
     "testCoverage:local": "nyc --reporter=html --reporter=text mocha test/unitTests/**/*.js",
     "testUsingBrowserStack": "node ./node_modules/webdriverio/bin/wdio wdio.conf.browserstack.js",
     "start": "grunt parallel --color",
