@@ -1,1 +1,1 @@
-var tophat = require("../../lib/tophat.js");
+require("../../lib/tophat.js");
