@@ -32,6 +32,24 @@
 </head>
 
 <body>
+
+<!-- Google Tag Manager -->
+<script src="/setgtmdatalayer"></script>
+<noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M55QTQ"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-M55QTQ');</script>
+<!-- End Google Tag Manager -->
+
 	<div role="navigation" class="nice-tophat">
 		<div class="nice-global" id="nice-global">
 			<div class="tophat-inner">
@@ -55,17 +73,6 @@
 		</div>
 	</div>
 
-	<script>
-		// Fake a GTM dataLayer for testing purposes
-		window.dataLayer = window.dataLayer || [];
-		window.dataLayer.push = function (a) {
-			if(a.eventCallback) {
-				//alert(JSON.stringify(a));
-				a.eventCallback();
-			}
-			return Array.prototype.push.apply(this,arguments);
-		}
-	</script>
 	<script src="./tophat.min.js"
 					data-environment="Beta"
 					data-search="/#Search"
