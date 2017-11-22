@@ -179,10 +179,10 @@ TopHat uses an `event` property of "TopHat" in the `dataLayer` object. It then p
 
 ```json
 {
-	event: "TopHat",
-	eventCategory: "TopHat",
-	eventAction: "Tophat click",
-	eventLabel: "NICE Pathways"
+	"event": "TopHat",
+	"eventCategory": "TopHat",
+	"eventAction": "Tophat click",
+	"eventLabel": "NICE Pathways"
 }
 ```
 
