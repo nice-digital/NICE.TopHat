@@ -193,7 +193,7 @@ describe("Tracking module unit tests", function() {
 			var result = tracking.getLabel(element);
 
 			expect(result).to.be.equal("TEXT CONTENT HERE");
-		})
+		});
 
 	});
 
