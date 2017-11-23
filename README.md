@@ -55,7 +55,8 @@ npm i
 | `npm run build` | Builds the distributable scripts form the source files |
 | `npm run build -- --buildNumber=X.X.X` | Used for overriding the version set in the banner of the JS file (Useful in TeamCity as our TC build numbers aren't valid npm versions) |
 | `npm run lint` | Runs eslint against JavaScript source files |
-| `npm test` | Lints script and test files then runs the html screenshot tests (via Casper) to check for changes to the designs |
+| `npm run lint:teamcity` | Runs eslint against JavaScript source files and reports to teamcity |
+| `npm test` | Lints script and runs low level unit tests via Mocha |
 | `npm run test:unit` | Runs low level unit tests via Mocha |
 | `npm run test:unit:teamcity` | Runs low level unit tests via Mocha with reporting for TeamCity |
 | `npm run test:functional` | Runs webdriverio functional tests |

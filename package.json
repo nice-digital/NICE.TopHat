@@ -12,7 +12,8 @@
     "test:functional:keyboardNav": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional/keyboardNav.js",
     "test:visual": "./node_modules/webdriverio/bin/wdio --spec ./test/specs/visual.js",
     "test:browserstack": "node ./node_modules/webdriverio/bin/wdio wdio.conf.browserstack.js",
-    "lint": "grunt eslint --color",
+    "lint": "grunt eslint:default --color",
+    "lint:teamcity": "grunt eslint:teamcity --color",
     "build": "grunt build --color"
   },
   "repository": {
@@ -37,6 +38,7 @@
     "chai": "^4.1.2",
     "cheerio": "^1.0.0-rc.2",
     "cssify": "^1.0.3",
+    "eslint-teamcity": "^1.4.0",
     "glob": "^7.1.1",
     "grunt": "^1.0.1",
     "grunt-blanket": "0.0.10",
