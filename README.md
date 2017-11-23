@@ -18,6 +18,7 @@ Distributable, branded tophat component for NICE Services and Web Applications
   - [Full width](#full-width)
   - [Typeahead](#typeahead)
     - [Typeahead tracking](#typeahead-tracking)
+  - [Tracking](#tracking)
 - [Deployment](#deployment)
 - [Testing](#testing)
   - [Linting](#linting)
@@ -166,6 +167,26 @@ Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20
   eventLabel: 'TERM_URL'
 }
 ```
+
+## Tracking
+
+TopHat integrates with GTM by default. If a `dataLayer` is available on the page then TopHat pushes `dataLayer` objects for various actions. This means 2 things:
+
+1) makes it easy to create a single trigger and tag for each service within a GTM container
+2) we can track new features within TopHat without having to make a change in each GTM container for each service.
+
+TopHat uses an `event` property of "TopHat" in the `dataLayer` object. It then passes an `eventCategory` of "TopHat" and values for `eventAction`, `eventLabel` and `eventValue`. For example:
+
+```json
+{
+	"event": "TopHat",
+	"eventCategory": "TopHat",
+	"eventAction": "Tophat click",
+	"eventLabel": "NICE Pathways"
+}
+```
+
+> Note: TopHat takes care of an `eventCallback` for navigation links under the hood to ensure GTM tags have been fired before the page navigates away.
 
 ## Deployment
 
