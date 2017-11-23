@@ -7,7 +7,7 @@
     "start": "grunt parallel --color",
     "test": "npm run lint && npm run test:unit",
     "test:unit": "grunt mochaTest:unit --color",
-    "test:teamcity": "grunt mochaTest:teamcity --color",
+    "test:unit:teamcity": "grunt mochaTest:teamcity --color",
     "test:functional": "node ./node_modules/webdriverio/bin/wdio",
     "test:functional:keyboardNav": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional/keyboardNav.js",
     "test:visual": "./node_modules/webdriverio/bin/wdio --spec ./test/specs/visual.js",

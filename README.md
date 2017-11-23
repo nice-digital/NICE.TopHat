@@ -13,20 +13,20 @@ Distributable, branded tophat component for NICE Services and Web Applications
 - [Commands](#commands)
 - [Development](#development)
 - [Usage](#usage)
-  - [Markup](#markup)
-  - [Configuration options](#configuration-options)
-  - [Full width](#full-width)
-  - [Typeahead](#typeahead)
-    - [Typeahead tracking](#typeahead-tracking)
-  - [Tracking](#tracking)
+	- [Markup](#markup)
+	- [Configuration options](#configuration-options)
+	- [Full width](#full-width)
+	- [Typeahead](#typeahead)
+		- [Typeahead tracking](#typeahead-tracking)
+	- [Tracking](#tracking)
 - [Deployment](#deployment)
 - [Testing](#testing)
-  - [Linting](#linting)
-  - [Unit tests](#unit-tests)
-  - [Visual regression and functional tests](#visual-regression-and-functional-tests)
-    - [Visual tests:](#visual-tests)
-    - [Functional tests](#functional-tests)
-    - [BrowserStack](#browserstack)
+	- [Linting](#linting)
+	- [Unit tests](#unit-tests)
+	- [Visual regression and functional tests](#visual-regression-and-functional-tests)
+		- [Visual tests:](#visual-tests)
+		- [Functional tests](#functional-tests)
+		- [BrowserStack](#browserstack)
 - [Updating ToC](#updating-toc)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -54,8 +54,14 @@ npm i
 | `npm start` | Default task that builds assets, watches for changes to recompile and serves content on locahost:8000 |
 | `npm run build` | Builds the distributable scripts form the source files |
 | `npm run build -- --buildNumber=X.X.X` | Used for overriding the version set in the banner of the JS file (Useful in TeamCity as our TC build numbers aren't valid npm versions) |
-| `npm test` (or `grunt test`) | Lints script and test files then runs the html screenshot tests (via Casper) to check for changes to the designs |
-| `npm run lint` | Runs eslint against JavaScript files |
+| `npm run lint` | Runs eslint against JavaScript source files |
+| `npm test` | Lints script and test files then runs the html screenshot tests (via Casper) to check for changes to the designs |
+| `npm run test:unit` | Runs low level unit tests via Mocha |
+| `npm run test:unit:teamcity` | Runs low level unit tests via Mocha with reporting for TeamCity |
+| `npm run test:functional` | Runs webdriverio functional tests |
+| `npm run test:functional:keyboardNav` | Runs webdriverio keyboard navigation functional tests |
+| `npm run test:visual` | Runs webdriverio visual regressions tests |
+| `npm run test:browserstack` | Runs webdriverio functional tests against browserstack |
 
 > Note: there are other lower level grunt commands (see Gruntfile.js) but we recommend using the npm scripts where possible.
 
@@ -92,27 +98,27 @@ If you need extra markup for header elements such as search, menus, logos etc, y
 
 ```html
 <div class="nice-tophat">
-    <div class="nice-global" id="nice-global">
-        <div class="tophat-inner">
-        
-            <!-- Optional. Partner (service) logo will be styled by TopHat -->
-            <a href="/" class="partner-logo">
-              <img src="/logo.png">
-            </a>
-            
-            <!-- Optional. Partner (service) name will be styled by TopHat -->
-            <span class="partner-brand">Service name here</span>
-            
-            <!-- The search box (if `data-search` is specified) will be rendered here, just before .menu -->
-            
-            <!-- This nav will be styled by TopHat -->
-            <ul class="menu">
-                <li><a href="#">Item 1</a></li>
-                <li><a href="#">Item 2</a></li>
-                <li><a href="#">Item 3</a></li>
-            </ul>
-        </div>
-    </div>
+		<div class="nice-global" id="nice-global">
+				<div class="tophat-inner">
+				
+						<!-- Optional. Partner (service) logo will be styled by TopHat -->
+						<a href="/" class="partner-logo">
+							<img src="/logo.png">
+						</a>
+						
+						<!-- Optional. Partner (service) name will be styled by TopHat -->
+						<span class="partner-brand">Service name here</span>
+						
+						<!-- The search box (if `data-search` is specified) will be rendered here, just before .menu -->
+						
+						<!-- This nav will be styled by TopHat -->
+						<ul class="menu">
+								<li><a href="#">Item 1</a></li>
+								<li><a href="#">Item 2</a></li>
+								<li><a href="#">Item 3</a></li>
+						</ul>
+				</div>
+		</div>
 </div>
 ```
 
@@ -161,10 +167,10 @@ Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20
 
 ```js
 {
-  event: 'GAevent',
-  eventCategory: 'Typeahead',
-  eventAction: 'TERM_TITLE',
-  eventLabel: 'TERM_URL'
+	event: 'GAevent',
+	eventCategory: 'Typeahead',
+	eventAction: 'TERM_TITLE',
+	eventLabel: 'TERM_URL'
 }
 ```
 
