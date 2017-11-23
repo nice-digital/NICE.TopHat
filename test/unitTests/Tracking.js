@@ -182,6 +182,19 @@ describe("Tracking module unit tests", function() {
 
 		});
 
+		it("should trim whitespace from the element's text", function() {
+			var element = {
+				nodeName: "A",
+				href: "www.google.com",
+				className: "",
+				textContent: "   \r\n     TEXT CONTENT HERE    \r\n     "
+			};
+
+			var result = tracking.getLabel(element);
+
+			expect(result).to.be.equal("TEXT CONTENT HERE");
+		})
+
 	});
 
 	describe("getTrackingElement", function() {
