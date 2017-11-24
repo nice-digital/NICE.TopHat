@@ -146,7 +146,7 @@ describe("Tracking module unit tests", function() {
 
 		});
 
-		it("should return 'Profile collapased' when className contains menu-profile and aria-expanded is false", function() {
+		it("should return 'Profile collapsed' when className contains menu-profile and aria-expanded is false", function() {
 			var element = {
 				nodeName: "A",
 				href: "www.google.com",
@@ -160,7 +160,45 @@ describe("Tracking module unit tests", function() {
 
 			var result = tracking.getLabel(element);
 
-			expect(result).to.be.equal("Profile collapased");
+			expect(result).to.be.equal("Profile collapsed");
+
+		});
+
+		it("should return 'Evidence services expanded' when id contains menu-evidence and aria-expanded is true", function() {
+			var element = {
+				nodeName: "A",
+				href: "www.google.com",
+				textContent: "TEXT CONTENT HERE",
+				className: "",
+				id: "menu-evidence",
+				"aria-expanded": "true",
+				getAttribute: function(st){
+					return this["aria-expanded"];
+				}
+			};
+
+			var result = tracking.getLabel(element);
+
+			expect(result).to.be.equal("Evidence services expanded");
+
+		});
+
+		it("should return 'Evidence services collapsed' when id contains menu-evidence and aria-expanded is false", function() {
+			var element = {
+				nodeName: "A",
+				href: "www.google.com",
+				textContent: "TEXT CONTENT HERE",
+				className: "",
+				id: "menu-evidence",
+				"aria-expanded": "false",
+				getAttribute: function(s){
+					return this["aria-expanded"];
+				}
+			};
+
+			var result = tracking.getLabel(element);
+
+			expect(result).to.be.equal("Evidence services collapsed");
 
 		});
 
