@@ -6,7 +6,7 @@ module.exports = function() {
 			},
 			src: ["test/unitTests/**/*.js"]
 		},
-		test : {
+		unit : {
 			options: {
 				reporter: "spec",
 			},
