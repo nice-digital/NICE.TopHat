@@ -7,7 +7,9 @@
     "start": "grunt parallel --color",
     "test": "npm run lint && npm run test:unit",
     "test:unit": "grunt mochaTest:unit --color",
+    "test:unit:coverage": "nyc --reporter=html --reporter=text npm run test:unit",
     "test:unit:teamcity": "grunt mochaTest:teamcity --color",
+    "test:unit:teamcity:coverage": "nyc --reporter=teamcity --reporter=html npm run test:unit:teamcity",
     "test:functional": "node ./node_modules/webdriverio/bin/wdio",
     "test:functional:keyboardNav": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional/keyboardNav.js",
     "test:visual": "./node_modules/webdriverio/bin/wdio --spec ./test/specs/visual.js",
@@ -20,10 +22,18 @@
     "type": "git",
     "url": "https://github.com/nhsevidence/NICE.Tophat.git"
   },
-  "author": "Matt Smith <mattonfoot@gmail.com> (http://about.me/mattonfoot)",
+  "author": "NICE Digital Services (https://github.com/nhsevidence/NICE.TopHat/graphs/contributors)",
+  "contributors": [
+    "NICE Digital Services (https://www.nice.org.uk/)",
+    "Ian Routledge (http://ediblecode.com)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "http://imt-mingle.nice.org.uk/projects/tophat/overview"
+  },
+  "nyc": {
+    "exclude": ["lib/vendor/**/*.js"],
+    "include": ["lib/**/*.js"]
   },
   "homepage": "http://github.com/nhsevidence/NICE.Tophat",
   "devDependencies": {
@@ -57,12 +67,14 @@
     "grunt-parallel": "^0.5.1",
     "grunt-postcss": "^0.9.0",
     "js-cookie": "^2.1.3",
+    "jsdom": "^11.5.1",
     "load-grunt-config": "^0.19.2",
     "load-grunt-tasks": "^3.5.2",
     "minifyify": "^7.3.4",
     "mocha": "^3.5.0",
     "mocha-teamcity-reporter": "^1.1.1",
     "node-lessify": "^0.1.4",
+    "nyc": "^11.3.0",
     "partialify": "^3.1.6",
     "postcss-em-media-query": "^2.0.0",
     "postcss-pxtorem": "^4.0.1",
