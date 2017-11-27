@@ -33,7 +33,7 @@ module.exports = function( grunt )
 	grunt.registerTask(
 		"build"
 		, "builds the distributable scripts form the source files"
-		, [ "eslint", "htmlmin:templates", "less:dist", "copy:temp", "browserify:dist", "uglify:dist", "clean:temp" ]);
+		, [ "eslint", "htmlmin:templates", "less:dist", "postcss:dist", "copy:temp", "browserify:dist", "uglify:dist", "clean:temp" ]);
 
 	// auto build
 	grunt.registerTask("default", [ "build", "watch" ]);
