@@ -1,11 +1,4 @@
 .nice-tophat {
-  #skiptocontent {
-      height: 1px;
-      width: 1px;
-      position: absolute;
-      overflow: hidden;
-      top: -10px;
-    }
   .nice-services {
     background-color: @serviceBackgroundColor;
     border-bottom: 1px solid @serviceBorderColor;
@@ -106,6 +99,7 @@
 
 @media ( max-width: 979px) {
   .nice-tophat {
+
     .nice-services {
       .menu {
         a {
@@ -124,9 +118,52 @@
   }
 }
 
+#skip-to-content {
+      height: 1px;
+      width: 1px;
+      position: absolute;
+      overflow: hidden;
+      top: -10px;
+
+      &:focus {
+          position: absolute;
+          height: inherit;
+          width: auto;
+          top:0px;
+          left: 0px;
+      }
+}
+
+@media ( max-width: 825px ) {
+  #skip-to-content {
+      &:focus {
+        height: inherit;
+        width: auto;
+        top: 12%;
+      }
+    }
+}
+
 @media ( max-width: 767px ) {
 
   .nice-tophat {
+    #skip-to-content {
+      height: 1px;
+      width: 1px;
+      position: absolute;
+      overflow: hidden;
+      top: 10px;
+
+      &:focus {
+        position: relative;
+        height: inherit;
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding-bottom: 2%;
+      }
+    }
+
     .nice-services {
       border-bottom: none;
       position: relative;
@@ -190,3 +227,5 @@
     }
   }
 }
+
+

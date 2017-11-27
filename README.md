@@ -13,19 +13,19 @@ Distributable, branded tophat component for NICE Services and Web Applications
 - [Commands](#commands)
 - [Development](#development)
 - [Usage](#usage)
-  - [Markup](#markup)
-  - [Configuration options](#configuration-options)
-  - [Full width](#full-width)
-  - [Typeahead](#typeahead)
-    - [Typeahead tracking](#typeahead-tracking)
+	- [Markup](#markup)
+	- [Configuration options](#configuration-options)
+	- [Full width](#full-width)
+	- [Typeahead](#typeahead)
+		- [Typeahead tracking](#typeahead-tracking)
 - [Deployment](#deployment)
 - [Testing](#testing)
-  - [Linting](#linting)
-  - [Unit tests](#unit-tests)
-  - [Visual regression and functional tests](#visual-regression-and-functional-tests)
-    - [Visual tests:](#visual-tests)
-    - [Functional tests](#functional-tests)
-    - [BrowserStack](#browserstack)
+	- [Linting](#linting)
+	- [Unit tests](#unit-tests)
+	- [Visual regression and functional tests](#visual-regression-and-functional-tests)
+		- [Visual tests:](#visual-tests)
+		- [Functional tests](#functional-tests)
+		- [BrowserStack](#browserstack)
 - [Updating ToC](#updating-toc)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -91,27 +91,27 @@ If you need extra markup for header elements such as search, menus, logos etc, y
 
 ```html
 <div class="nice-tophat">
-    <div class="nice-global" id="nice-global">
-        <div class="tophat-inner">
-        
-            <!-- Optional. Partner (service) logo will be styled by TopHat -->
-            <a href="/" class="partner-logo">
-              <img src="/logo.png">
-            </a>
-            
-            <!-- Optional. Partner (service) name will be styled by TopHat -->
-            <span class="partner-brand">Service name here</span>
-            
-            <!-- The search box (if `data-search` is specified) will be rendered here, just before .menu -->
-            
-            <!-- This nav will be styled by TopHat -->
-            <ul class="menu">
-                <li><a href="#">Item 1</a></li>
-                <li><a href="#">Item 2</a></li>
-                <li><a href="#">Item 3</a></li>
-            </ul>
-        </div>
-    </div>
+		<div class="nice-global" id="nice-global">
+				<div class="tophat-inner">
+				
+						<!-- Optional. Partner (service) logo will be styled by TopHat -->
+						<a href="/" class="partner-logo">
+							<img src="/logo.png">
+						</a>
+						
+						<!-- Optional. Partner (service) name will be styled by TopHat -->
+						<span class="partner-brand">Service name here</span>
+						
+						<!-- The search box (if `data-search` is specified) will be rendered here, just before .menu -->
+						
+						<!-- This nav will be styled by TopHat -->
+						<ul class="menu">
+								<li><a href="#">Item 1</a></li>
+								<li><a href="#">Item 2</a></li>
+								<li><a href="#">Item 3</a></li>
+						</ul>
+				</div>
+		</div>
 </div>
 ```
 
@@ -143,7 +143,7 @@ The attributes are as follows and are all optional:
 | `data-cookie` | Boolean | Default: `false`. Set to true to enable a cookie message. This sets a cookie of `seen_cookie_message=yes` on the domain *.nice.org.uk*, meaning a user will only see a cookie message once across the whole of NICE. |
 | `data-cookie-message` | String | Default: `NICE uses cookies to make the site better.`. The text to show in the cookie message. |
 | `data-cookie-url` | URL | Default: `https://www.nice.org.uk/cookies`. The URL for the 'learn more' link in the cookie message (if enabled). |
-| `data-skip-link-id` | String | The ID for the element containing the main content for the 'skip to main content' link.|
+| `data-skip-link-id` | String | Optional. The ID for the element containing the main content for the 'skip to main content' link. Default: 'tophat-end' |
 
 ### Full width
 To make TopHat stretch to the width of the window such as on [Pathways](http://pathways.nice.org.uk/) and [Evidence Search](https://www.evidence.nhs.uk/) just add `class="layout-fill"` to the `body` element. (This effectively sets `max-width: 100%` on `.tophat-inner`).
@@ -161,10 +161,10 @@ Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20
 
 ```js
 {
-  event: 'GAevent',
-  eventCategory: 'Typeahead',
-  eventAction: 'TERM_TITLE',
-  eventLabel: 'TERM_URL'
+	event: 'GAevent',
+	eventCategory: 'Typeahead',
+	eventAction: 'TERM_TITLE',
+	eventLabel: 'TERM_URL'
 }
 ```
 
