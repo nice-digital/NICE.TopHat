@@ -3,9 +3,9 @@ var chai = require("chai");
 var expect = chai.expect;
 var sinon = require("sinon");
 var domUtils = sinon.stub();
-var containerIds = require("../../lib/utils/dom/getContainerIds.js");
+var containerIds = require("../../../../lib/utils/dom/getContainerIds.js");
 
-describe("Unit Tests", function() {
+describe("getContainerIds.js", function() {
 	describe("Given I have controlling elements", function() {
 		it("should give me an array of ids", function() {
 

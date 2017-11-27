@@ -17,6 +17,7 @@ npm-debug.log
 
 coverage
 reports
+.nyc_output
 
 .DS_Store
 

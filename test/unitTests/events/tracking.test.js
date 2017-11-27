@@ -3,15 +3,15 @@
 var chai = require("chai");
 var expect = chai.expect;
 var sinon = require("sinon");
-var tracking = require("../../lib/events/tracking.js");
-var domUtils = require("../../lib/utils/dom.js");
+var tracking = require("../../../lib/events/tracking.js");
+var domUtils = require("../../../lib/utils/dom.js");
 
-describe("Tracking module unit tests", function() {
+describe("tracking.js", function() {
 	var sandbox;
 
 	beforeEach(function () {
 		sandbox = sinon.sandbox.create();
-		window = { dataLayer: [] };
+		window.dataLayer = [];
 	});
 
 	afterEach(function () {

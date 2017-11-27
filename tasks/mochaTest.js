@@ -2,15 +2,19 @@ module.exports = function() {
 	return {
 		teamcity: {
 			options: {
-				reporter: "mocha-teamcity-reporter",
+				reporter: require("mocha-teamcity-reporter"),
+				recursive: true,
+				require: ["./test/unitTests/_setup.js"]
 			},
-			src: ["test/unitTests/**/*.js"]
+			src: ["test/unitTests/**/*.test.js"]
 		},
 		unit : {
 			options: {
 				reporter: "spec",
+				recursive: true,
+				require: ["./test/unitTests/_setup.js"]
 			},
-			src: ["test/unitTests/**/*.js"]
+			src: ["test/unitTests/**/*.test.js"]
 		}
 	};
 };
