@@ -345,7 +345,7 @@ describe("Keyboard navigation functional browser driven tests", function() {
 
 			it("I can use the skip to main content link when main content ID is provided", async function() {
 				browser.url("/example.cks.html");
-				var expectedUrl = browser.getUrl() + "#test-id"
+				var expectedUrl = browser.getUrl() + "#test-id";
 
 				browser.keys("Tab");
 				browser.keys("Enter");
