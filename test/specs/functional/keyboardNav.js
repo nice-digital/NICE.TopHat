@@ -12,16 +12,16 @@ function focusOnLogo() {
 	browser.execute("document.getElementsByClassName('logo')[0].focus()");
 }
 
+function setDesktopSize() {
+	browser.setViewportSize({
+		width: 1024,
+		height: 768
+	});
+}
+
 describe("Keyboard navigation functional browser driven tests", function() {
 
 	describe("Desktop resolution", function () {
-
-		function setDesktopSize() {
-			browser.setViewportSize({
-				width: 1024,
-				height: 768
-			});
-		}
 
 		beforeEach(function() {
 			setDesktopSize();
@@ -207,7 +207,7 @@ describe("Keyboard navigation functional browser driven tests", function() {
 
 				var active = browser.elementActive().value.ELEMENT;
 				var lastItemInEvidenceMenu = browser.element("#nice-evidence li:last-child a").value.ELEMENT;
-				lastItemInEvidenceMenu.should.be.equal(active);	
+				lastItemInEvidenceMenu.should.be.equal(active);
 
 			});
 
@@ -326,6 +326,33 @@ describe("Keyboard navigation functional browser driven tests", function() {
 
 				browser.click("#menu-profile");
 				browser.isVisible("#nice-profile").should.be.true;
+			});
+		});
+
+		describe("Given I am on a nice service", function () {
+			it("I can use the skip to main content link when main content ID is not provided", async function() {
+				browser.url("/example.niceorg.html");
+				browser.keys("Tab");
+				browser.keys("Enter");
+				browser.keys("Tab");
+				browser.keys("Tab");
+
+				var expectedPos = browser.element("#link2").value.ELEMENT;
+				var actualPos = browser.elementActive().value.ELEMENT;
+
+				expectedPos.should.be.equal(actualPos);
+			});
+
+			it("I can use the skip to main content link when main content ID is provided", async function() {
+				browser.url("/example.cks.html");
+				var expectedUrl = browser.getUrl() + "#main-content";
+
+				browser.keys("Tab");
+				browser.keys("Enter");
+
+				var actualUrl = browser.getUrl();
+
+				expectedUrl.should.be.equal(actualUrl);
 			});
 		});
 

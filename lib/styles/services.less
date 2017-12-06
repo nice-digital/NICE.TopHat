@@ -99,6 +99,7 @@
 
 @media ( max-width: 979px) {
   .nice-tophat {
+
     .nice-services {
       .menu {
         a {
@@ -117,9 +118,25 @@
   }
 }
 
+#skip-to-content {
+  .invisible();
+  background: @niceGrey3;
+  color: @niceRichBlack;
+  left: @quarterSpacing;
+  padding: @halfSpacing @fullSpacing;
+  top: @quarterSpacing;
+  z-index: 1;
+
+  &:focus {
+    .invisible-off();
+    position: absolute;
+  }
+}
+
 @media ( max-width: 767px ) {
 
   .nice-tophat {
+
     .nice-services {
       border-bottom: none;
       position: relative;
@@ -183,3 +200,5 @@
     }
   }
 }
+
+

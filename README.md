@@ -151,6 +151,7 @@ The attributes are as follows and are all optional:
 | `data-cookie` | Boolean | Default: `false`. Set to true to enable a cookie message. This sets a cookie of `seen_cookie_message=yes` on the domain *.nice.org.uk*, meaning a user will only see a cookie message once across the whole of NICE. |
 | `data-cookie-message` | String | Default: `NICE uses cookies to make the site better.`. The text to show in the cookie message. |
 | `data-cookie-url` | URL | Default: `https://www.nice.org.uk/cookies`. The URL for the 'learn more' link in the cookie message (if enabled). |
+| `data-skip-link-id` | String | Optional. The ID for the element containing the main content for the 'skip to main content' link. Default: 'tophat-end' |
 
 ### Full width
 To make TopHat stretch to the width of the window such as on [Pathways](http://pathways.nice.org.uk/) and [Evidence Search](https://www.evidence.nhs.uk/) just add `class="layout-fill"` to the `body` element. (This effectively sets `max-width: 100%` on `.tophat-inner`).
