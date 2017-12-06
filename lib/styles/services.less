@@ -119,50 +119,23 @@
 }
 
 #skip-to-content {
-      height: 1px;
-      width: 1px;
-      position: absolute;
-      overflow: hidden;
-      top: -10px;
+  .invisible();
+  background: @niceGrey3;
+  color: @niceRichBlack;
+  left: @quarterSpacing;
+  padding: @halfSpacing @fullSpacing;
+  top: @quarterSpacing;
+  z-index: 1;
 
-      &:focus {
-          position: absolute;
-          height: inherit;
-          width: auto;
-          top:0px;
-          left: 0px;
-      }
-}
-
-@media ( max-width: 825px ) {
-  #skip-to-content {
-      &:focus {
-        height: inherit;
-        width: auto;
-        top: 12%;
-      }
-    }
+  &:focus {
+    .invisible-off();
+    position: absolute;
+  }
 }
 
 @media ( max-width: 767px ) {
 
   .nice-tophat {
-    #skip-to-content {
-      height: 1px;
-      width: 1px;
-      position: absolute;
-      overflow: hidden;
-      top: 10px;
-
-      &:focus {
-        position: relative;
-        height: inherit;
-        width: 100%;
-        display: block;
-        text-align: center;
-        padding-bottom: 2%;
-      }
-    }
 
     .nice-services {
       border-bottom: none;
