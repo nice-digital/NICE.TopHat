@@ -141,7 +141,7 @@ The attributes are as follows and are all optional:
 | `data-evidence` | {search,bnf,bnfc,cks,journals} | The key for the active Evidence service (if any). This automatically highlights 'Evidence' in the Top Level menu if set. |
 | `data-environment` | {beta,live} | The environment of the current service |
 | `data-timestamp` | ? | Not used? |
-| `data-search` | URL | The action URL for the search form E.g. `/search?q=` |
+| `data-search` | URL | The action URL for the search form E.g. `/search?q=%term`. The token `%term` will be replaced with the search query. |
 | `data-search-placeholder` | String | Placeholder value for the search input field. Default: 'Search...' |
 | `data-typeaheadtype` | {remote,local} | The type of typehead request. *Remote* makes a GET request to `data-typeaheadsource`. *Local* uses a global variable. Requires a script reference to *//cdn.nice.org.uk/V3.1/Scripts/NICE.bootstrap.min.js*. |
 | `data-typeaheadsource` | {URL,string} | URL: The source URL used for typeahead requests e.g. `/autocomplete?%query` or `/typeahead?q=%term`. string: The name of the global variable to use as the source. |
