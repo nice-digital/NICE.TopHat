@@ -135,7 +135,7 @@ describe("tracking.js", function() {
 				textContent: "TEXT CONTENT HERE",
 				className: "menu-profile",
 				"aria-expanded": "true",
-				getAttribute: function(st){
+				getAttribute: function(){
 					return this["aria-expanded"];
 				}
 			};
@@ -153,7 +153,7 @@ describe("tracking.js", function() {
 				textContent: "TEXT CONTENT HERE",
 				className: "menu-profile",
 				"aria-expanded": "false",
-				getAttribute: function(s){
+				getAttribute: function(){
 					return this["aria-expanded"];
 				}
 			};
@@ -172,7 +172,7 @@ describe("tracking.js", function() {
 				className: "",
 				id: "menu-evidence",
 				"aria-expanded": "true",
-				getAttribute: function(st){
+				getAttribute: function(){
 					return this["aria-expanded"];
 				}
 			};
@@ -191,7 +191,7 @@ describe("tracking.js", function() {
 				className: "",
 				id: "menu-evidence",
 				"aria-expanded": "false",
-				getAttribute: function(s){
+				getAttribute: function(){
 					return this["aria-expanded"];
 				}
 			};
@@ -209,7 +209,7 @@ describe("tracking.js", function() {
 				textContent: "USERNAME CONTENT HERE",
 				className: "user-name",
 				"aria-expanded": "false",
-				getAttribute: function(s){
+				getAttribute: function(){
 					return this["aria-expanded"];
 				}
 			};
