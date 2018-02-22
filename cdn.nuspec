@@ -15,6 +15,10 @@
     </metadata>
 
     <files>
-      <file src="dist\*.*" target=""/>
+      <file src="dist\*.*" target="tophat" exclude="**/web.config"/>
+      <file src="dist\*.*" target="tophat/$version$/" exclude="**/web.config" />
+      <file src="dist\tophat.dev.js" target="V3.1/Scripts/nice/NICE.TopHat.dev.js"/>
+      <file src="dist\tophat.min.js" target="V3.1/Scripts/nice/NICE.TopHat.min.js"/>
+      <file src="dist\tophat.map" target="V3.1/Scripts/nice/tophat.map"/>
     </files>
 </package>
