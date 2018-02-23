@@ -4,21 +4,34 @@
         <id>NICE.TopHat.CDN</id>
         <version>1.0.0</version>
         <title>NICE TopHat CDN</title>
-        <authors>Ian Routledge</authors>
+        <authors>NICE Digital Services,Ian Routledge</authors>
         <owners>nhsevidence</owners>
         <projectUrl>https://github.com/nhsevidence/NICE.TopHat</projectUrl>
-        <iconUrl>http://nhsevidence.github.io/Content/nice/favicon-152.png</iconUrl>
+        <iconUrl>https://cdn.nice.org.uk/V3/Content/nice/favicon-120.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>CDN Package for TopHat</description>
+        <description>CDN Package for TopHat including minified and development versions of the build plus the sourcemap</description>
         <tags>cdn tophat javascript css</tags>
-        <dependencies></dependencies>
+		<dependencies></dependencies>
     </metadata>
-
     <files>
-      <file src="dist\*.*" target="tophat" exclude="**/web.config"/>
-      <file src="dist\*.*" target="tophat/$version$/" exclude="**/web.config" />
-      <file src="dist\tophat.dev.js" target="V3.1/Scripts/nice/NICE.TopHat.dev.js"/>
-      <file src="dist\tophat.min.js" target="V3.1/Scripts/nice/NICE.TopHat.min.js"/>
-      <file src="dist\tophat.map" target="V3.1/Scripts/nice/tophat.map"/>
-    </files>
+		<!--
+		Latest build goes into the root of the tophat subfolder on the CDN.
+		E.g. https://alpha-cdn.nice.org.uk/tophat/tophat.min.js
+		 -->
+		<file src="dist\*.*" target="tophat" exclude="**/web.config"/>
+		<!--
+		Deploy specific version to a numbered sub folder.
+		This allows other applications to reference a specific version of tophat.
+		This may be useful in case of breaking changes within TopHat.
+		E.g. https://alpha-cdn.nice.org.uk/tophat/0.0.1.1-r1234567/tophat.min.js
+		-->
+		<file src="dist\*.*" target="tophat/$version$/" exclude="**/web.config" />
+		<!--
+		Honour the old legacy, deprecated NICE.Bootstrap CDN structure.
+		E.g. https://alpha-cdn.nice.org.uk/V3.1/Scripts/nice/NICE.TopHat.dev.js
+		-->
+		<file src="dist\tophat.dev.js" target="V3.1/Scripts/nice/NICE.TopHat.dev.js"/>
+		<file src="dist\tophat.min.js" target="V3.1/Scripts/nice/NICE.TopHat.min.js"/>
+		<file src="dist\tophat.map" target="V3.1/Scripts/nice/tophat.map"/>
+	</files>
 </package>
