@@ -73,7 +73,7 @@ Typically in development you would run `npm start` which runs `grunt` and `grunt
 To test a local instance of TopHat in-context against other services, temporarily swap the TopHat reference for the local one, e.g. swap:
 
 ```html
-<script src="//cdn.nice.org.uk/V3/Scripts/nice/NICE.TopHat.dev.js"></script>
+<script src="//cdn.nice.org.uk/tophat/tophat.min.js"></script>
 ```
 
 with:
@@ -82,14 +82,21 @@ with:
 <script src="http://localhost:8000/tophat.dev.js"></script>
 ```
 
+Use the alpha CDN to test on test/alpha environments e.g. *//alpha-cdn.nice.org.uk/tophat/tophat.min.js*.
+
 ## Usage
 
-The basics of tophat usage to add a reference to the TopHat script, ideally from a CDN, just before the closing body tag:
+The basics of TopHat usage is to add a reference to the TopHat script from the NICE CDN, just before the closing body tag:
 
 ```html
-<script src="//cdn.nice.org.uk/V3/Scripts/nice/NICE.TopHat.dev.js"></script>
+<script src="//cdn.nice.org.uk/tophat/tophat.min.js"></script>
 ```
-But TopHat can be extended with extra markup and configured via data attributes.
+
+Note: you also use a dev version at *//cdn.nice.org.uk/tophat/tophat.dev.js* and a sourcemap is provided at *//cdn.nice.org.uk/tophat/tophat.map*.
+
+Note: you can also reference a specific version of TopHat in case of breaking changes e.g. *//cdn.nice.org.uk/tophat/VERSION/tophat.min.js*
+
+TopHat can be extended with [extra markup](#markup) and [configured via data attributes](#configuration-options).
 
 ### Markup
 
@@ -128,7 +135,7 @@ If you need extra markup for header elements such as search, menus, logos etc, y
 TopHat can be configured with a set of `data-` attributes on the script tag, e.g.:
 
 ```html
-<script src="//cdn.nice.org.uk/V3/Scripts/nice/NICE.TopHat.dev.js" data-environment="Live"></script>
+<script src="//cdn.nice.org.uk/tophat/tophat.min.js" data-environment="Live"></script>
 ```
 
 These are parsed out in [config.js](lib/config.js).
@@ -198,10 +205,9 @@ TopHat uses an `event` property of "TopHat" in the `dataLayer` object. It then p
 
 ## Deployment
 
-1. Update version parameter in package.json
-1. Create a tag for that version
+The TeamCity build uses the [package.json](package.json) version number as the basis for the build number and adds a counter and branch name. 
 
-Deployment to the CDN is currently done manually, so speak to ops. Once the tophat dist files have been created, these should then be copied into https://github.com/nhsevidence/NICE.Bootstrap/tree/master/src/scripts/nice. 
+Deployment is automated via Octopus Deploy. It pushes the distribution files to an Amazon S3 bucket and invalidates the CloudFront cache. See the [usage](#usage) section for deployed URLs.
 
 ## Testing
 
