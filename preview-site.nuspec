@@ -16,7 +16,6 @@
 
     <files>
       <file src="dist\*.*" target=""/>
-      <file src="test\example*.html" target="" />
-      <file src="test\index.html" target="" />
+      <file src="site\*.html" target="" />
     </files>
 </package>

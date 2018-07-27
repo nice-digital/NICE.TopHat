@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+	<meta charset="utf-8">
+	<meta name="X-UA-Compatible" content="IE=Edge,chrome=1" />
+
+	<title>Tophat Scenario Viewer</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400normal,400italic" />
+
+	<style>
+		html {
+			box-sizing: border-box;
+		}
+		*, *:before, *:after {
+			box-sizing: inherit;
+		}
+		html, body { margin: 0; }
+		body {
+			-webkit-font-smoothing: antialiased;
+			font-family: Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
+			background: silver;
+			color: black;
+			padding: 12px;
+		}
+
+		/* HEADER */
+
+		header {
+			background: #fff;
+			padding: 12px;
+			position: relative;
+		}
+
+		h1 {
+			margin-top: 0;
+		}
+
+		select {
+			height: 32px;
+		}
+
+		label {
+			margin-right: 24px;
+		}
+
+		.sign-in {
+			border: 2px solid #0E0E0E;
+			color: #0E0E0E;
+			font-weight: bold;
+	    padding: 6px 12px;
+			position: absolute;
+			right: 12px;
+			text-decoration: none;
+			top: 12px;
+		}
+
+		/* HEADER */
+
+		.tophat-container {
+			border-bottom: 1px solid #999;
+			clear: left;
+			overflow: hidden;
+			margin: 0 0 16px;
+			padding: 0 0 16x;
+		}
+
+		iframe {
+			background: white;
+			border: 1px solid #999;
+			box-sizing: border-box;
+			display: block;
+			float: left;
+			height: 250px;
+			margin: 0 0 8px;
+			width: 100%;
+		}
+
+		iframe+iframe {
+			width: 450px;
+			height: 250px;
+		}
+	</style>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<script>
+		$(document).ready(function() {
+
+			var $projectList = $(".project-list");
+			var $views = $("#views");
+			var $compareMode = $("#compareTopHats");
+			var $tophatFrameTemplate = $("#tophat-frame-template");
+
+			$projectList.change(function() {
+				renderTopHatFrame(getSelectedProject());
+			});
+
+			renderTopHatFrame(getSelectedProject());
+
+			// Returns true if comparison mode is currently enabled
+			function isComparisonMode() {
+				return $compareMode.is(":checked");
+			}
+
+			// Gets the seleted project from the list
+			function getSelectedProject() {
+				return {
+					url: $projectList.val(),
+					title: $projectList.find(":selected").text()
+				};
+			}
+
+			function renderTopHatFrame(project) {
+				var $project = generateTopHatElement(project);
+				if(isComparisonMode()) {
+					if($("[data-url='" + project.url + "']", $views).length === 0) {
+						$views.append($project);
+					}
+				} else {
+					$views.html($project);
+				}
+			}
+
+			// Renders an iframe template
+			function generateTopHatElement(project) {
+				var html = $tophatFrameTemplate
+					.html()
+					.replace(/{{title}}/g, project.title)
+					.replace(/{{url}}/g, project.url);
+				return $(html);
+			}
+	});
+	</script>
+
+	<!-- Simple template used to render an iframe template -->
+	<script id="tophat-frame-template" type="text/template">
+		<div class="tophat-container" data-url="{{url}}">
+			<h2>{{title}}</h2>
+			<iframe src="{{url}}"></iframe>
+			<iframe class="mobile" src="{{url}}"></iframe>
+	 	</div>
+	</script>
+</head>
+
+<body>
+
+	<header>
+
+		<h1>TopHat Scenario viewer</h1>
+
+		<label>
+			Service
+			<select id="project-list" class="project-list">
+				<option value="./niceorg.html">Nice org</option>
+				<option value="./pathways.html">Pathways</option>
+				<option value="./guidance.html">Guidance</option>
+				<option value="./standards.html">Standards and indicators</option>
+				<option value="./accounts.html">Accounts</option>
+				<optgroup label="Evidence services">
+					<option value="./evidence.html">Evidence</option>
+					<option value="./evidence-search.html" >Evidence search</option>
+					<option value="./bnf.html">BNF</option>
+					<option value="./bnfc.html">BNFc</option>
+					<option value="./cks.html">CKS</option>
+				</optgroup>
+				<optgroup label="Other">
+					<option value="./roi.html">ROI</option>
+				</optgroup>
+				<optgroup label="Internal">
+					<option value="./appraisals.html">Appraisals</option>
+					<option value="./indev.html">In Dev</option>
+				</optgroup>
+			</select>
+		</label>
+
+		<label>
+			Compare
+			<input type="checkbox" id="compareTopHats">
+		</label>
+
+		<a class="sign-in" href="https://beta-accounts.nice.org.uk/signin">Sign in</a>
+	</header>
+
+	<div id="views">
+		<!-- The Iframes get rendered in here -->
+	</div>
+</body>
+</html>

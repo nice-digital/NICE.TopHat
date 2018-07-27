@@ -29,3 +29,4 @@ screenshots_copy/*
 errorShots/
 
 dist
+/docker-output

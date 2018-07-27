@@ -1,7 +1,7 @@
 {
   "name": "nice.tophat",
   "description": "Distributable, branded tophat component for NICE Services and Web Applications",
-  "main": "dist/tophat.js",
+  "main": "dist/tophat.min.js",
   "authors": [
     "NICE Digital Services"
   ],

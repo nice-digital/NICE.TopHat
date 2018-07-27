@@ -1,5 +1,5 @@
 {
-  "name": "NICE.TopHat",
+  "name": "nice.tophat",
   "version": "0.1.4",
   "description": "Distributable, branded tophat component for NICE Services and Web Applications",
   "private": true,
@@ -10,10 +10,10 @@
     "test:unit:coverage": "nyc --reporter=html --reporter=text npm run test:unit",
     "test:unit:teamcity": "grunt mochaTest:teamcity --color",
     "test:unit:teamcity:coverage": "nyc --reporter=teamcity --reporter=html npm run test:unit:teamcity",
-    "test:functional": "node ./node_modules/webdriverio/bin/wdio",
+    "test:functional": "node ./node_modules/webdriverio/bin/wdio --spec functional",
     "test:functional:keyboardNav": "node ./node_modules/webdriverio/bin/wdio --spec ./test/specs/functional/keyboardNav.js",
-    "test:visual": "./node_modules/webdriverio/bin/wdio --spec ./test/specs/visual.js",
-    "test:browserstack": "node ./node_modules/webdriverio/bin/wdio wdio.conf.browserstack.js",
+    "test:visual": "./node_modules/webdriverio/bin/wdio --spec visual",
+    "test:browserstack": "node ./node_modules/webdriverio/bin/wdio wdio.browserstack.conf.js",
     "lint": "grunt eslint:default --color",
     "lint:teamcity": "grunt eslint:teamcity --color",
     "build": "grunt build --color"
@@ -32,12 +32,16 @@
     "url": "http://imt-mingle.nice.org.uk/projects/tophat/overview"
   },
   "nyc": {
-    "exclude": ["lib/vendor/**/*.js"],
-    "include": ["lib/**/*.js"]
+    "exclude": [
+      "lib/vendor/**/*.js"
+    ],
+    "include": [
+      "lib/**/*.js"
+    ]
   },
-  "homepage": "http://github.com/nhsevidence/NICE.Tophat",
+  "homepage": "https://github.com/nhsevidence/NICE.TopHat#readme",
   "devDependencies": {
-    "@nice-digital/eslint-config": "^1.0.1",
+    "@nice-digital/eslint-config": "^1.0.2",
     "babel-plugin-syntax-async-functions": "^6.8.0",
     "babel-plugin-transform-regenerator": "^6.9.0",
     "babel-plugin-transform-runtime": "^6.9.0",
@@ -53,7 +57,6 @@
     "grunt": "^1.0.1",
     "grunt-blanket": "0.0.10",
     "grunt-browserify": "^5.0.0",
-    "grunt-casperjs": "^2.2.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-connect": "^1.0.2",
@@ -80,11 +83,12 @@
     "postcss-pxtorem": "^4.0.1",
     "sinon": "^3.1.0",
     "wdio-browserstack-service": "^0.1.12",
-    "wdio-mocha-framework": "^0.5.10",
-    "wdio-screenshot": "^0.2.0",
-    "wdio-spec-reporter": "^0.1.0",
+    "wdio-mocha-framework": "^0.6.2",
+    "wdio-screenshot": "^0.6.0",
+    "wdio-selenium-standalone-service": "0.0.10",
+    "wdio-spec-reporter": "^0.1.4",
     "wdio-teamcity-reporter": "^1.1.1",
-    "wdio-visual-regression-service": "^0.3.0",
-    "webdriverio": "^4.8.0"
+    "wdio-visual-regression-service": "^0.9.0",
+    "webdriverio": "^4.12.0"
   }
 }
