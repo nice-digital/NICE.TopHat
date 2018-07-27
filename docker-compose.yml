@@ -51,10 +51,5 @@ services:
       - SITE=tophat
       - accountsUsername
       - accountsPassword
+      - TEAMCITY_VERSION
     container_name: tophat_tests
-
-# volumes:
-#   screenshots:
-#     driver: local
-#   errorShots:
-#     driver: local
