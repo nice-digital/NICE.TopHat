@@ -49,7 +49,10 @@ services:
       - ./docker-output/errorShots:/tests/errorShots
     environment:
       - SITE=tophat
+      - BASE_URL=http://tophat:8000/
       - accountsUsername
       - accountsPassword
+      - browserStackUser
+      - browserStackKey
       - TEAMCITY_VERSION
     container_name: tophat_tests

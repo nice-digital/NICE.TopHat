@@ -18,6 +18,9 @@ docker-compose build && docker-compose up -d
 docker-compose run tests npm run test:visual -- wdio.docker.conf.js --host hub
 docker-compose run tests npm run test:functional -- wdio.docker.conf.js --host hub
 
+# Browserstack local not working in Docker container
+#docker-compose run tests npm run test:browserstack -- --host hub
+
 docker-compose logs --no-color > ./docker-output/logs.txt
 
 # Uncomment this line to run commands in the tests container - useful for debugging
