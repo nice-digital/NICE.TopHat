@@ -350,8 +350,8 @@ We run functional tests cross-browser (currently only in Edge as its free) via B
 - NICE Accounts (Beta) login & password:
 
 ```sh
-export browserStackKey="browserstack-access-key-here"
-export browserStackUser="browserstack-username-here"
+export BROWSERSTACK_USERNAME="browserstack-username-here"
+export BROWSERSTACK_ACCESS_KEY="browserstack-access-key-here"
 export accountsUsername="nice-accounts-email-here"
 export accountsPassword="nice-accounts-password-here"
 ```
@@ -375,5 +375,5 @@ If you don't override `BASE_URL` then they tests will run against [dev-tophat.ni
 Run the following command to update the table of contents (you'll need npm >= 5.2):
 
 ```sh
-npx doctoc .
+npx doctoc ./README.md
 ```

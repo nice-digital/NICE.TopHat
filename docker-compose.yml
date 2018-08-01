@@ -52,7 +52,7 @@ services:
       - BASE_URL=http://tophat:8000/
       - accountsUsername
       - accountsPassword
-      - browserStackUser
-      - browserStackKey
+      - BROWSERSTACK_USERNAME
+      - BROWSERSTACK_ACCESS_KEY
       - TEAMCITY_VERSION
     container_name: tophat_tests

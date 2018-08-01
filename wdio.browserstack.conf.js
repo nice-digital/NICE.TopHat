@@ -6,8 +6,8 @@ const config = require("./wdio.conf").config,
 const isLocal = (process.env.BASE_URL || "").indexOf("8000") > -1;
 
 const configOverrides = {
-	user: process.env.browserStackUser,
-	key: process.env.browserStackKey,
+	user: process.env.BROWSERSTACK_USERNAME,
+	key: process.env.BROWSERSTACK_ACCESS_KEY,
 	specs: [
 		"./test/functional/**/*.js"
 	],
