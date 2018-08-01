@@ -2,7 +2,11 @@ version: '2'
 services:
 
   firefox61:
-    image: selenium/node-firefox:3.13.0-argon
+    build:
+      context: https://github.com/SeleniumHQ/docker-selenium.git#3.13.0-argon:NodeFirefox
+      args:
+        FIREFOX_VERSION: 61.0.1
+        GECKODRIVER_VERSION: 0.21.0
     # See https://github.com/SeleniumHQ/docker-selenium#running-the-images
     volumes:
       - /dev/shm:/dev/shm
@@ -12,11 +16,13 @@ services:
       HUB_HOST: hub
       SCREEN_WIDTH: 1366
       SCREEN_HEIGHT: 1020
-      FIREFOX_VERSION: 61.0.1
-      GECKODRIVER_VERSION: 0.21.0
 
   chrome68:
-    image: selenium/node-chrome:3.13.0-argon
+    build:
+      context: https://github.com/SeleniumHQ/docker-selenium.git#3.13.0-argon:NodeChrome
+      args:
+        CHROME_VERSION: google-chrome-stable=68.0.3440.84-1
+        CHROME_DRIVER_VERSION: 2.41
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -25,8 +31,6 @@ services:
       HUB_HOST: hub
       SCREEN_WIDTH: 1366
       SCREEN_HEIGHT: 1020
-      CHROME_VERSION: google-chrome-stable=68.0.3440.75
-      CHROME_DRIVER_VERSION: 2.40
 
   # Selenium Grid/Hub
   hub:
