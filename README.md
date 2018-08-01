@@ -31,6 +31,7 @@ Distributable, branded tophat component for NICE Services and Web Applications
 		- [Functional tests](#functional-tests)
 		- [Visual regression tests](#visual-regression-tests)
 			- [Replacing reference images](#replacing-reference-images)
+			- [Updating browsers in Docker](#updating-browsers-in-docker)
 		- [BrowserStack](#browserstack)
 	- [Updating ToC](#updating-toc)
 
@@ -341,6 +342,17 @@ If the app changes (e.g. text change or CSS) and the visual regressions tests fa
 1. run the tests in Docker as above
 2. copy the new images from *docker-output/screenshots/taken* to *screenshots/reference*
 3. commit the new images to git.
+
+#### Updating browsers in Docker
+
+We've fixed the Chrome, ChromeDriver, Firefox and GeckoDriver version in [docker-compose.yml](docker-compose.yml) to get consistent test results in the same browsers. Over time these browsers will get out of date, so will need updating. Update browsers by doing the following:
+
+- update names of the services to match the browser version e.g *firefox61* or *chrome68*
+- update version of the images for Hub, Chrome and Firefox e.g. 3.13.0-argon, see https://github.com/SeleniumHQ/docker-selenium/releases
+- args for Chrome and Firefox with the correct browser and driver versions. Note, versions of ChromeDriver only work with certain versions of Chrome, see http://chromedriver.chromium.org/downloads.
+- re-run the visual regression tests to generate a new folder of reference images, and copy these into the screenshots folder.
+
+Note: to find the latest version of Chrome, download https://dl.google.com/linux/chrome/deb/dists/stable/main/binary-amd64/Packages and look for the version of google-chrome-stable e.g. 68.0.3440.84-1.
 
 ### BrowserStack
 
