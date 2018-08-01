@@ -25,7 +25,7 @@ const getScreenshotPath = (folder) => {
 	};
 };
 
-var configOverrides = {
+const configOverrides = {
 	specs: [
 		"./test/functional/**/*.js",
 		"./test/visual/**/*.js"
@@ -34,7 +34,10 @@ var configOverrides = {
 		{
 			maxInstances: 5,
 			browserName: "chrome",
-			resolution: "1360x1020"
+			resolution: "1360x1020",
+			chromeOptions: {
+				args: ["--headless", "--window-size=1360,1020"]
+			}
 		},
 		{
 			maxInstances: 5,
