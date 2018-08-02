@@ -23,7 +23,7 @@ exports.config = {
 
 	// Logging
 	seleniumLogs: "./logs",
-	logLevel: process.env.TEAMCITY_VERSION ? "verbose" : "silent",
+	logLevel: process.env.TEAMCITY_VERSION ? "result" : "silent",
 	coloredLogs: true,
 	screenshotPath: "./errorShots/",
 
