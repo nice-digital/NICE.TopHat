@@ -1,8 +1,6 @@
 #!/bin/bash
 # Spins up the dev site and runs functional & visual inside a docker compose netowkr.
 
-set -e
-
 # Avoid "Mount denied" errors for Chrome/Firefox containers on Windows
 # See https://github.com/docker/for-win/issues/1829#issuecomment-376328022
 export COMPOSE_CONVERT_WINDOWS_PATHS=1
