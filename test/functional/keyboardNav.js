@@ -203,6 +203,8 @@ describe("Keyboard navigation functional browser driven tests", function() {
 				focusOnSkipToContent();
 				browser.keys(["Enter"]);
 
+				browser.pause(500);
+
 				browser.getUrl().should.be.equal(expectedUrl);
 			});
 
@@ -212,6 +214,8 @@ describe("Keyboard navigation functional browser driven tests", function() {
 
 				focusOnSkipToContent();
 				browser.keys(["Enter"]);
+
+				browser.pause(500);
 
 				browser.getUrl().should.be.equal(expectedUrl);
 			});
