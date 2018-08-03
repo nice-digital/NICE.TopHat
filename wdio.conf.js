@@ -1,59 +1,59 @@
-var path = require("path");
-var VisualRegressionCompare = require("wdio-visual-regression-service/compare");
-
-function getScreenshotName(basePath) {
-	return function(context) {
-		var testName = context.test.title;
-		var resolution = context.meta.width || context.meta.orientation || "unknown";
-		var browserVersion = parseInt(/\d+/.exec(context.browser.version)[0]);
-		var browserName = context.browser.name;
-
-		return path.join(basePath, `${testName}_${browserName}_v${browserVersion}_${resolution}.png`);
-	};
-}
+/* global browser */
+// Basic wdio config that runs functional tests against the standalone service
 
 exports.config = {
+	// Use selenium standalone server so we don't have spawn a separate server
+	services: ["selenium-standalone"],
 
 	specs: [
-		"./test/specs/**/*.js"
+		"./test/functional/**/*.js"
 	],
-	// Patterns to exclude.
-	exclude: [
-		// 'path/to/excluded/files'
+
+	// Assume user has Chrome and Firefox installed.
+	capabilities: [
+		{
+			maxInstances: 5,
+			browserName: "chrome",
+			resolution: "1360x1020"
+		}
+		// In theory you could add FireFox but at time of writing
+		// this bug is stopping you: https://github.com/webdriverio/webdriverio/issues/2675
+		// But we can do inside Docker - see wdio.docker.conf.js
 	],
-	maxInstances: 10,
-	capabilities: [{
-		maxInstances: 5,
-		browserName: "chrome",
-		resolution: "1920x1200"
-	}],
-	sync: true,
-	logLevel: "silent",
+
+	// Logging
+	seleniumLogs: "./logs",
+	logLevel: process.env.TEAMCITY_VERSION ? "result" : "silent",
 	coloredLogs: true,
-	bail: 0,
 	screenshotPath: "./errorShots/",
-	//baseUrl: 'http://website:8000',
+
 	baseUrl: "http://" + (process.env.SITE || "localhost") + ":8000",
-	waitforTimeout: 10000,
-	connectionRetryTimeout: 90000,
-	connectionRetryCount: 3,
-	plugins: { "wdio-screenshot":{}},
-	services: ["visual-regression"],
-	visualRegression: {
-		compare: new VisualRegressionCompare.LocalCompare({
-			referenceName: getScreenshotName(path.join(process.cwd(), "screenshots/reference")),
-			screenshotName: getScreenshotName(path.join(process.cwd(), "screenshots/taken")),
-			diffName: getScreenshotName(path.join(process.cwd(), "screenshots/diff")),
-			misMatchTolerance: 0.01,
-		})
-	},
+	reporters: process.env.TEAMCITY_VERSION ? ["spec", "teamcity"] : ["spec"],
+
+	// Moch with ES6 via Babel
 	framework: "mocha",
-	reporters: ["spec","teamcity"],
 	mochaOpts: {
 		ui: "bdd",
 		timeout: 600000,
 		compilers: [
 			"js:babel-register"
 		]
+	},
+
+	before: function() {
+		browser.addCommand("isActive", selector => {
+			return browser.execute(selector => {
+				let focused = document.activeElement;
+
+				if (!focused || focused == document.body) {
+					return false;
+				}
+				else if (document.querySelector) {
+					return document.querySelector(selector) === focused;
+				}
+
+				return false;
+			}, selector).value;
+		});
 	}
 };

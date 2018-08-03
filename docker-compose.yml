@@ -1,27 +1,62 @@
 version: '2'
 services:
-  website:
+
+  firefox61:
+    build:
+      context: https://github.com/SeleniumHQ/docker-selenium.git#3.13.0-argon:NodeFirefox
+      args:
+        FIREFOX_VERSION: 61.0.1
+        GECKODRIVER_VERSION: 0.21.0
+    # See https://github.com/SeleniumHQ/docker-selenium#running-the-images
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+      SCREEN_WIDTH: 1366
+      SCREEN_HEIGHT: 1020
+
+  chrome68:
+    build:
+      context: https://github.com/SeleniumHQ/docker-selenium.git#3.13.0-argon:NodeChrome
+      args:
+        CHROME_VERSION: google-chrome-stable=68.0.3440.84-1
+        CHROME_DRIVER_VERSION: 2.41
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+      SCREEN_WIDTH: 1366
+      SCREEN_HEIGHT: 1020
+
+  # Selenium Grid/Hub
+  hub:
+    image: selenium/hub:3.13.0-argon
+
+  # Local instance of TopHat test site
+  tophat:
     build: .
     command: npm start
-    ports:
-      - "8000:8000"
+
+  # Tests
   tests:
     build: .
     links:
-      - selenium
-      - website
+      - hub
+      - tophat
     volumes:
-      - screenshots:/tests/screenshots
+      - ./docker-output/screenshots/taken:/tests/screenshots/taken
+      - ./docker-output/screenshots/diff:/tests/screenshots/diff
+      - ./docker-output/errorShots:/tests/errorShots
     environment:
-      - SITE
+      - SITE=tophat
+      - BASE_URL=http://tophat:8000/
       - accountsUsername
       - accountsPassword
-  selenium:
-    image: selenium/standalone-chrome
-    links:
-      - website
-    expose:
-      - "4444"
-volumes:
-  screenshots:
-    driver: local
+      - BROWSERSTACK_USERNAME
+      - BROWSERSTACK_ACCESS_KEY
+      - TEAMCITY_VERSION
+    container_name: tophat_tests

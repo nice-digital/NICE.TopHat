@@ -1,11 +1,18 @@
-FROM node:8.9.0
+FROM node:8.11.3
 
-RUN mkdir -p /tests
+EXPOSE 8000
+
+RUN mkdir -p /tests/errorShots
 
 WORKDIR /tests
 
-COPY package.json /tests
+RUN npm i -g npm@6.2.0
 
-RUN npm i
+COPY package.json /tests
+COPY package-lock.json /tests
+
+RUN npm ci
 
 COPY . /tests
+
+CMD tail -f /dev/null

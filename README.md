@@ -8,26 +8,32 @@ Distributable, branded tophat component for NICE Services and Web Applications
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Project structure](#project-structure)
-- [Installation](#installation)
-- [Commands](#commands)
-- [Development](#development)
-- [Usage](#usage)
-	- [Markup](#markup)
-	- [Configuration options](#configuration-options)
-	- [Full width](#full-width)
-	- [Typeahead](#typeahead)
-		- [Typeahead tracking](#typeahead-tracking)
+- [NICE.TopHat](#nicetophat)
+	- [Table of contents](#table-of-contents)
+	- [Project structure](#project-structure)
+		- [Directory structure](#directory-structure)
+	- [Installation](#installation)
+	- [Commands](#commands)
+	- [Development](#development)
+	- [Usage](#usage)
+		- [Markup](#markup)
+		- [Configuration options](#configuration-options)
+		- [Full width](#full-width)
+		- [Typeahead](#typeahead)
+			- [Typeahead tracking](#typeahead-tracking)
 	- [Tracking](#tracking)
-- [Deployment](#deployment)
-- [Testing](#testing)
-	- [Linting](#linting)
-	- [Unit tests](#unit-tests)
-	- [Visual regression and functional tests](#visual-regression-and-functional-tests)
-		- [Visual tests:](#visual-tests)
+	- [Deployment](#deployment)
+	- [Testing](#testing)
+		- [Linting](#linting)
+		- [Unit tests](#unit-tests)
+			- [Coverage](#coverage)
+			- [TeamCity](#teamcity)
 		- [Functional tests](#functional-tests)
+		- [Visual regression tests](#visual-regression-tests)
+			- [Replacing reference images](#replacing-reference-images)
+			- [Updating browsers in Docker](#updating-browsers-in-docker)
 		- [BrowserStack](#browserstack)
-- [Updating ToC](#updating-toc)
+	- [Updating ToC](#updating-toc)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -37,7 +43,22 @@ Distributable, branded tophat component for NICE Services and Web Applications
 - [browserify](http://browserify.org/) is used to bundle into a single file
 - It uses [LESS](lib/styles) as the CSS pre-processor
 - [cssify](https://www.npmjs.com/package/cssify) (a Browserify transform) is used to include the compiled CSS in the [JS bundle](dist)
-- Grunt is used as the task runner, loading config in from the [tasks/options](tasks/options) folder
+- Grunt is used as the task runner, loading config in from the [grunt-tasks](grunt-tasks) folder
+
+### Directory structure
+
+| Folder        	| Usage           |
+| ------------- 	| ------------- |
+| .nyc_output		| Temp folder created by instanbul when running unit test coverage |
+| browser			| ? |
+| dist				| Bundled JS files (containing CSS and templates) and sourcemaps for deployment |
+| docker-output		| Files (screenshots/errors/logs) copied out from Docker when running tests |
+| errorShots		| Error screenshots generated from wdio when running functional tests locally (not in Docker) |
+| grunt-tasks		| Grunt task configs |
+| lib				| Source files (JavaScript, LESS and templates) |
+| screenshots		| Reference screenshots for visual regression |
+| site				| HTML files for the static dev site |
+| test				| Unit test, functional specs, visual regression tests and html files for test site |
 
 ## Installation
 
@@ -161,7 +182,7 @@ The attributes are as follows and are all optional:
 | `data-skip-link-id` | String | Optional. The ID for the element containing the main content for the 'skip to main content' link. Default: 'tophat-end' |
 
 ### Full width
-To make TopHat stretch to the width of the window such as on [Pathways](http://pathways.nice.org.uk/) and [Evidence Search](https://www.evidence.nhs.uk/) just add `class="layout-fill"` to the `body` element. (This effectively sets `max-width: 100%` on `.tophat-inner`).
+To make TopHat stretch to the width of the window such as on [Pathways](http://pathways.nice.org.uk/) and [Evidence Search](https://www.evidence.nhs.uk/) add `class="layout-fill"` to the `body` element. (This effectively sets `max-width: 100%` on `.tophat-inner`).
 
 ### Typeahead
 
@@ -213,128 +234,158 @@ Deployment is automated via Octopus Deploy. It pushes the distribution files to 
 
 We have 4 types of automated 'tests' within TopHat:
 
-- Linting
-- Unit - fast and low level code testing on a per-module basis
-- Visual regression - approved screenshot based visual testing
-- Funtional - WebDriver-based (Selenium) browser-driven 'acceptance' tests.
+- [Linting](#linting)
+- [Unit tests](#unit-tests) - fast and low level code testing on a per-module basis
+- [Functional tests](#functional-tests) - WebDriver-based (Selenium) browser-driven 'acceptance' tests
+- [Visual regression tests](#visual-regression0tests) - approved screenshot based visual testing.
 
 ### Linting
 
-We use eslint via a shared [eslint config](.eslintrc). This lints all JavaScript files (source, task configs and test files).
+We use eslint via a shared [eslint config](.eslintrc) that uses [@nice-digital/eslint-config](https://www.npmjs.com/package/@nice-digital/eslint-config). This lints all JavaScript files (source, task configs and test files).
 
 Use the following command to run the linting:
 
-```
+```sh
 npm run lint
+```
+
+Run the following command on a TeamCity build server to report linting errors as failed tests:
+
+```sh
+npm run lint:teamcity
 ```
 
 ### Unit tests 
 
-Unit tests can be found in the [tests/unitTests](tests/unitTests) folder. To run them:
+Unit tests can be found in the [tests/unit](tests/unit) folder. After running `npm i` on the command line to install dependencies, then run:
 
-```
-npm test
+```sh
+npm run test:unit
 ```
 
-They use the following tools under the hood:
+These unit tests use the following tools under the hood:
 
 - [Mocha](https://mochajs.org/) as a test runner
 - [Chai](http://chaijs.com/) as an assertion library
 - [Sinon](http://sinonjs.org/) for spies, stubs and mocks
+- [Istanbul](https://istanbul.js.org/) for coverage
+- [jsdom](https://github.com/jsdom/jsdom) for an in-memory DOM
 
-### Visual regression and functional tests
+#### Coverage
 
-The visual regression tests are run inside a docker container. This is because this guarantees the images will be the same on each run (and avoids cross-platform rendering issues).
+To get coverage for our unit tests locally, run:
 
-To run them you need docker installed and running on your machine then simply execute:
-
+```sh
+npm run test:unit:coverage
 ```
-export SITE=website
+
+This will report coverage statistics on the console and will also generate a detailed HTML report in the coverage folder.
+
+#### TeamCity
+
+Run the following command a TeamCity build agent to get properly formatted test reports:
+
+```sh
+npm run test:unit:teamcity
+```
+
+And to get test reports and coverage on TeamCity, run:
+
+```sh
+npm run test:unit:teamcity:coverage
+```
+
+The *coverage* folder can then be used as an [artifact path](https://confluence.jetbrains.com/display/TCD10/Configuring+General+Settings#ConfiguringGeneralSettings-ArtifactPaths) and the path *coverage/index.html* used within a [report tab](https://confluence.jetbrains.com/display/TCD18/Including+Third-Party+Reports+in+the+Build+Results).
+
+### Functional tests 
+
+These are automated, browser-driven functional tests that execute in a real browser (or multiple browsers), via [WebdriverIO](http://webdriver.io/). They can be run locally, for development, or in Docker on a TeamCity build agent.
+
+To run the functional tests locally, do the following:
+
+1. Install dependencies by running `npm i` on a command line if you haven't already
+2. Run `npm start` to run the local development server on http://localhost:8000
+3. Open another terminal and run `export accountsUsername=XXX` and `export accountsPassword=YYY` with a valid Beta NICE Accounts username and password. Using your own Accounts login is fine or you can use a 'service account' like we use in TeamCity - see the parameters section. 
+4. Run `npm run test:functional` in the second terminal
+5. This runs the functional tests in Chrome (assumes you have it installed) and reports test runs on the console.
+
+### Visual regression tests
+
+Visual regression tests take screenshots of a webpage or webapp in a certain state and compares the image to an approved screenshot. This is useful for avoiding bugs liks accidental unwanted CSS cascades etc. If there is a difference between the taken and reference images then the test fails and a diff image is generated (with pink highlights). This diff image can be used to debug the reason the test has failed. If the app has legitimately changed then the taken image can be used to replace the old reference screenshot and the test will then pass.
+
+The visual regression tests are run inside a Docker container. This guarantees the images will be the same on each run and avoids cross-platform rendering issues. You can run them locally but they **probably** won't match the reference images so it's recommended to use Docker.
+
+To run them you need [Docker installed](https://www.docker.com/community-edition#/download) and running on your machine. If you're using [Docker for Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows), make sure you're using [Linux Containers](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers) and not Windows Containers.
+
+Run the following in a shell, for example GitBash on Windows (the accounts username and password are so we can verify what the app looks like when logged in):
+
+```sh
 export accountsUsername="XXX"
-export accountsPassword="XXX"
+export accountsPassword="YYY"
 ./run.sh
 ```
 
-NOTE: Replace XXX with variables from TeamCity.
+NOTE: Replace XXX and YYY with a real Beta NICE Accounts user name and password. You can safely use your own as these are environment variables and won't displayed anywhere.
 
-If you are on a windows machine run the above command from a git bash shell. 
+The test does the following:
 
-The test loops through all the various sites using TopHat, loads them into a browser and takes a screenshot of each of them.  It then compares them and fails the test accordingly.
-As part of the run script it will run the functional tests as well.
+1. loops through all the various sites that use TopHat
+2. loads them into a browser and takes a screenshot of each of them
+3. It then compares them and fails the test accordingly.
 
-#### Visual tests:
-The tests cannot be run on a local machine as the reference images are the ones from inside the docker container.  The screenshots taken differs from your local machine to the ones taken inside the docker container.  If the reference screenshots get screwed up then the whole process can be started again by doing this:
+As part of the run script it will run the functional tests as well, inside the Docker container.
 
-NOTE: Replace XXX with variables from octodeploy
+#### Replacing reference images
 
-1. Delete the screenshots/reference folder
-2. Run:
-```
-	export SITE=website
-	export accountsUsername= XXX
-	export accountsPassword= XXX
-	./run.sh
-```
-3. Then copy the new reference screenshots taken from the screenshots_copy folder to the screenshots folder
-4. Run ```./run.sh``` again
-5. Finally commit the new images to git.
+If the app changes (e.g. text change or CSS) and the visual regressions tests fail then you'll need to update the reference images. To do this:
 
-####  Functional tests 
-These tests differ from the visual tests in the way that they don't take screenshots but still run browser driven tests.
+1. run the tests in Docker as above
+2. copy the new images from *docker-output/screenshots/taken* to *screenshots/reference*
+3. commit the new images to git.
 
-To run locally without docker:
+#### Updating browsers in Docker
 
-1.Open a bash terminal in root of project.
+We've fixed the Chrome, ChromeDriver, Firefox and GeckoDriver version in [docker-compose.yml](docker-compose.yml) to get consistent test results in the same browsers. Over time these browsers will get out of date, so will need updating. Update browsers by doing the following:
 
-2.Ensure you have selenium-server-standalone-3.0.1.jar and chromedriver.exe in the repo, if not download them to the root of the project.
+- update names of the services to match the browser version e.g *firefox61* or *chrome68*
+- update version of the images for Hub, Chrome and Firefox e.g. 3.13.0-argon, see https://github.com/SeleniumHQ/docker-selenium/releases
+- args for Chrome and Firefox with the correct browser and driver versions. Note, versions of ChromeDriver only work with certain versions of Chrome, see http://chromedriver.chromium.org/downloads.
+- re-run the visual regression tests to generate a new folder of reference images, and copy these into the screenshots folder.
 
-3.Run:
-``` 
-java -jar -Dwebdriver.gecko.driver=./chromedriver selenium-server-standalone-3.0.1.jar 
-```
+Note: to find the latest version of Chrome, download https://dl.google.com/linux/chrome/deb/dists/stable/main/binary-amd64/Packages and look for the version of google-chrome-stable e.g. 68.0.3440.84-1.
 
-4. In another terminal run: 
-```
-	export SITE=localhost
-	export accountsUsername= XXX
-	export accountsPassword= XXX
-	node_modules/webdriverio/bin/wdio
-```
+### BrowserStack
 
-#### BrowserStack
-
-We run functional tests cross-browser via BrowserStack, see [wdio.conf.browserstack.js](wdio.conf.browserstack.js). Before you run the tests, you'll need to set environment variables for:
+We run functional tests cross-browser (currently only in Edge as its free) via BrowserStack, see [wdio.browserstack.conf.js](wdio.browserstack.conf.js). Before you run the tests, you'll need to set environment variables for:
 
 - [BrowserStack Automate](https://www.browserstack.com/accounts/settings) username & access key
 - NICE Accounts (Beta) login & password:
 
 ```sh
-export browserStackKey="browserstack-access-key-here"
-export browserStackUser="browserstack-username-here"
+export BROWSERSTACK_USERNAME="browserstack-username-here"
+export BROWSERSTACK_ACCESS_KEY="browserstack-access-key-here"
 export accountsUsername="nice-accounts-email-here"
 export accountsPassword="nice-accounts-password-here"
 ```
 
-> Note: you can get these from the Octopus Deploy variables
+> Note: you can get these from the Octopus Deploy / TeamCity  variables
 
-Run these tests with:
-
-```sh
-npm run testUsingBrowserStack
-```
-
-You can see logging information in the command window, or navigate to https://www.browserstack.com/automate to see the BrowserStack session logs. Raise an Ops Request to get access to Browserstack if you don't already.
-
-These run against [dev-tophat.nice.org.uk](http://dev-tophat.nice.org.uk/) by default. This means you'll need to check the right branch is deployed to dev in Octo before you run the tests. Override `BASE_URL` before running the tests to use a different URL:
+Run these tests by running the follow on the command line:
 
 ```sh
-export BASE_URL="http://test-tophat.nice.org.uk/"
+npm run test:browserstack
 ```
+
+You can see logging information in the command window, or navigate to https://automate.browserstack.com/ to see the BrowserStack session logs. Raise an Ops Request to get access to our Browserstack organisation if you don't already.
+
+To run them against the local dev TopHat site, override the `BASE_URL` environment variable: `export BASE_URL="http://localhost:8000/"`. Or alternatively point your tests at the test environment: `export BASE_URL="http://test-tophat.nice.org.uk/"`.
+
+If you don't override `BASE_URL` then they tests will run against [dev-tophat.nice.org.uk](http://dev-tophat.nice.org.uk/) by default. This means you'll need to check the right branch is deployed to dev in Octo before you run the tests.
 
 ## Updating ToC
 
 Run the following command to update the table of contents (you'll need npm >= 5.2):
 
 ```sh
-npx doctoc .
+npx doctoc ./README.md
 ```

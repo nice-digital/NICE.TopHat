@@ -6,7 +6,7 @@ module.exports = function( grunt )
 
 	//load tasks
 	require("load-grunt-config")(grunt, {
-		configPath: path.join(process.cwd(), "tasks"),
+		configPath: path.join(process.cwd(), "grunt-tasks"),
 		data : {
 			pkg: grunt.file.readJSON("package.json")
 		}
@@ -33,7 +33,7 @@ module.exports = function( grunt )
 	grunt.registerTask(
 		"build"
 		, "builds the distributable scripts form the source files"
-		, [ "eslint", "htmlmin:templates", "less:dist", "postcss:dist", "copy:temp", "browserify:dist", "uglify:dist", "clean:temp" ]);
+		, [ "eslint:default", "htmlmin:templates", "less:dist", "postcss:dist", "copy:temp", "browserify:dist", "uglify:dist", "clean:temp" ]);
 
 	// auto build
 	grunt.registerTask("default", [ "build", "watch" ]);

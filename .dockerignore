@@ -1,0 +1,15 @@
+**/*.pdnBak
+.dockerignore
+.env
+.git
+.gitignore
+.vs
+.vscode
+.nyc-output
+*.nuspec
+docker-compose.yml
+docker-compose.*.yml
+node_modules
+run.sh
+errorShots
+logs
