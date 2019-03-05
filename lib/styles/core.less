@@ -21,8 +21,11 @@
   font-weight: 400;
   line-height: @baseLineHeight;
 
-  a:focus {
-  	outline: 3px solid @focusColor;
+  a:focus,
+  button:focus,
+  input:focus {
+    outline: 3px solid @focusColor;
+    outline-offset: -2px;
   }
 }
 

@@ -6,12 +6,16 @@
     .menu {
       border-right: 1px solid @serviceBorderColor;
 
-      a {
+      a,
+      button {
+        background: transparent;
+        border: 0;
         width: @fullSpacing * 3.5;
         padding: @halfSpacing @quarterSpacing * .75 (@halfSpacing * 1.5 + 2) @halfSpacing;
         border-left: 1px solid @serviceBorderColor;
         line-height: @baseLineHeight - 4;
         font-size: @baseFontSize;
+        text-align: left;
 
         &:hover,
         &:focus {
@@ -31,7 +35,8 @@
       .menu-evidence {
         position: relative;
 
-        a:before {
+        a:before,
+        button:before {
           border: @quarterSpacing solid transparent;
           content: '';
           position: absolute;
@@ -42,7 +47,8 @@
         }
       }
 
-      .active a {
+      .active a,
+      .active button {
         &,
         &:hover,
         &:focus {
@@ -69,7 +75,8 @@
 .menu-evidence-open .nice-services .menu .menu-evidence,
 .menu-evidence-active .nice-services .menu .menu-evidence {
 
-  a {
+  a,
+  button {
     border-bottom: 0;
     padding-bottom: (@halfSpacing * 1.5 + 2);
     position: relative;
@@ -102,7 +109,8 @@
 
     .nice-services {
       .menu {
-        a {
+        a,
+        button {
           padding-top: @halfSpacing;
           padding-bottom: (@halfSpacing * 1.5 + 2);
         }
@@ -112,7 +120,8 @@
 
   .menu-evidence-open .nice-services .menu .menu-evidence,
   .menu-evidence-active .nice-services .menu .menu-evidence {
-    a {
+    a,
+    button {
       padding-bottom: (@halfSpacing * 1.5 + 2);
     }
   }
@@ -145,21 +154,24 @@
         display: none;
         border-right: none;
 
-        a {
+        a,
+        button {
           padding-bottom: @halfSpacing;
         }
 
         li,
         .menu-standards {
-          a {
+          a,
+          button {
             border-left: 0;
             line-height: @fullSpacing;
-            width: auto;
+            width: 100%;
           }
         }
 
         .menu-evidence {
-          a {
+          a,
+          button {
             &,
             &:hover,
             &:focus {
@@ -192,7 +204,8 @@
     .nice-services {
       .menu {
         li {
-          a {
+          a,
+          button {
             padding: @quarterSpacing @halfSpacing;
           }
         }
