@@ -17,7 +17,7 @@ function focusOnFirstMainMenuItem() {
 }
 
 function focusOnLastMainMenuItem() {
-	browser.execute("document.querySelector(\"#main-menu li:last-child a\").focus()");
+	browser.execute("document.querySelector(\"#main-menu li:last-child a, #main-menu li:last-child button\").focus()");
 }
 
 function focusOnFirstEvidenceMenuItem() {
@@ -57,9 +57,9 @@ describe("Keyboard navigation functional browser driven tests", function() {
 			it("end key to go to last item in focused menu", async function() {
 				browser.url("/niceorg.html");
 				focusOnFirstMainMenuItem();
-				browser.isActive("#main-menu li:last-child a").should.be.false;
+				browser.isActive("#main-menu li:last-child button").should.be.false;
 				browser.keys("End");
-				browser.isActive("#main-menu li:last-child a").should.be.true;
+				browser.isActive("#main-menu li:last-child button").should.be.true;
 			});
 
 			it("home key to go to first item in focused menu", async function() {
@@ -98,7 +98,7 @@ describe("Keyboard navigation functional browser driven tests", function() {
 				browser.url("/cks.html");
 				focusOnFirstMainMenuItem();
 				browser.keys("End");
-				browser.isActive("#main-menu li:last-child a").should.be.true;
+				browser.isActive("#main-menu li:last-child button").should.be.true;
 
 			});
 
