@@ -9,7 +9,8 @@
     color: @globalForegroundColor;
 
     .menu {
-      a {
+      a,
+      button {
         color: @globalForegroundColor;
         padding: 19px @halfSpacing 20px;
         line-height: @baseLineHeight;
@@ -21,7 +22,8 @@
         }
       }
 
-      .active a {
+      .active a,
+      .active button {
         &,
         &:hover,
         &:focus {
