@@ -10,7 +10,7 @@
     "nice",
     "tophat"
   ],
-  "homepage": "https://github.com/nhsevidence/NICE.TopHat",
+  "homepage": "https://github.com/nice-digital/NICE.TopHat",
   "ignore": [
     "**/.*",
     "node_modules",

@@ -186,14 +186,14 @@ To make TopHat stretch to the width of the window such as on [Pathways](http://p
 
 ### Typeahead
 
-The search bar rendered by TopHat renders a `[data-provide="typeahead"]` attribute on the input. This gets picked up by [NICE.Typeahead.js L226](https://github.com/nhsevidence/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.Typeahead.js#L226). Which is why, for Typeahead to work either of the following is required:
+The search bar rendered by TopHat renders a `[data-provide="typeahead"]` attribute on the input. This gets picked up by [NICE.Typeahead.js L226](https://github.com/nice-digital/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.Typeahead.js#L226). Which is why, for Typeahead to work either of the following is required:
 
 - Easiest solution: //cdn.nice.org.uk/V3.1/Scripts/NICE.bootstrap.min.js - this includes NICE.Typeahead.js bundled in.
 - //cdn.nice.org.uk/V3.1/Scripts/nice/NICE.Typeahead.js and //cdn.nice.org.uk/V3.1/Scripts/typeahead/typeahead.bundle.js
 
 #### Typeahead tracking
 
-Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20-L38](https://github.com/nhsevidence/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.Typeahead.js#L20-L38). This uses [NICE.EventTracking.js - $.fn.trackevent](https://github.com/nhsevidence/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.EventTracking.js) under the hood. So to enable Typehead tracking with TopHat, you must also include a script reference to //cdn.nice.org.uk/V3.1/Scripts/nice/NICE.EventTracking.js. This sends a data layer variable to GTM that looks like the following:
+Typeahead is setup to track when an term is selected, see [NICE.Typeahead.js L20-L38](https://github.com/nice-digital/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.Typeahead.js#L20-L38). This uses [NICE.EventTracking.js - $.fn.trackevent](https://github.com/nice-digital/NICE.Bootstrap/blob/master/src/scripts/nice/NICE.EventTracking.js) under the hood. So to enable Typehead tracking with TopHat, you must also include a script reference to //cdn.nice.org.uk/V3.1/Scripts/nice/NICE.EventTracking.js. This sends a data layer variable to GTM that looks like the following:
 
 ```js
 {

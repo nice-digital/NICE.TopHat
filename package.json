@@ -20,9 +20,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nhsevidence/NICE.Tophat.git"
+    "url": "https://github.com/nice-digital/NICE.Tophat.git"
   },
-  "author": "NICE Digital Services (https://github.com/nhsevidence/NICE.TopHat/graphs/contributors)",
+  "author": "NICE Digital Services (https://github.com/nice-digital/NICE.TopHat/graphs/contributors)",
   "contributors": [
     "NICE Digital Services (https://www.nice.org.uk/)",
     "Ian Routledge (http://ediblecode.com)"
@@ -39,7 +39,7 @@
       "lib/**/*.js"
     ]
   },
-  "homepage": "https://github.com/nhsevidence/NICE.TopHat#readme",
+  "homepage": "https://github.com/nice-digital/NICE.TopHat#readme",
   "devDependencies": {
     "@nice-digital/eslint-config": "^1.0.2",
     "babel-plugin-syntax-async-functions": "^6.8.0",
